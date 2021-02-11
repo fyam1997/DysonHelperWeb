@@ -17,6 +17,11 @@ dependencies {
 kotlin {
     js(LEGACY) {
         browser {
+            browser {
+                distribution {
+                    directory = file("$projectDir/doc/")
+                }
+            }
             binaries.executable()
             webpackTask {
                 cssSupport.enabled = true
