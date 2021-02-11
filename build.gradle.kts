@@ -19,7 +19,7 @@ kotlin {
         browser {
             browser {
                 distribution {
-                    directory = file("$projectDir/doc/")
+                    directory = file("$projectDir/docs/")
                 }
             }
             binaries.executable()
