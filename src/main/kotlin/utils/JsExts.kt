@@ -12,11 +12,15 @@ val jsObject = js("Object")
 
 val Json.keys get() = jsObject.keys(this).unsafeCast<Array<String>>()
 
+fun Json.getJson(key: String) = get(key).unsafeCast<Json>()
+
 fun <T> Json.map(parser: (item: dynamic) -> T) = keys.map { parser(get(it)) }
 
 fun <T> Json.mapList(parser: (item: dynamic) -> T) = this.asDynamic()
 
 fun <T> Json.toMap(parser: (item: dynamic) -> T) = keys.map { it to parser(get(it)) }.toMap()
+
+fun <T> Json.toMap() = keys.map { it to get(it).unsafeCast<T>() }.toMap()
 
 val JQueryXHR.json get() = responseJSON.asDynamic().unsafeCast<Json>()
 

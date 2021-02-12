@@ -31,11 +31,13 @@ class View constructor(
     }
 
     private fun initView() {
-        document.body?.append?.table {
-            tr {
-                td { id = "recipeList" }
-                td { id = "requirementCalculator" }
-                td { id = "activeRecipes" }
+        document.body?.append {
+            table("mdc-data-table__table") {
+                tr {
+                    td { id = "recipeList" }
+                    td { id = "requirementCalculator" }
+                    td { id = "activeRecipes" }
+                }
             }
         }
     }
@@ -57,24 +59,27 @@ class View constructor(
         append {
             table("mdc-data-table__table") {
                 list.forEach {
-                    recipeRow("", it.inputs.toString(), it.outputs.toString(), it.facility, it.time)
+                    recipeRow(
+                        inputs = it.inputs,
+                        outputs = it.outputs,
+                        facility = it.facility,
+                        time = it.time
+                    )
                 }
             }
         }
     }
 
-    private fun TagConsumer<HTMLElement>.recipeRow(
-        iconSrc: String,
-        inputs: String,
-        outputs: String,
+    private fun TagConsumer<*>.recipeRow(
+        inputs: Map<String, Int>,
+        outputs: Map<String, Int>,
         facility: String,
         time: Int
     ) {
         //TODO "mdc-data-table__row--selected"
         tr("mdc-data-table__row") {
-            td("mdc-data-table__cell") { +iconSrc }
-            td("mdc-data-table__cell") { +inputs }
-            td("mdc-data-table__cell") { +outputs }
+            td("mdc-data-table__cell") { +inputs.toString() }
+            td("mdc-data-table__cell") { +outputs.toString() }
             td("mdc-data-table__cell") { +facility }
             td("mdc-data-table__cell") { +time.toString() }
         }
