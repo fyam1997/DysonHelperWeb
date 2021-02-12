@@ -1,18 +1,28 @@
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.html.*
 import kotlinx.html.dom.append
 import org.w3c.dom.Document
+import org.w3c.dom.HTMLElement
 
 class View constructor(
     private val document: Document,
     private val vm: ViewModel
 ) {
-    val recipeList get() = document.getElementById("mainDiv")
+    private val recipeList get() = document.getElementById("mainDiv")
 
     init {
         document.title = "Hello"
         changeIcon("icon.png")
         initView()
+        observeData()
         vm.initData()
+    }
+
+    private fun observeData() = GlobalScope.launch(Dispatchers.Main) {
+        vm.map.collect(::handleRecipeMap)
     }
 
     private fun initView() {
@@ -44,6 +54,18 @@ class View constructor(
         }
     }
 
-    fun TABLE.recipeRow() {
+    private fun handleRecipeMap(map: Map<String, Trans>) = recipeList?.apply {
+        innerHTML = ""
+        append {
+            map.forEach {
+                recipeRow("", it.key, it.value.en, it.value.cn)
+            }
+        }
+    }
+
+    private fun TagConsumer<HTMLElement>.recipeRow(iconSrc: String, id: String, nameEn: String, nameCn: String) {
+        p {
+            +"$iconSrc, $id, $nameEn, $nameCn"
+        }
     }
 }
