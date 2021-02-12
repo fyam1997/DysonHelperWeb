@@ -29,7 +29,7 @@ fun main() {
     }
 
     GlobalScope.launch {
-        map = JQuery.getJSON("data/trans.json").json.toMap(::Trans)
+        map = JQuery.getJsonSuspend("data/trans.json").toMap(::Trans)
     }
 }
 

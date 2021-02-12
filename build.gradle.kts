@@ -14,6 +14,7 @@ dependencies {
     implementation(kotlin("stdlib-js"))
     implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.1")
     api("io.kvision:jquery-kotlin:1.0.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 }
 
 kotlin {
