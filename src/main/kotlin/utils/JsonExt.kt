@@ -5,11 +5,6 @@ import io.kvision.jquery.JQueryXHR
 import kotlinx.coroutines.channels.Channel
 import kotlin.js.Json
 
-@JsNonModule
-@JsModule("jquery")
-external val JQueryStatic: JQueryStatic = definedExternally
-val jsObject = js("Object")
-
 val Json.keys get() = jsObject.keys(this).unsafeCast<Array<String>>()
 
 fun Json.getJson(key: String) = get(key).unsafeCast<Json>()
