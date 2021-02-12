@@ -2,20 +2,13 @@ import kotlinx.browser.document
 import kotlinx.html.*
 import kotlinx.html.dom.append
 import kotlinx.html.js.onClickFunction
-import kotlinx.html.js.onDoubleClickFunction
 
 fun main() {
     document.title = "Hello"
     changeIcon("icon.png")
 
     document.body?.append?.div {
-        h1 {
-            +"Welcome to Kotlin/JS!"
-        }
         button {
-            onDoubleClickFunction = {
-                changeIcon("sunflower.png")
-            }
             onClickFunction = {
                 changeIcon("icon.png")
             }
@@ -34,4 +27,8 @@ fun changeIcon(iconSrc: String) {
         type = "image/png"
         href = iconSrc
     }
+}
+
+fun FlowOrHeadingContent.iconTable() {
+
 }
