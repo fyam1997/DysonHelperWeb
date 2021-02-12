@@ -5,7 +5,7 @@
     },
     "inputs": {},
     "time": 1,
-    "facility": "miner"
+    "facility": "采矿机"
   },
   {
     "outputs": {
@@ -13,7 +13,7 @@
     },
     "inputs": {},
     "time": 1,
-    "facility": "miner"
+    "facility": "采矿机"
   },
   {
     "outputs": {
@@ -21,7 +21,7 @@
     },
     "inputs": {},
     "time": 1,
-    "facility": "miner"
+    "facility": "采矿机"
   },
   {
     "outputs": {
@@ -29,7 +29,7 @@
     },
     "inputs": {},
     "time": 1,
-    "facility": "miner"
+    "facility": "采矿机"
   },
   {
     "outputs": {
@@ -37,7 +37,7 @@
     },
     "inputs": {},
     "time": 1,
-    "facility": "miner"
+    "facility": "采矿机"
   },
   {
     "outputs": {
@@ -45,7 +45,7 @@
     },
     "inputs": {},
     "time": 1,
-    "facility": "pump"
+    "facility": "抽水设备"
   },
   {
     "outputs": {
@@ -53,7 +53,7 @@
     },
     "inputs": {},
     "time": 1,
-    "facility": "oilWell"
+    "facility": "抽油设备"
   },
   {
     "outputs": {
@@ -63,7 +63,7 @@
       "分型硅石": 1
     },
     "time": 4,
-    "facility": "refinery"
+    "facility": "精炼设备"
   },
   {
     "outputs": {
@@ -73,7 +73,7 @@
       "金伯利矿石": 1
     },
     "time": 2,
-    "facility": "refinery"
+    "facility": "精炼设备"
   },
   {
     "outputs": {
@@ -84,7 +84,7 @@
       "电路板": 1
     },
     "time": 3,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -95,7 +95,7 @@
       "可燃冰": 2
     },
     "time": 2,
-    "facility": "plant"
+    "facility": "化工设备"
   },
   {
     "outputs": {
@@ -105,7 +105,7 @@
       "刺笋结晶": 2
     },
     "time": 4,
-    "facility": "plant"
+    "facility": "化工设备"
   },
   {
     "outputs": {
@@ -117,7 +117,7 @@
       "氢": 12
     },
     "time": 4,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -128,7 +128,7 @@
       "单极磁石": 10
     },
     "time": 4,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -138,7 +138,7 @@
       "铁矿": 1
     },
     "time": 1,
-    "facility": "furnace"
+    "facility": "冶炼设备"
   },
   {
     "outputs": {
@@ -148,7 +148,7 @@
       "铁矿": 5
     },
     "time": 1,
-    "facility": "furnace"
+    "facility": "冶炼设备"
   },
   {
     "outputs": {
@@ -158,7 +158,7 @@
       "铜矿": 1
     },
     "time": 1,
-    "facility": "furnace"
+    "facility": "冶炼设备"
   },
   {
     "outputs": {
@@ -168,7 +168,7 @@
       "石矿": 1
     },
     "time": 1,
-    "facility": "furnace"
+    "facility": "冶炼设备"
   },
   {
     "outputs": {
@@ -178,7 +178,7 @@
       "石矿": 2
     },
     "time": 2,
-    "facility": "furnace"
+    "facility": "冶炼设备"
   },
   {
     "outputs": {
@@ -188,7 +188,7 @@
       "硅石": 2
     },
     "time": 2,
-    "facility": "furnace"
+    "facility": "冶炼设备"
   },
   {
     "outputs": {
@@ -198,7 +198,7 @@
       "钛石": 2
     },
     "time": 2,
-    "facility": "furnace"
+    "facility": "冶炼设备"
   },
   {
     "outputs": {
@@ -208,7 +208,7 @@
       "煤矿": 2
     },
     "time": 2,
-    "facility": "furnace"
+    "facility": "冶炼设备"
   },
   {
     "outputs": {
@@ -219,7 +219,7 @@
       "原油": 2
     },
     "time": 4,
-    "facility": "refinery"
+    "facility": "精炼设备"
   },
   {
     "outputs": {
@@ -231,7 +231,7 @@
       "氢": 2
     },
     "time": 4,
-    "facility": "refinery"
+    "facility": "精炼设备"
   },
   {
     "outputs": {
@@ -241,7 +241,7 @@
       "石矿": 10
     },
     "time": 10,
-    "facility": "refinery"
+    "facility": "精炼设备"
   },
   {
     "outputs": {
@@ -251,7 +251,7 @@
       "氢": 1
     },
     "time": 0,
-    "facility": "fractionatingTower"
+    "facility": "分馏塔"
   },
   {
     "outputs": {
@@ -261,7 +261,7 @@
       "氢": 10
     },
     "time": 5,
-    "facility": "collider"
+    "facility": "对撞机"
   },
   {
     "outputs": {
@@ -272,7 +272,7 @@
       "临界光子": 2
     },
     "time": 2,
-    "facility": "collider"
+    "facility": "对撞机"
   },
   {
     "outputs": {
@@ -282,7 +282,7 @@
       "铁块": 3
     },
     "time": 3,
-    "facility": "refinery"
+    "facility": "精炼设备"
   },
   {
     "outputs": {
@@ -292,7 +292,7 @@
       "铁块": 1
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -302,7 +302,7 @@
       "玻璃": 3
     },
     "time": 2,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -312,7 +312,7 @@
       "高纯硅块": 1
     },
     "time": 2,
-    "facility": "refinery"
+    "facility": "精炼设备"
   },
   {
     "outputs": {
@@ -322,7 +322,7 @@
       "高能石墨": 1
     },
     "time": 2,
-    "facility": "refinery"
+    "facility": "精炼设备"
   },
   {
     "outputs": {
@@ -333,7 +333,7 @@
       "磁铁": 2
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -344,7 +344,7 @@
       "高纯硅块": 2
     },
     "time": 2,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -355,7 +355,7 @@
       "铁块": 2
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -366,7 +366,7 @@
       "高纯硅块": 2
     },
     "time": 2,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -378,7 +378,7 @@
       "水": 4
     },
     "time": 6,
-    "facility": "plant"
+    "facility": "化工设备"
   },
   {
     "outputs": {
@@ -389,7 +389,7 @@
       "钛块": 1
     },
     "time": 3,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -401,7 +401,7 @@
       "水": 2
     },
     "time": 5,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -412,7 +412,7 @@
       "高能石墨": 1
     },
     "time": 3,
-    "facility": "plant"
+    "facility": "化工设备"
   },
   {
     "outputs": {
@@ -423,7 +423,7 @@
       "氢": 2
     },
     "time": 6,
-    "facility": "institute"
+    "facility": "研究设备"
   },
   {
     "outputs": {
@@ -435,7 +435,7 @@
       "钛块": 4
     },
     "time": 12,
-    "facility": "furnace"
+    "facility": "冶炼设备"
   },
   {
     "outputs": {
@@ -447,7 +447,7 @@
       "磁线圈": 1
     },
     "time": 2,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -458,7 +458,7 @@
       "电路板": 1
     },
     "time": 3,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -469,7 +469,7 @@
       "棱镜": 2
     },
     "time": 2,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -480,7 +480,7 @@
       "钢材": 1
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -491,7 +491,7 @@
       "铜块": 3
     },
     "time": 4,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -502,7 +502,7 @@
       "电路板": 2
     },
     "time": 3,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -513,7 +513,7 @@
       "硫酸": 1
     },
     "time": 3,
-    "facility": "plant"
+    "facility": "化工设备"
   },
   {
     "outputs": {
@@ -524,7 +524,7 @@
       "电路板": 1
     },
     "time": 3,
-    "facility": "institute"
+    "facility": "研究设备"
   },
   {
     "outputs": {
@@ -536,7 +536,7 @@
       "水": 1
     },
     "time": 6,
-    "facility": "plant"
+    "facility": "化工设备"
   },
   {
     "outputs": {
@@ -547,7 +547,7 @@
       "磁线圈": 2
     },
     "time": 2,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -559,7 +559,7 @@
       "推进器": 2
     },
     "time": 4,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -570,7 +570,7 @@
       "钛块": 1
     },
     "time": 4,
-    "facility": "plant"
+    "facility": "化工设备"
   },
   {
     "outputs": {
@@ -582,7 +582,7 @@
       "氢": 12
     },
     "time": 4,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -593,7 +593,7 @@
       "光子合并器": 1
     },
     "time": 4,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -604,7 +604,7 @@
       "电磁涡轮": 5
     },
     "time": 6,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -616,7 +616,7 @@
       "高能石墨": 1
     },
     "time": 3,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -628,7 +628,7 @@
       "石墨烯": 2
     },
     "time": 4,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -639,7 +639,7 @@
       "钛块": 3
     },
     "time": 4,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -651,7 +651,7 @@
       "塑料": 1
     },
     "time": 8,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -663,7 +663,7 @@
       "石高纯硅块": 1
     },
     "time": 6,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -675,7 +675,7 @@
       "电磁涡轮": 1
     },
     "time": 6,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -686,7 +686,7 @@
       "钛化玻璃": 2
     },
     "time": 12,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -698,7 +698,7 @@
       "加力推进器": 2
     },
     "time": 6,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -710,7 +710,7 @@
       "重氢": 10
     },
     "time": 8,
-    "facility": "collider"
+    "facility": "对撞机"
   },
   {
     "outputs": {
@@ -721,7 +721,7 @@
       "处理器": 1
     },
     "time": 20,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -733,7 +733,7 @@
       "处理器": 3
     },
     "time": 8,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -744,7 +744,7 @@
       "钛晶石": 1
     },
     "time": 8,
-    "facility": "institute"
+    "facility": "研究设备"
   },
   {
     "outputs": {
@@ -755,7 +755,7 @@
       "粒子宽带": 1
     },
     "time": 10,
-    "facility": "institute"
+    "facility": "研究设备"
   },
   {
     "outputs": {
@@ -766,7 +766,7 @@
       "位面过滤器": 2
     },
     "time": 6,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -777,7 +777,7 @@
       "奇异物质": 1
     },
     "time": 6,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -788,7 +788,7 @@
       "量子芯片": 1
     },
     "time": 24,
-    "facility": "institute"
+    "facility": "研究设备"
   },
   {
     "outputs": {
@@ -800,7 +800,7 @@
       "量子芯片": 2
     },
     "time": 6,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -810,7 +810,7 @@
       "引力透镜": 1
     },
     "time": 10,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -825,7 +825,7 @@
       "反物质": 1
     },
     "time": 15,
-    "facility": "institute"
+    "facility": "研究设备"
   },
   {
     "outputs": {
@@ -836,7 +836,7 @@
       "齿轮": 1
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -847,7 +847,7 @@
       "电磁涡轮": 1
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -859,7 +859,7 @@
       "石墨烯": 1
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -870,7 +870,7 @@
       "电路板": 1
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -881,7 +881,7 @@
       "电动机": 1
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -892,6 +892,6 @@
       "电磁涡轮": 1
     },
     "time": 1,
-    "facility": "bench"
+    "facility": "制造台"
   }
 ]
