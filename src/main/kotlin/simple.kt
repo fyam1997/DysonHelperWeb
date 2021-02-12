@@ -1,45 +1,37 @@
+import kotlinx.browser.document
+import kotlinx.html.*
+import kotlinx.html.dom.append
+import kotlinx.html.js.onClickFunction
+import kotlinx.html.js.onDoubleClickFunction
+
 fun main() {
-    console.log("Hello, ${greet()}")
-}
+    document.title = "Hello"
+    changeIcon("icon.png")
 
-fun greet() = "world"
-
-data class Book(val title: String,
-                val price: String,
-                val description: String,
-                val url: String,
-                val coverUrl: String)
-
-interface BookStoreContract {
-    interface View {
-        fun showBooks(books: List<Book>) // 1
-        fun showLoader() // 2
-        fun hideLoader() // 3
-    }
-
-    interface Presenter {
-        fun attach(view: View) // 4
-        fun loadBooks() // 5
+    document.body?.append?.div {
+        h1 {
+            +"Welcome to Kotlin/JS!"
+        }
+        button {
+            onDoubleClickFunction = {
+                changeIcon("sunflower.png")
+            }
+            onClickFunction = {
+                changeIcon("icon.png")
+            }
+            +"Dummy Button!"
+        }
     }
 }
 
-class BookStorePage(private val presenter: BookStoreContract.Presenter) : BookStoreContract.View {
-    override fun showBooks(books: List<Book>) {
+fun changeIcon(iconSrc: String) {
+    document.getElementById("favicon")?.let {
+        document.head?.removeChild(it)
     }
-    override fun showLoader() {
-    }
-    override fun hideLoader() {
-    }
-}
-
-class BookStorePresenter : BookStoreContract.Presenter {
-    // 2
-    private lateinit var view: BookStoreContract.View
-    // 3
-    override fun attach(view: BookStoreContract.View) {
-        this.view = view
-    }
-    // 4
-    override fun loadBooks() {
+    document.head?.append?.link {
+        id = "favicon"
+        rel = "shortcut icon"
+        type = "image/png"
+        href = iconSrc
     }
 }
