@@ -13,7 +13,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-js"))
     implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.1")
-    testImplementation(kotlin("test-js"))
+    api("io.kvision:jquery-kotlin:1.0.0")
 }
 
 kotlin {
@@ -30,12 +30,6 @@ kotlin {
             }
             runTask {
                 cssSupport.enabled = true
-            }
-            testTask {
-                useKarma {
-                    useChromeHeadless()
-                    webpackConfig.cssSupport.enabled = true
-                }
             }
         }
     }

@@ -1,7 +1,13 @@
+import io.kvision.jquery.JQueryStatic
+import io.kvision.jquery.JQueryXHR
 import kotlinx.browser.document
 import kotlinx.html.*
 import kotlinx.html.dom.append
 import kotlinx.html.js.onClickFunction
+
+@JsNonModule
+@JsModule("jquery")
+external val JQuery: JQueryStatic = definedExternally
 
 fun main() {
     document.title = "Hello"
@@ -9,10 +15,17 @@ fun main() {
 
     document.body?.append?.div {
         button {
-            onClickFunction = {
-                changeIcon("icon.png")
-            }
+            onClickFunction = { onClick() }
             +"Dummy Button!"
+        }
+    }
+}
+
+fun onClick() {
+
+    val json: JQueryXHR = JQuery.getJSON("data/trans.json") { data: Any, textStatus: String, jqXHR: JQueryXHR ->
+        document.body?.append?.h1 {
+            +data.toString()
         }
     }
 }
