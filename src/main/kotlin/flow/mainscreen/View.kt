@@ -33,6 +33,7 @@ class View constructor(
     }
 
     private fun initView() {
+        document.body?.style?.apply { margin = "0px" }
         document.body?.append {
             div {
                 style = css { display = Display.flex }
