@@ -27,17 +27,10 @@ class View constructor(
 
     private fun initView() {
         document.body?.append?.table {
-            id = "mainDiv"
             tr {
-                td {
-                    id = "recipeList"
-                }
-                td {
-
-                }
-                td {
-
-                }
+                td { id = "recipeList" }
+                td {}
+                td {}
             }
         }
     }
@@ -57,15 +50,20 @@ class View constructor(
     private fun handleRecipeMap(map: Map<String, Trans>) = recipeList?.apply {
         innerHTML = ""
         append {
-            map.forEach {
-                recipeRow("", it.key, it.value.en, it.value.cn)
+            table {
+                map.forEach {
+                    recipeRow("", it.key, it.value.en, it.value.cn)
+                }
             }
         }
     }
 
     private fun TagConsumer<HTMLElement>.recipeRow(iconSrc: String, id: String, nameEn: String, nameCn: String) {
-        p {
-            +"$iconSrc, $id, $nameEn, $nameCn"
+        tr {
+            td { +iconSrc }
+            td { +id }
+            td { +nameEn }
+            td { +nameCn }
         }
     }
 }
