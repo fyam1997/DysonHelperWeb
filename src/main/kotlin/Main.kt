@@ -1,7 +1,6 @@
 import kotlinx.browser.document
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.html.FlowOrHeadingContent
 import kotlinx.html.div
 import kotlinx.html.dom.append
 import kotlinx.html.id
@@ -11,7 +10,7 @@ var map: Map<String, Trans> = emptyMap()
     set(map) {
         field = map
         for ((k, v) in map) {
-            mainText += "$k: ${v.cn}, ${v.en}"
+            mainText += "\n$k: ${v.cn}, ${v.en}"
         }
     }
 
@@ -33,13 +32,6 @@ fun main() {
     }
 }
 
-data class Trans(
-    val cn: String,
-    val en: String
-) {
-    constructor(json: dynamic) : this(json.cn.unsafeCast<String>(), json.en.unsafeCast<String>())
-}
-
 fun changeIcon(iconSrc: String) {
     document.getElementById("favicon")?.let {
         document.head?.removeChild(it)
@@ -50,8 +42,4 @@ fun changeIcon(iconSrc: String) {
         type = "image/png"
         href = iconSrc
     }
-}
-
-fun FlowOrHeadingContent.iconTable() {
-
 }
