@@ -15,6 +15,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.1")
     api("io.kvision:jquery-kotlin:1.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    implementation("org.jetbrains:kotlin-css:1.0.0-pre.144-kotlin-1.4.30")
 }
 
 kotlin {
