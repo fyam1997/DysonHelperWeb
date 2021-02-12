@@ -6,14 +6,21 @@ class View constructor(
     private val document: Document,
     private val vm: ViewModel
 ) {
+    val recipeList get() = document.getElementById("mainDiv")
+
     init {
         document.title = "Hello"
         changeIcon("icon.png")
+        initView()
+        vm.initData()
+    }
+
+    private fun initView() {
         document.body?.append?.table {
             id = "mainDiv"
             tr {
                 td {
-
+                    id = "recipeList"
                 }
                 td {
 
@@ -23,8 +30,6 @@ class View constructor(
                 }
             }
         }
-
-        vm.initData()
     }
 
     private fun changeIcon(iconSrc: String) {
