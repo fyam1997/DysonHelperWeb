@@ -1,9 +1,12 @@
+package flow.mainscreen
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.html.*
 import kotlinx.html.dom.append
+import model.Trans
 import org.w3c.dom.Document
 import org.w3c.dom.HTMLElement
 

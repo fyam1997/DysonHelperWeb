@@ -1,3 +1,5 @@
+package model
+
 data class Trans(
     val cn: String,
     val en: String
