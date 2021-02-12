@@ -11,7 +11,7 @@ class View constructor(
     private val document: Document,
     private val vm: ViewModel
 ) {
-    private val recipeList get() = document.getElementById("mainDiv")
+    private val recipeList get() = document.getElementById("recipeList")
 
     init {
         document.title = "Hello"
