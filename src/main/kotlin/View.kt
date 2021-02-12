@@ -12,6 +12,8 @@ class View constructor(
     private val vm: ViewModel
 ) {
     private val recipeList get() = document.getElementById("recipeList")
+    private val requirementCalculator get() = document.getElementById("requirementCalculator")
+    private val activeRecipes get() = document.getElementById("activeRecipes")
 
     init {
         document.title = "Hello"
@@ -29,8 +31,8 @@ class View constructor(
         document.body?.append?.table {
             tr {
                 td { id = "recipeList" }
-                td {}
-                td {}
+                td { id = "requirementCalculator" }
+                td { id = "activeRecipes" }
             }
         }
     }
@@ -50,7 +52,7 @@ class View constructor(
     private fun handleRecipeMap(map: Map<String, Trans>) = recipeList?.apply {
         innerHTML = ""
         append {
-            table {
+            table("mdc-data-table__table") {
                 map.forEach {
                     recipeRow("", it.key, it.value.en, it.value.cn)
                 }
@@ -59,11 +61,12 @@ class View constructor(
     }
 
     private fun TagConsumer<HTMLElement>.recipeRow(iconSrc: String, id: String, nameEn: String, nameCn: String) {
-        tr {
-            td { +iconSrc }
-            td { +id }
-            td { +nameEn }
-            td { +nameCn }
+        //TODO "mdc-data-table__row--selected"
+        tr("mdc-data-table__row") {
+            td("mdc-data-table__cell") { +iconSrc }
+            td("mdc-data-table__cell") { +id }
+            td("mdc-data-table__cell") { +nameEn }
+            td("mdc-data-table__cell") { +nameCn }
         }
     }
 }
