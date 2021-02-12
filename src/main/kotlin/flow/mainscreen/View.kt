@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.html.*
 import kotlinx.html.dom.append
-import model.Trans
+import model.Recipe
 import org.w3c.dom.Document
 import org.w3c.dom.HTMLElement
 
@@ -27,7 +27,7 @@ class View constructor(
     }
 
     private fun observeData() = GlobalScope.launch(Dispatchers.Main) {
-        vm.trans.collect(::handleRecipeMap)
+        vm.recipes.collect(::handleRecipeList)
     }
 
     private fun initView() {
@@ -52,24 +52,31 @@ class View constructor(
         }
     }
 
-    private fun handleRecipeMap(map: Map<String, Trans>) = recipeList?.apply {
+    private fun handleRecipeList(list: List<Recipe>) = recipeList?.apply {
         innerHTML = ""
         append {
             table("mdc-data-table__table") {
-                map.forEach {
-                    recipeRow("", it.key, it.value.en, it.value.cn)
+                list.forEach {
+                    recipeRow("", it.inputs.toString(), it.outputs.toString(), it.facility, it.time)
                 }
             }
         }
     }
 
-    private fun TagConsumer<HTMLElement>.recipeRow(iconSrc: String, id: String, nameEn: String, nameCn: String) {
+    private fun TagConsumer<HTMLElement>.recipeRow(
+        iconSrc: String,
+        inputs: String,
+        outputs: String,
+        facility: String,
+        time: Int
+    ) {
         //TODO "mdc-data-table__row--selected"
         tr("mdc-data-table__row") {
             td("mdc-data-table__cell") { +iconSrc }
-            td("mdc-data-table__cell") { +id }
-            td("mdc-data-table__cell") { +nameEn }
-            td("mdc-data-table__cell") { +nameCn }
+            td("mdc-data-table__cell") { +inputs }
+            td("mdc-data-table__cell") { +outputs }
+            td("mdc-data-table__cell") { +facility }
+            td("mdc-data-table__cell") { +time.toString() }
         }
     }
 }
