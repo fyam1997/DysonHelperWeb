@@ -24,7 +24,7 @@ class View constructor(
     }
 
     private fun observeData() = GlobalScope.launch(Dispatchers.Main) {
-        vm.map.collect(::handleRecipeMap)
+        vm.trans.collect(::handleRecipeMap)
     }
 
     private fun initView() {
