@@ -4,10 +4,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.dom.append
+import kotlinx.html.js.onClickFunction
 import model.Recipe
 import org.w3c.dom.Document
+import utils.css
 
 class View constructor(
     private val document: Document,
@@ -31,11 +34,25 @@ class View constructor(
 
     private fun initView() {
         document.body?.append {
-            table("mdc-data-table__table") {
-                tr {
-                    td { id = "recipeList" }
-                    td { id = "requirementCalculator" }
-                    td { id = "activeRecipes" }
+            div {
+                style = css { display = Display.flex }
+                val columnStyle = css {
+                    display = Display.flex
+                    width = (100f / 3f).pct
+                    height = 100.vh
+                    overflow = Overflow.auto
+                }
+                div {
+                    style = columnStyle
+                    div { id = "recipeList" }
+                }
+                div {
+                    style = columnStyle
+                    div { id = "requirementCalculator" }
+                }
+                div {
+                    style = columnStyle
+                    div { id = "activeRecipes" }
                 }
             }
         }
