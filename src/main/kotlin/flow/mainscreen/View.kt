@@ -8,7 +8,6 @@ import kotlinx.html.*
 import kotlinx.html.dom.append
 import model.Recipe
 import org.w3c.dom.Document
-import org.w3c.dom.HTMLElement
 
 class View constructor(
     private val document: Document,
@@ -20,7 +19,7 @@ class View constructor(
 
     init {
         document.title = "Hello"
-        changeIcon("icon.png")
+        changeIcon("favico.png")
         initView()
         observeData()
         vm.initData()
