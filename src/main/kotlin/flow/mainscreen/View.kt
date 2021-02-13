@@ -14,6 +14,7 @@ import kotlinx.html.style
 import model.Recipe
 import org.w3c.dom.Document
 import utils.css
+import utils.size
 
 class View constructor(
     private val document: Document,
@@ -39,23 +40,47 @@ class View constructor(
         document.body?.style?.apply { margin = "0px" }
         document.body?.append {
             div {
-                style = css { display = Display.flex }
-                val columnStyle = css {
+                style = css {
                     display = Display.flex
                     height = 100.vh
-                    overflow = Overflow.auto
+                    width = 100.vw
                 }
                 div {
-                    style = columnStyle
-                    div { id = "recipeList" }
+                    style = css {
+                        display = Display.flex
+                        flexDirection = FlexDirection.column
+                    }
+                    div {
+                        id = "detailView"
+                        style = css {
+                            flex(flexGrow = 0.0, flexShrink = 0.0, flexBasis = FlexBasis.auto)
+                            size = 200.px
+                            background = Color.aliceBlue.value
+                            overflow = Overflow.auto
+                        }
+                    }
+                    div {
+                        id = "recipeList"
+                        style = css {
+                            flex(flexGrow = 1.0, flexShrink = 1.0, flexBasis = FlexBasis.auto)
+                            minHeight = 50.pct
+                            overflow = Overflow.auto
+                        }
+                    }
                 }
                 div {
-                    style = columnStyle
-                    div { id = "requirementCalculator" }
+                    id = "requirementCalculator"
+                    style = css {
+                        size = 200.px
+                        background = Color.indianRed.value
+                    }
                 }
                 div {
-                    style = columnStyle
-                    div { id = "activeRecipes" }
+                    id = "activeRecipes"
+                    style = css {
+                        size = 200.px
+                        background = Color.lawnGreen.value
+                    }
                 }
             }
         }
