@@ -1,5 +1,6 @@
 package flow.mainscreen
 
+import R
 import flow.mainscreen.components.recipeList
 import kotlinx.css.*
 import kotlinx.html.*
@@ -29,14 +30,14 @@ class View constructor(
                 }
                 recipeListColumn()
                 div {
-                    id = "requirementCalculator"
+                    id = R.requirementCalculator
                     style = css {
                         size = 200.px
                         background = Color.indianRed.value
                     }
                 }
                 div {
-                    id = "activeRecipes"
+                    id = R.activeRecipes
                     style = css {
                         size = 200.px
                         background = Color.lawnGreen.value
@@ -68,7 +69,6 @@ class View constructor(
                 }
                 recipeListCell()
             }
-
         }
     }
 
@@ -85,9 +85,9 @@ class View constructor(
     }
 
     private fun HtmlBlockTag.recipeListCell() {
-        id = "recipeList"
+        id = R.recipeList
         vm.recipes.collectWithScope {
-            element("recipeList")?.apply {
+            element(R.recipeList)?.apply {
                 innerHTML = ""
                 append {
                     recipeList(list = it, iconMap = vm.iconMap.value, onItemClick = vm::onItemClick)
@@ -97,11 +97,11 @@ class View constructor(
     }
 
     private fun changeIcon(iconSrc: String) {
-        element("favicon")?.let {
+        element(R.favicon)?.let {
             document.head?.removeChild(it)
         }
         document.head?.append?.link {
-            id = "favicon"
+            id = R.favicon
             rel = "shortcut icon"
             type = "data/t-matrix.png/png"
             href = iconSrc
