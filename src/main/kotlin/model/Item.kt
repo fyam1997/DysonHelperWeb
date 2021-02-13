@@ -4,5 +4,5 @@ data class Item(
     val id: String,
     val nameCN: String,
     val nameEN: String,
-    val iconName: String
+    val iconPath: String
 )
