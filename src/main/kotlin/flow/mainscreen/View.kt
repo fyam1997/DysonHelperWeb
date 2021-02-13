@@ -1,11 +1,13 @@
 package flow.mainscreen
 
 import R
-import flow.mainscreen.components.recipeList
+import flow.mainscreen.components.itemDetailView
+import flow.mainscreen.components.recipeListView
 import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.dom.append
 import org.w3c.dom.Document
+import org.w3c.dom.css.StyleSheet
 import utils.*
 
 class View constructor(
@@ -47,16 +49,20 @@ class View constructor(
         }
     }
 
-    private fun HtmlBlockTag.recipeListColumn() {
+    private fun TagConsumer<*>.recipeListColumn() {
         div {
             style = css {
                 display = Display.flex
                 flexDirection = FlexDirection.column
+                margin(all = generalPadding)
             }
             div {
                 style = css {
                     wrapContent()
                     overflow = Overflow.auto
+                    maxHeight = 40.pct
+                    defaultBorder()
+                    padding(generalPadding)
                 }
                 itemDetailCell()
             }
@@ -65,70 +71,40 @@ class View constructor(
                     fillRemaining()
                     minHeight = 200.px
                     overflow = Overflow.auto
+                    marginTop = generalPadding
+                    padding(generalPadding)
+                    defaultBorder()
                 }
                 recipeListCell()
             }
         }
     }
 
-    private fun HtmlBlockTag.itemDetailCell() = div {
+    private fun TagConsumer<*>.itemDetailCell() = div {
         style = css {
             display = Display.flex
             flexDirection = FlexDirection.column
         }
         div { id = R.itemDesc }
-        div { id = R.canBeInputList }
-        div { id = R.canBeOutPutList }
-        vm.focusingItem.collectWithScope { item ->
+        vm.focusingItem.collectWithScope { detail ->
             element(R.itemDesc)?.apply {
                 innerHTML = ""
-                if (item != null) {
+                if (detail != null) {
                     append {
-                        div {
-                            style = css {
-                                display = Display.flex
-                                flexDirection = FlexDirection.row
-                                alignItems = Align.center
-                            }
-                            img {
-                                style = css { size = 32.px }
-                                src = item.iconPath
-                            }
-                            p {
-                                b { +item.name }
-                                br()
-                                +"description"
-                            }
-                        }
+                        itemDetailView(detail)
                     }
-                }
-            }
-        }
-        vm.canBeInputList.collectWithScope { list ->
-            element(R.canBeInputList)?.apply {
-                innerHTML = ""
-                if (list.isNotEmpty()) {
-
-                }
-            }
-        }
-        vm.canBeOutputList.collectWithScope { list ->
-            element(R.canBeOutPutList)?.apply {
-                innerHTML = ""
-                if (list.isNotEmpty()) {
-
                 }
             }
         }
     }
 
-    private fun HtmlBlockTag.recipeListCell() {
+    private fun DIV.recipeListCell() {
         id = R.recipeList
         vm.recipes.collectWithScope {
             element(R.recipeList)?.apply {
                 innerHTML = ""
                 append {
-                    recipeList(list = it, onItemClick = vm::onItemClick)
+                    recipeListView(list = it, onItemClick = vm::onItemClick)
                 }
             }
         }
