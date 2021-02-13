@@ -11,6 +11,7 @@ import kotlinx.html.js.onClickFunction
 import model.Recipe
 import org.w3c.dom.Document
 import utils.css
+import utils.size
 
 class View constructor(
     private val document: Document,
@@ -95,10 +96,33 @@ class View constructor(
     ) {
         //TODO "mdc-data-table__row--selected"
         tr("mdc-data-table__row") {
-            td("mdc-data-table__cell") { +inputs.toString() }
-            td("mdc-data-table__cell") { +outputs.toString() }
-            td("mdc-data-table__cell") { +facility }
-            td("mdc-data-table__cell") { +time.toString() }
+            tdMaterial {
+                style = css { textAlign = TextAlign.center }
+                outputs.forEach { itemIcon(it.key) }
+            }
+            tdMaterial { +"←" }
+            tdMaterial {
+                style = css { textAlign = TextAlign.center }
+                inputs.forEach { itemIcon(it.key) }
+            }
+            tdMaterial { +facility }
+            tdMaterial { +time.toString() }
         }
+    }
+
+    @HtmlTagMarker
+    private fun TagConsumer<*>.itemIcon(name: String) {
+        img {
+            style = css { size = 32.px }
+            src = "itemIcons/${vm.iconMap.value[name]}"
+            alt = name
+            title = name
+            onClickFunction = { vm.onItemClick(name) }
+        }
+    }
+
+    @HtmlTagMarker
+    private inline fun TagConsumer<*>.tdMaterial(crossinline block: TD.() -> Unit = {}) {
+        td(classes = "mdc-data-table__cell", block = block)
     }
 }
