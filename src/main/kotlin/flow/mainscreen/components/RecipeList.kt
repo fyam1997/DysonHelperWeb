@@ -50,7 +50,7 @@ private fun TagConsumer<*>.itemCell(
                 val item = it.key
                 img {
                     style = css { size = 32.px }
-                    src = "${item.iconPath}}"
+                    src = item.iconPath
                     // TODO check language here
                     alt = item.name
                     title = item.name
