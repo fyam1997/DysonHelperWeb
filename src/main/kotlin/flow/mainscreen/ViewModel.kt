@@ -13,6 +13,10 @@ class ViewModel {
     var recipes = MutableStateFlow(emptyList<Recipe>())
     var iconMap = MutableStateFlow(emptyMap<String, String>())
 
+    var focusingItem = MutableStateFlow<String?>(null)
+    var canBeInputList = MutableStateFlow(emptyList<Recipe>())
+    var canBeOutputList = MutableStateFlow(emptyList<Recipe>())
+
     fun initData() {
         GlobalScope.launch {
             iconMap.value = JQueryStatic.getJson(url = "data/iconMap.json").toMap<String>()
@@ -28,6 +32,18 @@ class ViewModel {
     }
 
     fun onItemClick(name: String) {
-        TODO("Not yet implemented")
+        focusingItem.value = name
+        val canBeInputListTemp = mutableListOf<Recipe>()
+        val canBeOutputListTemp = mutableListOf<Recipe>()
+        for (recipe in recipes.value) {
+            if (recipe.inputs.keys.contains(name)) {
+                canBeInputListTemp += recipe
+            }
+            if (recipe.outputs.keys.contains(name)) {
+                canBeOutputListTemp += recipe
+            }
+        }
+        canBeInputList.value = canBeInputListTemp
+        canBeOutputList.value = canBeOutputListTemp
     }
 }
