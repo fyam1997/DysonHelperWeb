@@ -1,6 +1,7 @@
 package flow.mainscreen
 
 import R
+import flow.mainscreen.components.itemDetailView
 import flow.mainscreen.components.recipeList
 import kotlinx.css.*
 import kotlinx.html.*
@@ -77,47 +78,13 @@ class View constructor(
             flexDirection = FlexDirection.column
         }
         div { id = R.itemDesc }
-        div { id = R.canBeInputList }
-        div { id = R.canBeOutPutList }
-        vm.focusingItem.collectWithScope { item ->
+        vm.focusingItem.collectWithScope { detail ->
             element(R.itemDesc)?.apply {
                 innerHTML = ""
-                if (item != null) {
+                if (detail != null) {
                     append {
-                        div {
-                            style = css {
-                                display = Display.flex
-                                flexDirection = FlexDirection.row
-                                alignItems = Align.center
-                            }
-                            img {
-                                style = css { size = 32.px }
-                                src = item.iconPath
-                            }
-                            p {
-                                b { +item.name }
-                                br()
-                                if (item.desc.isNotEmpty())
-                                    +item.desc
-                            }
-                        }
+                        itemDetailView(detail)
                     }
-                }
-            }
-        }
-        vm.canBeInputList.collectWithScope { list ->
-            element(R.canBeInputList)?.apply {
-                innerHTML = ""
-                if (list.isNotEmpty()) {
-
-                }
-            }
-        }
-        vm.canBeOutputList.collectWithScope { list ->
-            element(R.canBeOutPutList)?.apply {
-                innerHTML = ""
-                if (list.isNotEmpty()) {
-
                 }
             }
         }
