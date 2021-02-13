@@ -27,7 +27,7 @@ fun TagConsumer<*>.recipeRow(
         tableCell { +"←" }
         itemCell(recipe.inputs, onItemClick)
         // TODO check language here
-        tableCell { +recipe.facility.nameCN }
+        tableCell { +recipe.facility.name }
         tableCell { +recipe.time.toString() }
     }
 }
@@ -52,8 +52,8 @@ private fun TagConsumer<*>.itemCell(
                     style = css { size = 32.px }
                     src = "${item.iconPath}}"
                     // TODO check language here
-                    alt = item.nameCN
-                    title = item.nameCN
+                    alt = item.name
+                    title = item.name
                     onClickFunction = { onItemClick(item) }
                 }
             }
