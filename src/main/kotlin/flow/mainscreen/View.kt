@@ -2,7 +2,7 @@ package flow.mainscreen
 
 import R
 import flow.mainscreen.components.itemDetailView
-import flow.mainscreen.components.recipeList
+import flow.mainscreen.components.recipeListView
 import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.dom.append
@@ -96,7 +96,7 @@ class View constructor(
             element(R.recipeList)?.apply {
                 innerHTML = ""
                 append {
-                    recipeList(list = it, onItemClick = vm::onItemClick)
+                    recipeListView(list = it, onItemClick = vm::onItemClick)
                 }
             }
         }

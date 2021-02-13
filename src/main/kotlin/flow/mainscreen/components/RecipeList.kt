@@ -7,25 +7,25 @@ import model.Item
 import model.Recipe
 import utils.*
 
-fun TagConsumer<*>.recipeList(
+fun TagConsumer<*>.recipeListView(
     list: List<Recipe>,
     onItemClick: (Item) -> Unit
 ) {
     materialTable {
         list.forEach { recipe ->
-            recipeRow(recipe, onItemClick)
+            recipeRowView(recipe, onItemClick)
         }
     }
 }
 
-fun TagConsumer<*>.recipeRow(
+fun TagConsumer<*>.recipeRowView(
     recipe: Recipe,
     onItemClick: (Item) -> Unit
 ) {
     tableRow {
-        itemCell(recipe.outputs, onItemClick)
+        itemCellView(recipe.outputs, onItemClick)
         tableCell { +"←" }
-        itemCell(recipe.inputs, onItemClick)
+        itemCellView(recipe.inputs, onItemClick)
         // TODO check language here
         tableCell { +recipe.facility.name }
         tableCell { +recipe.time.toString() }
@@ -33,7 +33,7 @@ fun TagConsumer<*>.recipeRow(
 }
 
 @HtmlTagMarker
-private fun TagConsumer<*>.itemCell(
+private fun TagConsumer<*>.itemCellView(
     items: Map<Item, Int>,
     onItemClick: (Item) -> Unit
 ) {
