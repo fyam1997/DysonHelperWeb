@@ -10,8 +10,7 @@ import kotlinx.html.dom.append
 import kotlinx.html.js.onClickFunction
 import model.Recipe
 import org.w3c.dom.Document
-import utils.css
-import utils.size
+import utils.*
 
 class View constructor(
     private val document: Document,
@@ -75,7 +74,7 @@ class View constructor(
     private fun handleRecipeList(list: List<Recipe>) = recipeList?.apply {
         innerHTML = ""
         append {
-            table("mdc-data-table__table") {
+            materialTable {
                 list.forEach {
                     recipeRow(
                         inputs = it.inputs,
@@ -95,18 +94,18 @@ class View constructor(
         time: Int
     ) {
         //TODO "mdc-data-table__row--selected"
-        tr("mdc-data-table__row") {
-            tdMaterial {
+        tableRow {
+            tableCell {
                 style = css { textAlign = TextAlign.center }
                 outputs.forEach { itemIcon(it.key) }
             }
-            tdMaterial { +"←" }
-            tdMaterial {
+            tableCell { +"←" }
+            tableCell {
                 style = css { textAlign = TextAlign.center }
                 inputs.forEach { itemIcon(it.key) }
             }
-            tdMaterial { +facility }
-            tdMaterial { +time.toString() }
+            tableCell { +facility }
+            tableCell { +time.toString() }
         }
     }
 
@@ -119,10 +118,5 @@ class View constructor(
             title = name
             onClickFunction = { vm.onItemClick(name) }
         }
-    }
-
-    @HtmlTagMarker
-    private inline fun TagConsumer<*>.tdMaterial(crossinline block: TD.() -> Unit = {}) {
-        td(classes = "mdc-data-table__cell", block = block)
     }
 }
