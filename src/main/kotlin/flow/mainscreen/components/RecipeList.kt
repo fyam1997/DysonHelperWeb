@@ -3,40 +3,39 @@ package flow.mainscreen.components
 import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.js.onClickFunction
+import model.Item
 import model.Recipe
 import utils.*
 
 fun TagConsumer<*>.recipeList(
     list: List<Recipe>,
-    iconMap: Map<String, String>,
-    onItemClick: (String) -> Unit
+    onItemClick: (Item) -> Unit
 ) {
     materialTable {
-        list.forEach { item ->
-            recipeRow(item, iconMap, onItemClick)
+        list.forEach { recipe ->
+            recipeRow(recipe, onItemClick)
         }
     }
 }
 
 fun TagConsumer<*>.recipeRow(
     recipe: Recipe,
-    iconMap: Map<String, String>,
-    onItemClick: (String) -> Unit
+    onItemClick: (Item) -> Unit
 ) {
     tableRow {
-        itemCell(recipe.outputs, iconMap, onItemClick)
+        itemCell(recipe.outputs, onItemClick)
         tableCell { +"←" }
-        itemCell(recipe.inputs, iconMap, onItemClick)
-        tableCell { +recipe.facility }
+        itemCell(recipe.inputs, onItemClick)
+        // TODO check language here
+        tableCell { +recipe.facility.nameCN }
         tableCell { +recipe.time.toString() }
     }
 }
 
 @HtmlTagMarker
 private fun TagConsumer<*>.itemCell(
-    items: Map<String, Int>,
-    iconMap: Map<String, String>,
-    onItemClick: (String) -> Unit
+    items: Map<Item, Int>,
+    onItemClick: (Item) -> Unit
 ) {
     tableCell {
         div {
@@ -48,13 +47,14 @@ private fun TagConsumer<*>.itemCell(
                 justifyContent = JustifyContent.center
             }
             items.forEach {
-                val name = it.key
+                val item = it.key
                 img {
                     style = css { size = 32.px }
-                    src = "itemIcons/${iconMap[name]}"
-                    alt = name
-                    title = name
-                    onClickFunction = { onItemClick(name) }
+                    src = "${item.iconPath}}"
+                    // TODO check language here
+                    alt = item.nameCN
+                    title = item.nameCN
+                    onClickFunction = { onItemClick(item) }
                 }
             }
         }
