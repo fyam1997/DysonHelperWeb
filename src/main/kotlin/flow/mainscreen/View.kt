@@ -26,6 +26,7 @@ class View constructor(
             div {
                 style = css {
                     fontFamily = "\"Arial\",\"Microsoft YaHei\",\"黑体\",\"宋体\",sans-serif;"
+                    fontSize = 12.px
                     display = Display.flex
                     height = 100.vh
                     width = 100.vw
