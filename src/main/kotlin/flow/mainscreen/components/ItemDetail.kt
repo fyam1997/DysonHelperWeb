@@ -14,9 +14,9 @@ fun TagConsumer<*>.itemDetailView(detail: ItemDetailModel) {
         }
         itemDesc(detail)
         // TODO check language here
-        p { +"Can be input of these recipes:" }
+        p { +"可用于：" }
         recipeListView(detail.asInput) {}
-        p { +"Can be output of these recipes:" }
+        p { +"可产出自：" }
         recipeListView(detail.asOutput) {}
     }
 }
