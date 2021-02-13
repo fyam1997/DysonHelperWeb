@@ -13,6 +13,11 @@ fun TagConsumer<*>.itemDetailView(detail: ItemDetailModel) {
             flexDirection = FlexDirection.column
         }
         itemDesc(detail)
+        // TODO check language here
+        p { +"Can be input of these recipes:" }
+        recipeListView(detail.asInput) {}
+        p { +"Can be output of these recipes:" }
+        recipeListView(detail.asOutput) {}
     }
 }
 
