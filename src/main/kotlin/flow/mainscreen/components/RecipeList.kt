@@ -3,31 +3,31 @@ package flow.mainscreen.components
 import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.js.onClickFunction
+import model.Item
 import model.Recipe
 import utils.*
 
 fun TagConsumer<*>.recipeList(
     list: List<Recipe>,
-    iconMap: Map<String, String>,
-    onItemClick: (String) -> Unit
+    onItemClick: (Item) -> Unit
 ) {
     materialTable {
-        list.forEach { item ->
-            recipeRow(item, iconMap, onItemClick)
+        list.forEach { recipe ->
+            recipeRow(recipe, onItemClick)
         }
     }
 }
 
 fun TagConsumer<*>.recipeRow(
     recipe: Recipe,
-    iconMap: Map<String, String>,
-    onItemClick: (String) -> Unit
+    onItemClick: (Item) -> Unit
 ) {
     tableRow {
-        itemCell(recipe.outputs, iconMap, onItemClick)
+        itemCell(recipe.outputs, onItemClick)
         tableCell { +"←" }
-        itemCell(recipe.inputs, iconMap, onItemClick)
-        tableCell { +recipe.facility }
+        itemCell(recipe.inputs, onItemClick)
+        // TODO check language here
+        tableCell { +recipe.facility.nameCN }
         tableCell { +recipe.time.toString() }
     }
 }
