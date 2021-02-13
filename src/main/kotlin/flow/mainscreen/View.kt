@@ -7,7 +7,6 @@ import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.dom.append
 import org.w3c.dom.Document
-import org.w3c.dom.css.StyleSheet
 import utils.*
 
 class View constructor(
@@ -26,6 +25,7 @@ class View constructor(
         document.body?.append {
             div {
                 style = css {
+                    fontFamily = "\"Arial\",\"Microsoft YaHei\",\"黑体\",\"宋体\",sans-serif;"
                     display = Display.flex
                     height = 100.vh
                     width = 100.vw
