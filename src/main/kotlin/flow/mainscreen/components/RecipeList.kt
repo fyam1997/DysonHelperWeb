@@ -12,7 +12,10 @@ fun TagConsumer<*>.recipeListView(
     list: List<Recipe>,
     onItemClick: (Item) -> Unit
 ) {
-    table {
+    table("unSelectable") {
+        style = css {
+            borderCollapse = BorderCollapse.collapse
+        }
         list.forEach { recipe ->
             recipeRowView(recipe, onItemClick)
         }
@@ -24,6 +27,11 @@ fun TagConsumer<*>.recipeRowView(
     onItemClick: (Item) -> Unit
 ) {
     tr {
+        style = css {
+            borderBottomStyle = BorderStyle.solid
+            borderBottomColor = Color.darkGrey
+            borderBottomWidth = 1.px
+        }
         itemCellView(recipe.outputs, onItemClick)
         td { +"←" }
         itemCellView(recipe.inputs, onItemClick)
