@@ -26,4 +26,3 @@ inline fun TagConsumer<*>.materialTable(
     classes = "mdc-data-table__table",
     block = block
 )
-

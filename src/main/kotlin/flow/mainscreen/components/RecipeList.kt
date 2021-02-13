@@ -12,15 +12,23 @@ fun TagConsumer<*>.recipeList(
     onItemClick: (String) -> Unit
 ) {
     materialTable {
-        list.forEach {
-            tableRow {
-                itemCell(it.outputs, iconMap, onItemClick)
-                tableCell { +"←" }
-                itemCell(it.inputs, iconMap, onItemClick)
-                tableCell { +it.facility }
-                tableCell { +it.time.toString() }
-            }
+        list.forEach { item ->
+            recipeRow(item, iconMap, onItemClick)
         }
+    }
+}
+
+fun TagConsumer<*>.recipeRow(
+    recipe: Recipe,
+    iconMap: Map<String, String>,
+    onItemClick: (String) -> Unit
+) {
+    tableRow {
+        itemCell(recipe.outputs, iconMap, onItemClick)
+        tableCell { +"←" }
+        itemCell(recipe.inputs, iconMap, onItemClick)
+        tableCell { +recipe.facility }
+        tableCell { +recipe.time.toString() }
     }
 }
 
