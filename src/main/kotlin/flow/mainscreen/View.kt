@@ -6,11 +6,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.css.*
-import kotlinx.html.div
+import kotlinx.html.*
 import kotlinx.html.dom.append
-import kotlinx.html.id
-import kotlinx.html.link
-import kotlinx.html.style
 import model.Recipe
 import org.w3c.dom.Document
 import utils.css
@@ -45,29 +42,7 @@ class View constructor(
                     height = 100.vh
                     width = 100.vw
                 }
-                div {
-                    style = css {
-                        display = Display.flex
-                        flexDirection = FlexDirection.column
-                    }
-                    div {
-                        id = "detailView"
-                        style = css {
-                            flex(flexGrow = 0.0, flexShrink = 0.0, flexBasis = FlexBasis.auto)
-                            size = 200.px
-                            background = Color.aliceBlue.value
-                            overflow = Overflow.auto
-                        }
-                    }
-                    div {
-                        id = "recipeList"
-                        style = css {
-                            flex(flexGrow = 1.0, flexShrink = 1.0, flexBasis = FlexBasis.auto)
-                            minHeight = 50.pct
-                            overflow = Overflow.auto
-                        }
-                    }
-                }
+                recipeListColumn()
                 div {
                     id = "requirementCalculator"
                     style = css {
@@ -84,6 +59,33 @@ class View constructor(
                 }
             }
         }
+    }
+
+    private fun TagConsumer<*>.recipeListColumn() {
+        div {
+            style = css {
+                display = Display.flex
+                flexDirection = FlexDirection.column
+            }
+            div {
+                id = "detailView"
+                style = css {
+                    flex(flexGrow = 0.0, flexShrink = 0.0, flexBasis = FlexBasis.auto)
+                    size = 200.px
+                    background = Color.aliceBlue.value
+                    overflow = Overflow.auto
+                }
+            }
+            div {
+                id = "recipeList"
+                style = css {
+                    flex(flexGrow = 1.0, flexShrink = 1.0, flexBasis = FlexBasis.auto)
+                    minHeight = 50.pct
+                    overflow = Overflow.auto
+                }
+            }
+        }
+
     }
 
     private fun changeIcon(iconSrc: String) {
