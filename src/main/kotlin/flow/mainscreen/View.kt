@@ -1,15 +1,12 @@
 package flow.mainscreen
 
 import flow.mainscreen.components.recipeList
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.dom.append
 import model.Recipe
 import org.w3c.dom.Document
+import utils.collectWithScope
 import utils.css
 import utils.size
 
@@ -17,7 +14,6 @@ class View constructor(
     private val document: Document,
     private val vm: ViewModel
 ) {
-    private val recipeList get() = document.getElementById("recipeList")
     private val requirementCalculator get() = document.getElementById("requirementCalculator")
     private val activeRecipes get() = document.getElementById("activeRecipes")
 
@@ -25,12 +21,7 @@ class View constructor(
         document.title = "Hello"
         changeIcon("favico.png")
         initView()
-        observeData()
         vm.initData()
-    }
-
-    private fun observeData() = GlobalScope.launch(Dispatchers.Main) {
-        vm.recipes.collect(::handleRecipeList)
     }
 
     private fun initView() {
@@ -76,16 +67,27 @@ class View constructor(
                     overflow = Overflow.auto
                 }
             }
-            div {
-                id = "recipeList"
-                style = css {
-                    flex(flexGrow = 1.0, flexShrink = 1.0, flexBasis = FlexBasis.auto)
-                    minHeight = 50.pct
-                    overflow = Overflow.auto
+            recipeListCell()
+        }
+    }
+
+    private fun TagConsumer<*>.recipeListCell() {
+        div {
+            id = "recipeList"
+            style = css {
+                flex(flexGrow = 1.0, flexShrink = 1.0, flexBasis = FlexBasis.auto)
+                minHeight = 50.pct
+                overflow = Overflow.auto
+            }
+        }
+        vm.recipes.collectWithScope {
+            document.getElementById("recipeList")?.apply {
+                innerHTML = ""
+                append {
+                    recipeList(list = it, iconMap = vm.iconMap.value, onItemClick = vm::onItemClick)
                 }
             }
         }
-
     }
 
     private fun changeIcon(iconSrc: String) {
@@ -97,13 +99,6 @@ class View constructor(
             rel = "shortcut icon"
             type = "data/t-matrix.png/png"
             href = iconSrc
-        }
-    }
-
-    private fun handleRecipeList(list: List<Recipe>) = recipeList?.apply {
-        innerHTML = ""
-        append {
-            recipeList(list = list, iconMap = vm.iconMap.value, onItemClick = vm::onItemClick)
         }
     }
 }
