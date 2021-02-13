@@ -1,16 +1,19 @@
 package flow.mainscreen
 
+import flow.mainscreen.components.recipeList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.css.*
-import kotlinx.html.*
+import kotlinx.html.div
 import kotlinx.html.dom.append
-import kotlinx.html.js.onClickFunction
+import kotlinx.html.id
+import kotlinx.html.link
+import kotlinx.html.style
 import model.Recipe
 import org.w3c.dom.Document
-import utils.*
+import utils.css
 
 class View constructor(
     private val document: Document,
@@ -73,59 +76,7 @@ class View constructor(
     private fun handleRecipeList(list: List<Recipe>) = recipeList?.apply {
         innerHTML = ""
         append {
-            materialTable {
-                list.forEach {
-                    recipeRow(
-                        inputs = it.inputs,
-                        outputs = it.outputs,
-                        facility = it.facility,
-                        time = it.time
-                    )
-                }
-            }
-        }
-    }
-
-    private fun TagConsumer<*>.recipeRow(
-        inputs: Map<String, Int>,
-        outputs: Map<String, Int>,
-        facility: String,
-        time: Int
-    ) {
-        //TODO "mdc-data-table__row--selected"
-        tableRow {
-            itemCell(outputs)
-            tableCell { +"←" }
-            itemCell(inputs)
-            tableCell { +facility }
-            tableCell { +time.toString() }
-        }
-    }
-
-    @HtmlTagMarker
-    private fun TagConsumer<*>.itemCell(items: Map<String, Int>) {
-        tableCell {
-            div {
-                style = css {
-                    height = LinearDimension.auto
-                    display = Display.grid
-                    gridTemplateColumns = GridTemplateColumns("auto auto auto")
-                    alignItems = Align.center
-                    justifyContent = JustifyContent.center
-                }
-                items.forEach { itemIcon(it.key) }
-            }
-        }
-    }
-
-    @HtmlTagMarker
-    private fun TagConsumer<*>.itemIcon(name: String) {
-        img {
-            style = css { size = 32.px }
-            src = "itemIcons/${vm.iconMap.value[name]}"
-            alt = name
-            title = name
-            onClickFunction = { vm.onItemClick(name) }
+            recipeList(list = list, iconMap = vm.iconMap.value, onItemClick = vm::onItemClick)
         }
     }
 }
