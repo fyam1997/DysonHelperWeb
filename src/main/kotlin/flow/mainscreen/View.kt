@@ -14,9 +14,6 @@ class View constructor(
     private val document: Document,
     private val vm: ViewModel
 ) {
-    private val requirementCalculator get() = document.getElementById("requirementCalculator")
-    private val activeRecipes get() = document.getElementById("activeRecipes")
-
     init {
         document.title = "Hello"
         changeIcon("favico.png")
