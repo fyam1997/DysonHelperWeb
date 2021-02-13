@@ -92,7 +92,7 @@ class View constructor(
                 innerHTML = ""
                 if (detail != null) {
                     append {
-                        itemDetailView(detail)
+                        itemDetailView(detail = detail, onItemClick = vm::onItemClick)
                     }
                 }
             }

@@ -2,11 +2,15 @@ package flow.mainscreen.components
 
 import kotlinx.css.*
 import kotlinx.html.*
+import model.Item
 import model.ItemDetailModel
 import utils.css
 import utils.size
 
-fun TagConsumer<*>.itemDetailView(detail: ItemDetailModel) {
+fun TagConsumer<*>.itemDetailView(
+    detail: ItemDetailModel,
+    onItemClick: (Item) -> Unit
+) {
     div {
         style = css {
             display = Display.flex
@@ -15,9 +19,9 @@ fun TagConsumer<*>.itemDetailView(detail: ItemDetailModel) {
         itemDesc(detail)
         // TODO check language here
         p { +"可用于：" }
-        recipeListView(detail.asInput) {}
+        recipeListView(detail.asInput, onItemClick)
         p { +"可产出自：" }
-        recipeListView(detail.asOutput) {}
+        recipeListView(detail.asOutput, onItemClick)
     }
 }
 
