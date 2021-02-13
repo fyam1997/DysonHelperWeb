@@ -7,6 +7,7 @@ import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.dom.append
 import org.w3c.dom.Document
+import org.w3c.dom.css.StyleSheet
 import utils.*
 
 class View constructor(
@@ -53,11 +54,15 @@ class View constructor(
             style = css {
                 display = Display.flex
                 flexDirection = FlexDirection.column
+                margin(all = generalPadding)
             }
             div {
                 style = css {
                     wrapContent()
                     overflow = Overflow.auto
+                    maxHeight = 40.pct
+                    defaultBorder()
+                    padding(generalPadding)
                 }
                 itemDetailCell()
             }
@@ -66,6 +71,9 @@ class View constructor(
                     fillRemaining()
                     minHeight = 200.px
                     overflow = Overflow.auto
+                    marginTop = generalPadding
+                    padding(generalPadding)
+                    defaultBorder()
                 }
                 recipeListCell()
             }
