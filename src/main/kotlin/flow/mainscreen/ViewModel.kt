@@ -53,5 +53,5 @@ class ViewModel {
     }
 
     private fun makeItem(id: String) =
-        Item(id = id, name = id, desc = id, iconPath = "itemIcons/${iconMap.value[id].orEmpty()}")
+        Item(id = id, name = id, desc = "", iconPath = "itemIcons/${iconMap.value[id].orEmpty()}")
 }

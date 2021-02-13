@@ -97,7 +97,8 @@ class View constructor(
                             p {
                                 b { +item.name }
                                 br()
-                                +"description"
+                                if (item.desc.isNotEmpty())
+                                    +item.desc
                             }
                         }
                     }
