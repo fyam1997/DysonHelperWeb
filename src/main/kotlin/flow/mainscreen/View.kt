@@ -105,14 +105,16 @@ class View constructor(
     @HtmlTagMarker
     private fun TagConsumer<*>.itemCell(items: Map<String, Int>) {
         tableCell {
-            style = css {
-                height = LinearDimension.auto
-                display = Display.grid
-                gridTemplateColumns = GridTemplateColumns("auto auto auto")
-                alignItems = Align.center
-                justifyContent = JustifyContent.center
+            div {
+                style = css {
+                    height = LinearDimension.auto
+                    display = Display.grid
+                    gridTemplateColumns = GridTemplateColumns("auto auto auto")
+                    alignItems = Align.center
+                    justifyContent = JustifyContent.center
+                }
+                items.forEach { itemIcon(it.key) }
             }
-            items.forEach { itemIcon(it.key) }
         }
     }
 
