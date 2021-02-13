@@ -79,10 +79,10 @@ class View constructor(
         div { id = R.itemDesc }
         div { id = R.canBeInputList }
         div { id = R.canBeOutPutList }
-        vm.focusingItem.collectWithScope { name ->
+        vm.focusingItem.collectWithScope { item ->
             element(R.itemDesc)?.apply {
                 innerHTML = ""
-                if (name != null) {
+                if (item != null) {
                     append {
                         div {
                             style = css {
@@ -92,10 +92,10 @@ class View constructor(
                             }
                             img {
                                 style = css { size = 32.px }
-                                src = "itemIcons/${vm.iconMap.value[name]}"
+                                src = item.iconPath
                             }
                             p {
-                                b { +name }
+                                b { +item.name }
                                 br()
                                 +"description"
                             }
@@ -128,7 +128,7 @@ class View constructor(
             element(R.recipeList)?.apply {
                 innerHTML = ""
                 append {
-                    recipeList(list = it, iconMap = vm.iconMap.value, onItemClick = vm::onItemClick)
+                    recipeList(list = it, onItemClick = vm::onItemClick)
                 }
             }
         }
