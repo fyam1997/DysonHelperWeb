@@ -56,7 +56,6 @@ class View constructor(
             div {
                 style = css {
                     wrapContent()
-                    minHeight = 200.px
                     overflow = Overflow.auto
                 }
                 itemDetailCell()
@@ -72,15 +71,54 @@ class View constructor(
         }
     }
 
-    private fun HtmlBlockTag.itemDetailCell() {
-        div {
-            id = "itemDetail"
+    private fun HtmlBlockTag.itemDetailCell() = div {
+        style = css {
+            display = Display.flex
+            flexDirection = FlexDirection.column
         }
-        div {
-            id = "canBeInputList"
+        div { id = R.itemDesc }
+        div { id = R.canBeInputList }
+        div { id = R.canBeOutPutList }
+        vm.focusingItem.collectWithScope { name ->
+            element(R.itemDesc)?.apply {
+                innerHTML = ""
+                if (name != null) {
+                    append {
+                        div {
+                            style = css {
+                                display = Display.flex
+                                flexDirection = FlexDirection.row
+                                alignItems = Align.center
+                            }
+                            img {
+                                style = css { size = 32.px }
+                                src = "itemIcons/${vm.iconMap.value[name]}"
+                            }
+                            p {
+                                b { +name }
+                                br()
+                                +"description"
+                            }
+                        }
+                    }
+                }
+            }
         }
-        div {
-            id = "canBeOutPutList"
+        vm.canBeInputList.collectWithScope { list ->
+            element(R.canBeInputList)?.apply {
+                innerHTML = ""
+                if (list.isNotEmpty()) {
+
+                }
+            }
+        }
+        vm.canBeOutputList.collectWithScope { list ->
+            element(R.canBeOutPutList)?.apply {
+                innerHTML = ""
+                if (list.isNotEmpty()) {
+
+                }
+            }
         }
     }
 
