@@ -6,7 +6,7 @@ import model.ItemDetailModel
 import utils.css
 import utils.size
 
-fun HtmlBlockTag.itemDetailView(detail: ItemDetailModel) {
+fun TagConsumer<*>.itemDetailView(detail: ItemDetailModel) {
     div {
         style = css {
             display = Display.flex
@@ -16,7 +16,7 @@ fun HtmlBlockTag.itemDetailView(detail: ItemDetailModel) {
     }
 }
 
-fun HtmlBlockTag.itemDesc(detail: ItemDetailModel) {
+fun TagConsumer<*>.itemDesc(detail: ItemDetailModel) {
     div {
         style = css {
             display = Display.flex

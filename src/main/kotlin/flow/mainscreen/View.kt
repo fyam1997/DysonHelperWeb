@@ -48,7 +48,7 @@ class View constructor(
         }
     }
 
-    private fun HtmlBlockTag.recipeListColumn() {
+    private fun TagConsumer<*>.recipeListColumn() {
         div {
             style = css {
                 display = Display.flex
@@ -72,7 +72,7 @@ class View constructor(
         }
     }
 
-    private fun HtmlBlockTag.itemDetailCell() = div {
+    private fun TagConsumer<*>.itemDetailCell() = div {
         style = css {
             display = Display.flex
             flexDirection = FlexDirection.column
@@ -90,7 +90,7 @@ class View constructor(
         }
     }
 
-    private fun HtmlBlockTag.recipeListCell() {
+    private fun DIV.recipeListCell() {
         id = R.recipeList
         vm.recipes.collectWithScope {
             element(R.recipeList)?.apply {
