@@ -106,6 +106,7 @@ class View constructor(
     private fun TagConsumer<*>.itemCell(items: Map<String, Int>) {
         tableCell {
             style = css {
+                height = LinearDimension.auto
                 display = Display.grid
                 gridTemplateColumns = GridTemplateColumns("auto auto auto")
                 alignItems = Align.center
