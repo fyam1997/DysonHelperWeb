@@ -14,10 +14,16 @@ inline fun TagConsumer<*>.tableRow(
 @HtmlTagMarker
 inline fun TagConsumer<*>.tableCell(
     crossinline block: TD.() -> Unit = {}
-) = td(classes = "mdc-data-table__cell", block = block)
+) = td(
+    classes = "mdc-data-table__cell",
+    block = block
+)
 
 @HtmlTagMarker
 inline fun TagConsumer<*>.materialTable(
     crossinline block: TABLE.() -> Unit = {}
-) = table("mdc-data-table__table", block = block)
+) = table(
+    classes = "mdc-data-table__table",
+    block = block
+)
 

@@ -39,7 +39,6 @@ class View constructor(
                 style = css { display = Display.flex }
                 val columnStyle = css {
                     display = Display.flex
-                    width = (100f / 3f).pct
                     height = 100.vh
                     overflow = Overflow.auto
                 }
@@ -95,17 +94,24 @@ class View constructor(
     ) {
         //TODO "mdc-data-table__row--selected"
         tableRow {
-            tableCell {
-                style = css { textAlign = TextAlign.center }
-                outputs.forEach { itemIcon(it.key) }
-            }
+            itemCell(outputs)
             tableCell { +"←" }
-            tableCell {
-                style = css { textAlign = TextAlign.center }
-                inputs.forEach { itemIcon(it.key) }
-            }
+            itemCell(inputs)
             tableCell { +facility }
             tableCell { +time.toString() }
+        }
+    }
+
+    @HtmlTagMarker
+    private fun TagConsumer<*>.itemCell(items: Map<String, Int>) {
+        tableCell {
+            style = css {
+                display = Display.grid
+                gridTemplateColumns = GridTemplateColumns("auto auto auto")
+                alignItems = Align.center
+                justifyContent = JustifyContent.center
+            }
+            items.forEach { itemIcon(it.key) }
         }
     }
 
