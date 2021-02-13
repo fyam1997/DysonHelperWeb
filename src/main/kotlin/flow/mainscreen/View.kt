@@ -95,7 +95,7 @@ class View constructor(
         document.head?.append?.link {
             id = "favicon"
             rel = "shortcut icon"
-            type = "image/png"
+            type = "data/t-matrix.png/png"
             href = iconSrc
         }
     }
