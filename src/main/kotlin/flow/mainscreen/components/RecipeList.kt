@@ -34,9 +34,8 @@ fun TagConsumer<*>.recipeRow(
 
 @HtmlTagMarker
 private fun TagConsumer<*>.itemCell(
-    items: Map<String, Int>,
-    iconMap: Map<String, String>,
-    onItemClick: (String) -> Unit
+    items: Map<Item, Int>,
+    onItemClick: (Item) -> Unit
 ) {
     tableCell {
         div {
@@ -48,13 +47,14 @@ private fun TagConsumer<*>.itemCell(
                 justifyContent = JustifyContent.center
             }
             items.forEach {
-                val name = it.key
+                val item = it.key
                 img {
                     style = css { size = 32.px }
-                    src = "itemIcons/${iconMap[name]}"
-                    alt = name
-                    title = name
-                    onClickFunction = { onItemClick(name) }
+                    src = "${item.iconPath}}"
+                    // TODO check language here
+                    alt = item.nameCN
+                    title = item.nameCN
+                    onClickFunction = { onItemClick(item) }
                 }
             }
         }
