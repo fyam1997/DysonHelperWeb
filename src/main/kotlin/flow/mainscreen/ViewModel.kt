@@ -4,6 +4,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import model.Item
+import model.ItemDetailModel
 import model.Recipe
 import utils.JQueryStatic
 import utils.getJson
@@ -14,9 +15,7 @@ class ViewModel {
     var recipes = MutableStateFlow(emptyList<Recipe>())
     var iconMap = MutableStateFlow(emptyMap<String, String>())
 
-    var focusingItem = MutableStateFlow<Item?>(null)
-    var canBeInputList = MutableStateFlow(emptyList<Recipe>())
-    var canBeOutputList = MutableStateFlow(emptyList<Recipe>())
+    var focusingItem = MutableStateFlow<ItemDetailModel?>(null)
 
     fun initData() {
         GlobalScope.launch {
@@ -37,7 +36,6 @@ class ViewModel {
     }
 
     fun onItemClick(item: Item) {
-        focusingItem.value = item
         val canBeInputListTemp = mutableListOf<Recipe>()
         val canBeOutputListTemp = mutableListOf<Recipe>()
         for (recipe in recipes.value) {
@@ -48,8 +46,7 @@ class ViewModel {
                 canBeOutputListTemp += recipe
             }
         }
-        canBeInputList.value = canBeInputListTemp
-        canBeOutputList.value = canBeOutputListTemp
+        focusingItem.value = ItemDetailModel(item, canBeInputListTemp, canBeOutputListTemp)
     }
 
     private fun makeItem(id: String) =
