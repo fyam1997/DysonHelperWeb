@@ -21,7 +21,7 @@ fun TagConsumer<*>.itemDetailView(detail: ItemDetailModel) {
     }
 }
 
-fun TagConsumer<*>.itemDesc(detail: ItemDetailModel) {
+private fun TagConsumer<*>.itemDesc(detail: ItemDetailModel) {
     div {
         style = css {
             display = Display.flex
