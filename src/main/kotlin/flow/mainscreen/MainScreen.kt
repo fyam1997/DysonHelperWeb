@@ -1,75 +1,76 @@
 package flow.mainscreen
 
-import R
-import components.itemDetailView
-import components.recipeListView
-import kotlinx.browser.document
+import components.itemDetail
+import components.recipeList
 import kotlinx.css.*
-import kotlinx.html.*
-import kotlinx.html.dom.append
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import model.ItemDetailModel
+import model.Recipe
+import react.*
+import styled.styledDiv
 import utils.*
 
-class MainScreen(
-) : RComponent<RProps, RState>() {
+class MainScreen : RComponent<RProps, MainScreen.State>() {
     private val vm = ViewModel(JsonRepository())
 
     override fun RBuilder.render() {
-        initView()
-        vm.initData()
-    }
-
-    private fun initView() {
-        document.body?.style?.apply { margin = "0px" }
-        document.body?.append {
-            div {
-                style = css {
-                    fontSize = 12.px
-                    display = Display.flex
-                    height = 100.vh
-                    width = 100.vw
+        styledDiv {
+            css {
+                fontSize = 12.px
+                display = Display.flex
+                height = 100.vh
+                width = 100.vw
+            }
+            recipeListColumn()
+            styledDiv {
+                css {
+                    size = 200.px
+                    background = Color.indianRed.value
                 }
-                recipeListColumn()
-                div {
-                    id = R.requirementCalculator
-                    style = css {
-                        size = 200.px
-                        background = Color.indianRed.value
-                    }
-                }
-                div {
-                    id = R.activeRecipes
-                    style = css {
-                        size = 200.px
-                        background = Color.lawnGreen.value
-                    }
+            }
+            styledDiv {
+                css {
+                    size = 200.px
+                    background = Color.lawnGreen.value
                 }
             }
         }
+        observeData()
+        vm.initData()
     }
 
-    private fun TagConsumer<*>.recipeListColumn() {
-        div {
-            style = css {
+    private fun observeData() {
+        vm.recipes.collectWithScope {
+            setState { recipeList = it }
+        }
+        vm.focusingItem.collectWithScope {
+            setState { itemDetail = it }
+        }
+    }
+
+    private fun RBuilder.recipeListColumn() {
+        styledDiv {
+            css {
                 display = Display.flex
                 flexDirection = FlexDirection.column
                 margin(all = generalPadding)
             }
-            div {
-                style = css {
+            styledDiv {
+                css {
                     wrapContent()
                     overflow = Overflow.auto
                     maxHeight = 40.pct
                     defaultBorder()
                     padding(generalPadding)
                 }
-                itemDetailCell()
+                state.itemDetail?.let {
+                    itemDetail {
+                        detail = it
+                        onItemClick = vm::onItemClick
+                    }
+                }
             }
-            div {
-                style = css {
+            styledDiv {
+                css {
                     fillRemaining()
                     minHeight = 200.px
                     overflow = Overflow.auto
@@ -77,38 +78,16 @@ class MainScreen(
                     padding(generalPadding)
                     defaultBorder()
                 }
-                recipeListCell()
-            }
-        }
-    }
-
-    private fun TagConsumer<*>.itemDetailCell() = div {
-        style = css {
-            display = Display.flex
-            flexDirection = FlexDirection.column
-        }
-        div { id = R.itemDesc }
-        vm.focusingItem.collectWithScope { detail ->
-            element(R.itemDesc)?.apply {
-                innerHTML = ""
-                if (detail != null) {
-                    append {
-                        itemDetailView(detail = detail, onItemClick = vm::onItemClick)
-                    }
+                recipeList {
+                    list = state.recipeList
+                    onItemClick = vm::onItemClick
                 }
             }
         }
     }
 
-    private fun DIV.recipeListCell() {
-        id = R.recipeList
-        vm.recipes.collectWithScope {
-            element(R.recipeList)?.apply {
-                innerHTML = ""
-                append {
-                    recipeListView(list = it, onItemClick = vm::onItemClick)
-                }
-            }
-        }
+    interface State : RState {
+        var recipeList: List<Recipe>
+        var itemDetail: ItemDetailModel?
     }
 }
