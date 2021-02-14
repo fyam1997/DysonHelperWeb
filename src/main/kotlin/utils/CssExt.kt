@@ -27,3 +27,7 @@ fun CSSBuilder.defaultBorder() = border(
 )
 
 val CSSBuilder.generalPadding get() = 8.px
+
+fun CSSBuilder.setFonts(vararg fonts: String) {
+    fontFamily = fonts.joinToString(",") { "'$it'" }
+}
