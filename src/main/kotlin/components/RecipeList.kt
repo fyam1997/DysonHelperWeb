@@ -43,7 +43,17 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
             td { +"←" }
             itemCellView(recipe.inputs, onItemClick, 3)
             // TODO check language here
-            td { +recipe.facility.name }
+            td {
+                styledImg {
+                    css { size = 32.px }
+                    attrs {
+                        src = recipe.facility.iconPath
+                        // TODO check language here
+                        alt = recipe.facility.name
+                        title = recipe.facility.name
+                    }
+                }
+            }
             td { +recipe.time.toString() }
         }
     }
