@@ -79,5 +79,15 @@
   "极速传送带": "belt-3.png",
   "分拣器": "inserter-1.png",
   "高速分拣器": "inserter-2.png",
-  "极速分拣器": "inserter-3.png"
+  "极速分拣器": "inserter-3.png",
+  "采矿机": "mining-drill.png",
+  "抽水站": "water-pump.png",
+  "原油萃取站": "oil-extractor.png",
+  "制造台": "assembler-1.png",
+  "电弧熔炉": "smelter.png",
+  "化工厂": "chemical-plant.png",
+  "原油精炼厂": "oil-refinery.png",
+  "分馏塔": "fractionator.png",
+  "对撞机": "hadron-collider.png",
+  "矩阵研究站": "lab.png"
 }
