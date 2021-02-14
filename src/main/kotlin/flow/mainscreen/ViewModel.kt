@@ -6,13 +6,17 @@ import kotlinx.coroutines.launch
 import model.Item
 import model.ItemDetailModel
 import model.Recipe
+import utils.copy
 import utils.doIf
+import utils.update
 
 class ViewModel(
     private val jsonRepo: JsonRepository
 ) {
     private val originRecipes = MutableStateFlow(emptyList<Recipe>())
     val recipes = MutableStateFlow(emptyList<Recipe>())
+
+    val selectedRecipes = MutableStateFlow(emptyMap<Recipe, Int>())
 
     val focusingItem = MutableStateFlow<ItemDetailModel?>(null)
 
@@ -47,6 +51,16 @@ class ViewModel(
                             outputs.any { it.key.name.contains(value) } ||
                             facility.name.contains(value)
                 }
+            }
+        }
+    }
+
+    fun selectRecipeNumber(recipe: Recipe, number: Int) {
+        selectedRecipes.update { map ->
+            map.copy {
+                put(recipe, number)
+            }.filter {
+                it.value != 0
             }
         }
     }
