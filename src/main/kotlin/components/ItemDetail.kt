@@ -1,46 +1,72 @@
 package components
 
 import kotlinx.css.*
-import kotlinx.html.*
 import model.Item
 import model.ItemDetailModel
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
+import react.dom.b
+import react.dom.br
+import react.dom.img
+import react.dom.p
+import styled.styledDiv
 import utils.css
 import utils.size
 
-fun TagConsumer<*>.itemDetailView(
-    detail: ItemDetailModel,
-    onItemClick: (Item) -> Unit
-) {
-    div {
-        style = css {
-            display = Display.flex
-            flexDirection = FlexDirection.column
+class ItemDetail : RComponent<ItemDetail.Props, RState>() {
+    override fun RBuilder.render() {
+        styledDiv {
+            css {
+                display = Display.flex
+                flexDirection = FlexDirection.column
+            }
+            itemDesc(props.detail)
+            // TODO check language here
+            p { +"可用于：" }
+            recipeList {
+                list = props.detail.asInput
+                onItemClick = props.onItemClick
+            }
+            p { +"可产出自：" }
+            recipeList {
+                list = props.detail.asOutput
+                onItemClick = props.onItemClick
+            }
         }
-        itemDesc(detail)
-        // TODO check language here
-        p { +"可用于：" }
-        recipeListView(detail.asInput, onItemClick)
-        p { +"可产出自：" }
-        recipeListView(detail.asOutput, onItemClick)
+    }
+
+    private fun RBuilder.itemDesc(detail: ItemDetailModel) {
+        styledDiv {
+            css {
+                display = Display.flex
+                flexDirection = FlexDirection.row
+                alignItems = Align.center
+            }
+            img {
+                css { size = 32.px }
+                attrs {
+                    src = detail.item.iconPath
+                }
+            }
+            p {
+                b { +detail.item.name }
+                br {}
+                if (detail.item.desc.isNotEmpty())
+                    +detail.item.desc
+            }
+        }
+    }
+
+    interface Props : RProps {
+        var detail: ItemDetailModel
+        var onItemClick: (Item) -> Unit
     }
 }
 
-private fun TagConsumer<*>.itemDesc(detail: ItemDetailModel) {
-    div {
-        style = css {
-            display = Display.flex
-            flexDirection = FlexDirection.row
-            alignItems = Align.center
-        }
-        img {
-            style = css { size = 32.px }
-            src = detail.item.iconPath
-        }
-        p {
-            b { +detail.item.name }
-            br()
-            if (detail.item.desc.isNotEmpty())
-                +detail.item.desc
-        }
-    }
+fun RBuilder.itemDetail(
+    builder: ItemDetail.Props.() -> Unit
+) = child(ItemDetail::class) {
+    attrs(builder)
 }
