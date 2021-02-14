@@ -13,6 +13,11 @@ import utils.*
 class MainScreen : RComponent<RProps, MainScreen.State>() {
     private val vm = ViewModel(JsonRepository())
 
+    init {
+        observeData()
+        vm.initData()
+    }
+
     override fun RBuilder.render() {
         styledDiv {
             css {
@@ -35,8 +40,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 }
             }
         }
-        observeData()
-        vm.initData()
     }
 
     private fun observeData() {
