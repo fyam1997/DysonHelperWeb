@@ -84,3 +84,9 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
         var onItemClick: (Item) -> Unit
     }
 }
+
+fun RBuilder.recipeList(
+    builder: RecipeList.Props.() -> Unit
+) = child(RecipeList::class) {
+    attrs(builder)
+}
