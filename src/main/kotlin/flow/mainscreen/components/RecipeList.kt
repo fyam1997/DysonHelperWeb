@@ -3,15 +3,21 @@ package flow.mainscreen.components
 import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.js.onClickFunction
+import kotlinx.html.js.onMouseOutFunction
+import kotlinx.html.js.onMouseOverFunction
 import model.Item
 import model.Recipe
-import utils.*
+import utils.css
+import utils.size
 
 fun TagConsumer<*>.recipeListView(
     list: List<Recipe>,
     onItemClick: (Item) -> Unit
 ) {
-    materialTable {
+    table("unSelectable") {
+        style = css {
+            borderCollapse = BorderCollapse.collapse
+        }
         list.forEach { recipe ->
             recipeRowView(recipe, onItemClick)
         }
@@ -22,13 +28,18 @@ fun TagConsumer<*>.recipeRowView(
     recipe: Recipe,
     onItemClick: (Item) -> Unit
 ) {
-    tableRow {
+    tr("hoverRow") {
+        style = css {
+            borderBottomStyle = BorderStyle.solid
+            borderBottomColor = Color.darkGrey
+            borderBottomWidth = 1.px
+        }
         itemCellView(recipe.outputs, onItemClick)
-        tableCell { +"←" }
+        td { +"←" }
         itemCellView(recipe.inputs, onItemClick)
         // TODO check language here
-        tableCell { +recipe.facility.name }
-        tableCell { +recipe.time.toString() }
+        td { +recipe.facility.name }
+        td { +recipe.time.toString() }
     }
 }
 
@@ -37,7 +48,7 @@ private fun TagConsumer<*>.itemCellView(
     items: Map<Item, Int>,
     onItemClick: (Item) -> Unit
 ) {
-    tableCell {
+    td {
         div {
             style = css {
                 height = LinearDimension.auto
