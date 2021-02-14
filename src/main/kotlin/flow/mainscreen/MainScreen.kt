@@ -80,7 +80,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                     defaultBorder()
                 }
                 recipeList {
-                    list = state.recipeList
+                    list = state.recipeList.orEmpty()
                     onItemClick = vm::onItemClick
                 }
             }
@@ -88,7 +88,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     }
 
     interface State : RState {
-        var recipeList: List<Recipe>
+        var recipeList: List<Recipe>?
         var itemDetail: ItemDetailModel?
     }
 }
