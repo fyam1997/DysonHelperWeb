@@ -1,10 +1,13 @@
+import components.ComponentStyles
 import kotlinx.browser.document
 import kotlinx.html.dom.append
 import kotlinx.html.id
 import kotlinx.html.link
+import styled.injectGlobal
 import utils.element
 
 fun main() {
+    injectGlobal { +ComponentStyles.globalStyle }
     document.title = "Hello"
     changeIcon("favico.png")
 }
