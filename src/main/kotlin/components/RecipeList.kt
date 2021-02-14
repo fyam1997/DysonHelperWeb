@@ -10,6 +10,7 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
+import react.dom.tbody
 import react.dom.td
 import styled.*
 import utils.size
@@ -20,8 +21,10 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
             css {
                 borderCollapse = BorderCollapse.collapse
             }
-            props.list.forEach { recipe ->
-                recipeRowView(recipe, props.onItemClick)
+            tbody {
+                props.list.forEach { recipe ->
+                    recipeRowView(recipe, props.onItemClick)
+                }
             }
         }
     }
