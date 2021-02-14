@@ -45,7 +45,7 @@
     },
     "inputs": {},
     "time": 1,
-    "facility": "抽水设备"
+    "facility": "抽水站"
   },
   {
     "outputs": {
@@ -53,7 +53,7 @@
     },
     "inputs": {},
     "time": 1,
-    "facility": "抽油设备"
+    "facility": "原油萃取站"
   },
   {
     "outputs": {
@@ -63,7 +63,7 @@
       "分型硅石": 1
     },
     "time": 4,
-    "facility": "精炼设备"
+    "facility": "制造台"
   },
   {
     "outputs": {
@@ -73,7 +73,7 @@
       "金伯利矿石": 1
     },
     "time": 2,
-    "facility": "精炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -95,7 +95,7 @@
       "可燃冰": 2
     },
     "time": 2,
-    "facility": "化工设备"
+    "facility": "化工厂"
   },
   {
     "outputs": {
@@ -105,7 +105,7 @@
       "刺笋结晶": 2
     },
     "time": 4,
-    "facility": "化工设备"
+    "facility": "化工厂"
   },
   {
     "outputs": {
@@ -138,7 +138,7 @@
       "铁矿": 1
     },
     "time": 1,
-    "facility": "冶炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -148,7 +148,7 @@
       "铁矿": 5
     },
     "time": 1,
-    "facility": "冶炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -158,7 +158,7 @@
       "铜矿": 1
     },
     "time": 1,
-    "facility": "冶炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -168,7 +168,7 @@
       "石矿": 1
     },
     "time": 1,
-    "facility": "冶炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -178,7 +178,7 @@
       "石矿": 2
     },
     "time": 2,
-    "facility": "冶炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -188,7 +188,7 @@
       "硅石": 2
     },
     "time": 2,
-    "facility": "冶炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -198,7 +198,7 @@
       "钛石": 2
     },
     "time": 2,
-    "facility": "冶炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -208,7 +208,7 @@
       "煤矿": 2
     },
     "time": 2,
-    "facility": "冶炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -219,7 +219,7 @@
       "原油": 2
     },
     "time": 4,
-    "facility": "精炼设备"
+    "facility": "原油精炼厂"
   },
   {
     "outputs": {
@@ -231,7 +231,7 @@
       "氢": 2
     },
     "time": 4,
-    "facility": "精炼设备"
+    "facility": "原油精炼厂"
   },
   {
     "outputs": {
@@ -241,7 +241,7 @@
       "石矿": 10
     },
     "time": 10,
-    "facility": "精炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -282,7 +282,7 @@
       "铁块": 3
     },
     "time": 3,
-    "facility": "精炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -312,7 +312,7 @@
       "高纯硅块": 1
     },
     "time": 2,
-    "facility": "精炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -322,7 +322,7 @@
       "高能石墨": 1
     },
     "time": 2,
-    "facility": "精炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -378,7 +378,7 @@
       "水": 4
     },
     "time": 6,
-    "facility": "化工设备"
+    "facility": "化工厂"
   },
   {
     "outputs": {
@@ -412,7 +412,7 @@
       "高能石墨": 1
     },
     "time": 3,
-    "facility": "化工设备"
+    "facility": "化工厂"
   },
   {
     "outputs": {
@@ -423,7 +423,7 @@
       "氢": 2
     },
     "time": 6,
-    "facility": "研究设备"
+    "facility": "矩阵研究站"
   },
   {
     "outputs": {
@@ -435,7 +435,7 @@
       "钛块": 4
     },
     "time": 12,
-    "facility": "冶炼设备"
+    "facility": "电弧熔炉"
   },
   {
     "outputs": {
@@ -513,7 +513,7 @@
       "硫酸": 1
     },
     "time": 3,
-    "facility": "化工设备"
+    "facility": "化工厂"
   },
   {
     "outputs": {
@@ -524,7 +524,7 @@
       "电路板": 1
     },
     "time": 3,
-    "facility": "研究设备"
+    "facility": "矩阵研究站"
   },
   {
     "outputs": {
@@ -536,7 +536,7 @@
       "水": 1
     },
     "time": 6,
-    "facility": "化工设备"
+    "facility": "化工厂"
   },
   {
     "outputs": {
@@ -570,7 +570,7 @@
       "钛块": 1
     },
     "time": 4,
-    "facility": "化工设备"
+    "facility": "化工厂"
   },
   {
     "outputs": {
@@ -744,7 +744,7 @@
       "钛晶石": 1
     },
     "time": 8,
-    "facility": "研究设备"
+    "facility": "矩阵研究站"
   },
   {
     "outputs": {
@@ -755,7 +755,7 @@
       "粒子宽带": 1
     },
     "time": 10,
-    "facility": "研究设备"
+    "facility": "矩阵研究站"
   },
   {
     "outputs": {
@@ -788,7 +788,7 @@
       "量子芯片": 1
     },
     "time": 24,
-    "facility": "研究设备"
+    "facility": "矩阵研究站"
   },
   {
     "outputs": {
@@ -825,7 +825,7 @@
       "反物质": 1
     },
     "time": 15,
-    "facility": "研究设备"
+    "facility": "矩阵研究站"
   },
   {
     "outputs": {

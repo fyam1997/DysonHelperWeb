@@ -18,7 +18,7 @@ class ViewModel(
         GlobalScope.launch {
             val iconMap = jsonRepo.iconMap()
             val factory = RecipeFactory(iconMap)
-            recipes.value = jsonRepo.recipes().map(factory::makeRecipe)
+            recipes.value = jsonRepo.recipes().map(factory::makeRecipe).sortedByDescending { it.facility.name }
         }
     }
 
@@ -56,7 +56,7 @@ class ViewModel(
             id = id,
             name = id,
             desc = "",
-            iconPath = "itemIcons/${iconMap[id].orEmpty()}"
+            iconPath = "itemIcons/${iconMap[id].orEmpty()}.png"
         )
     }
 }
