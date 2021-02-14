@@ -56,7 +56,7 @@ class ViewModel(
             id = id,
             name = id,
             desc = "",
-            iconPath = "itemIcons/${iconMap[id].orEmpty()}"
+            iconPath = "itemIcons/${iconMap[id].orEmpty()}.png"
         )
     }
 }
