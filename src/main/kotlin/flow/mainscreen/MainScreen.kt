@@ -3,11 +3,13 @@ package flow.mainscreen
 import components.itemDetail
 import components.recipeList
 import kotlinx.css.*
+import kotlinx.html.js.onChangeFunction
 import model.ItemDetailModel
 import model.Recipe
 import react.*
 import styled.css
 import styled.styledDiv
+import styled.styledInput
 import utils.*
 
 class MainScreen : RComponent<RProps, MainScreen.State>() {
@@ -58,11 +60,18 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 flexDirection = FlexDirection.column
                 margin(all = generalPadding)
             }
+            styledInput {
+                attrs {
+                    onChangeFunction = {
+                    }
+                }
+            }
             styledDiv {
                 css {
                     fillRemaining()
                     minHeight = 200.px
                     overflow = Overflow.auto
+                    marginTop = generalPadding
                     padding(generalPadding)
                     defaultBorder()
                 }
