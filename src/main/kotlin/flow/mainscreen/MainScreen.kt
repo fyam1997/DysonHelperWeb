@@ -6,6 +6,7 @@ import kotlinx.css.*
 import kotlinx.html.js.onChangeFunction
 import model.ItemDetailModel
 import model.Recipe
+import org.w3c.dom.HTMLInputElement
 import react.*
 import styled.css
 import styled.styledDiv
@@ -63,6 +64,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             styledInput {
                 attrs {
                     onChangeFunction = {
+                        vm.onFilterTextChange((it.target as HTMLInputElement).value)
                     }
                 }
             }

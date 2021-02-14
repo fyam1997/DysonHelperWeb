@@ -6,19 +6,22 @@ import kotlinx.coroutines.launch
 import model.Item
 import model.ItemDetailModel
 import model.Recipe
+import utils.doIf
 
 class ViewModel(
     private val jsonRepo: JsonRepository
 ) {
-    var recipes = MutableStateFlow(emptyList<Recipe>())
+    private val originRecipes = MutableStateFlow(emptyList<Recipe>())
+    val recipes = MutableStateFlow(emptyList<Recipe>())
 
-    var focusingItem = MutableStateFlow<ItemDetailModel?>(null)
+    val focusingItem = MutableStateFlow<ItemDetailModel?>(null)
 
     fun initData() {
         GlobalScope.launch {
             val iconMap = jsonRepo.iconMap()
             val factory = RecipeFactory(iconMap)
-            recipes.value = jsonRepo.recipes().map(factory::makeRecipe).sortedByDescending { it.facility.name }
+            originRecipes.value = jsonRepo.recipes().map(factory::makeRecipe).sortedByDescending { it.facility.name }
+            recipes.value = originRecipes.value
         }
     }
 
@@ -34,6 +37,18 @@ class ViewModel(
             }
         }
         focusingItem.value = ItemDetailModel(item, canBeInputListTemp, canBeOutputListTemp)
+    }
+
+    fun onFilterTextChange(value: String) {
+        recipes.value = originRecipes.value.doIf(value.isNotEmpty()) {
+            filter { recipe ->
+                with(recipe) {
+                    inputs.any { it.key.name.contains(value) } ||
+                            outputs.any { it.key.name.contains(value) } ||
+                            facility.name.contains(value)
+                }
+            }
+        }
     }
 
     class RecipeFactory(
