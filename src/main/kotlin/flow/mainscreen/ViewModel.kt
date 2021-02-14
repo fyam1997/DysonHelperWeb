@@ -1,14 +1,15 @@
 package flow.mainscreen
 
+import kotlinx.browser.window
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import model.Item
 import model.ItemDetailModel
 import model.Recipe
-import utils.JQueryStatic
+import utils.fetchJson
+import utils.fetchJsonArray
 import utils.getJson
-import utils.getJsonArray
 import utils.toMap
 
 class ViewModel {
@@ -18,14 +19,15 @@ class ViewModel {
 
     fun initData() {
         GlobalScope.launch {
-            val iconMap = JQueryStatic.getJson(url = "data/iconMap.json").toMap<String>()
+            val iconMap = window.fetchJson("data/iconMap.json").toMap<String>()
             fun makeItem(id: String) = Item(
                 id = id,
                 name = id,
                 desc = "",
                 iconPath = "itemIcons/${iconMap[id].orEmpty()}"
             )
-            recipes.value = JQueryStatic.getJsonArray("data/recipe.json").map { json ->
+
+            recipes.value = window.fetchJsonArray("data/recipe.json").map { json ->
                 Recipe(
                     outputs = json.getJson("outputs").toMap<Int>().map {
                         makeItem(it.key) to it.value
