@@ -1,9 +1,19 @@
 plugins {
     kotlin("js") version "1.4.21"
+    kotlin("plugin.serialization") version "1.4.10"
 }
 
 group = "com.fyam"
 version = "1.0-SNAPSHOT"
+buildscript {
+    repositories { jcenter() }
+
+    dependencies {
+        val kotlinVersion = "1.4.10"
+        classpath(kotlin("gradle-plugin", version = kotlinVersion))
+        classpath(kotlin("serialization", version = kotlinVersion))
+    }
+}
 
 repositories {
     jcenter()
@@ -12,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 
     implementation("org.jetbrains:kotlin-react:16.13.1-pre.113-kotlin-1.4.0")
