@@ -8,6 +8,8 @@ import model.ItemDetailModel
 import model.Recipe
 import org.w3c.dom.HTMLInputElement
 import react.*
+import react.dom.br
+import react.dom.p
 import styled.css
 import styled.styledDiv
 import styled.styledInput
@@ -30,16 +32,18 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 width = 100.vw
             }
             recipeListColumn()
-            styledDiv {
-                css {
-                    size = 200.px
-                    background = Color.indianRed.value
-                }
-            }
-            styledDiv {
-                css {
-                    size = 200.px
-                    background = Color.lawnGreen.value
+            selectedRecipeColumn()
+            p {
+                """
+                    TODO
+                    make empty state for detail and selected recipes
+                    locale
+                    time unit
+                    dark mode
+                    migrate to kotlin-multiplatform
+                """.trimIndent().split("\n").forEach {
+                    +it
+                    br {}
                 }
             }
         }
@@ -97,6 +101,17 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                         onItemClick = vm::onItemClick
                     }
                 }
+            }
+        }
+    }
+
+    private fun RBuilder.selectedRecipeColumn() {
+        styledDiv {
+            css {
+                display = Display.flex
+                flexDirection = FlexDirection.column
+                margin(all = generalPadding)
+                defaultBorder()
             }
         }
     }
