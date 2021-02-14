@@ -39,9 +39,9 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
                     background = Color.aliceBlue.value
                 }
             }
-            itemCellView(recipe.outputs, onItemClick)
+            itemCellView(recipe.outputs, onItemClick, 2)
             td { +"←" }
-            itemCellView(recipe.inputs, onItemClick)
+            itemCellView(recipe.inputs, onItemClick, 3)
             // TODO check language here
             td { +recipe.facility.name }
             td { +recipe.time.toString() }
@@ -51,14 +51,16 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
     @HtmlTagMarker
     private fun RBuilder.itemCellView(
         items: Map<Item, Int>,
-        onItemClick: (Item) -> Unit
+        onItemClick: (Item) -> Unit,
+        columnCount: Int
     ) {
         styledTd {
             styledDiv {
                 css {
+                    minWidth = 32.px * columnCount
                     height = LinearDimension.auto
                     display = Display.grid
-                    gridTemplateColumns = GridTemplateColumns("auto auto auto")
+                    gridTemplateColumns = GridTemplateColumns("auto " * columnCount)
                     alignItems = Align.center
                     justifyContent = JustifyContent.center
                 }
