@@ -1,8 +1,8 @@
 package flow.mainscreen
 
 import R
-import flow.mainscreen.components.itemDetailView
-import flow.mainscreen.components.recipeListView
+import components.itemDetailView
+import components.recipeListView
 import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.html.*

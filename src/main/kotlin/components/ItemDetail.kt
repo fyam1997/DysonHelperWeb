@@ -1,4 +1,4 @@
-package flow.mainscreen.components
+package components
 
 import kotlinx.css.*
 import kotlinx.html.*

@@ -1,10 +1,8 @@
-package flow.mainscreen.components
+package components
 
 import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.js.onClickFunction
-import kotlinx.html.js.onMouseOutFunction
-import kotlinx.html.js.onMouseOverFunction
 import model.Item
 import model.Recipe
 import utils.css
