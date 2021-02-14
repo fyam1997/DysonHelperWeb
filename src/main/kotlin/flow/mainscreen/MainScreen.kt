@@ -3,17 +3,21 @@ package flow.mainscreen
 import R
 import flow.mainscreen.components.itemDetailView
 import flow.mainscreen.components.recipeListView
+import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.html.*
 import kotlinx.html.dom.append
-import org.w3c.dom.Document
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
 import utils.*
 
-class View constructor(
-    private val document: Document,
-    private val vm: ViewModel
-) {
-    init {
+class MainScreen(
+) : RComponent<RProps, RState>() {
+    private val vm = ViewModel(JsonRepository())
+
+    override fun RBuilder.render() {
         initView()
         vm.initData()
     }
@@ -107,5 +111,4 @@ class View constructor(
             }
         }
     }
-
 }

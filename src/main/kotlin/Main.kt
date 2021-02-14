@@ -1,8 +1,10 @@
 import components.ComponentStyles
+import flow.mainscreen.MainScreen
 import kotlinx.browser.document
 import kotlinx.html.dom.append
 import kotlinx.html.id
 import kotlinx.html.link
+import react.dom.render
 import styled.injectGlobal
 import utils.element
 
@@ -10,6 +12,9 @@ fun main() {
     injectGlobal { +ComponentStyles.globalStyle }
     document.title = "Hello"
     changeIcon("favico.png")
+    render(document.getElementById("root")) {
+        child(MainScreen::class) {}
+    }
 }
 
 private fun changeIcon(iconSrc: String) {
