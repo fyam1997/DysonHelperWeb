@@ -52,9 +52,10 @@ class ItemDetail : RComponent<ItemDetail.Props, RState>() {
             }
             p {
                 b { +detail.item.name }
-                br {}
-                if (detail.item.desc.isNotEmpty())
+                if (detail.item.desc.isNotEmpty()) {
+                    br {}
                     +detail.item.desc
+                }
             }
         }
     }
