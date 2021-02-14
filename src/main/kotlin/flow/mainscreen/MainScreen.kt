@@ -6,6 +6,7 @@ import kotlinx.css.*
 import model.ItemDetailModel
 import model.Recipe
 import react.*
+import styled.css
 import styled.styledDiv
 import utils.*
 

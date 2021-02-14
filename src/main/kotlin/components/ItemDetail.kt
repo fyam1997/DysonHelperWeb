@@ -9,10 +9,10 @@ import react.RProps
 import react.RState
 import react.dom.b
 import react.dom.br
-import react.dom.img
 import react.dom.p
+import styled.css
 import styled.styledDiv
-import utils.css
+import styled.styledImg
 import utils.size
 
 class ItemDetail : RComponent<ItemDetail.Props, RState>() {
@@ -44,7 +44,7 @@ class ItemDetail : RComponent<ItemDetail.Props, RState>() {
                 flexDirection = FlexDirection.row
                 alignItems = Align.center
             }
-            img {
+            styledImg {
                 css { size = 32.px }
                 attrs {
                     src = detail.item.iconPath
