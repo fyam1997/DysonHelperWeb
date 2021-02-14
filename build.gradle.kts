@@ -8,14 +8,18 @@ version = "1.0-SNAPSHOT"
 repositories {
     jcenter()
     mavenCentral()
+    maven { url = uri("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
 }
 
 dependencies {
-    implementation(kotlin("stdlib-js"))
-    implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.2")
-    api("io.kvision:jquery-kotlin:1.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
-    implementation("org.jetbrains:kotlin-css:1.0.0-pre.144-kotlin-1.4.30")
+
+    implementation("org.jetbrains:kotlin-react:16.13.1-pre.113-kotlin-1.4.0")
+    implementation("org.jetbrains:kotlin-react-dom:16.13.1-pre.113-kotlin-1.4.0")
+    implementation("org.jetbrains:kotlin-styled:1.0.0-pre.113-kotlin-1.4.0")
+    implementation("org.jetbrains:kotlin-react-router-dom:5.1.2-pre.113-kotlin-1.4.0")
+    implementation("org.jetbrains:kotlin-redux:4.0.0-pre.113-kotlin-1.4.0")
+    implementation("org.jetbrains:kotlin-react-redux:5.0.7-pre.113-kotlin-1.4.0")
 }
 
 kotlin {
