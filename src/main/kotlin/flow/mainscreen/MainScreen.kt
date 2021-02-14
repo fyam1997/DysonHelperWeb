@@ -60,9 +60,23 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             }
             styledDiv {
                 css {
+                    fillRemaining()
+                    minHeight = 200.px
+                    overflow = Overflow.auto
+                    padding(generalPadding)
+                    defaultBorder()
+                }
+                recipeList {
+                    list = state.recipeList.orEmpty()
+                    onItemClick = vm::onItemClick
+                }
+            }
+            styledDiv {
+                css {
                     wrapContent()
                     overflow = Overflow.auto
                     maxHeight = 40.pct
+                    marginTop = generalPadding
                     defaultBorder()
                     padding(generalPadding)
                 }
@@ -71,20 +85,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                         detail = it
                         onItemClick = vm::onItemClick
                     }
-                }
-            }
-            styledDiv {
-                css {
-                    fillRemaining()
-                    minHeight = 200.px
-                    overflow = Overflow.auto
-                    marginTop = generalPadding
-                    padding(generalPadding)
-                    defaultBorder()
-                }
-                recipeList {
-                    list = state.recipeList.orEmpty()
-                    onItemClick = vm::onItemClick
                 }
             }
         }
