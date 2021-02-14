@@ -16,6 +16,7 @@ inline fun <T> Flow<T>.collectWithScope(
     }
 }
 
-fun <T> MutableStateFlow<T>.update(action: (T) -> T) {
+fun <T> MutableStateFlow<T>.update(action: (T) -> T): T {
     value = action(value)
+    return value
 }
