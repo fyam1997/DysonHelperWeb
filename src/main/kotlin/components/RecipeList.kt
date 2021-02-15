@@ -19,10 +19,14 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
                 borderCollapse = BorderCollapse.collapse
             }
             tbody {
-                props.list.forEach {
+                props.list.forEach { recipe ->
                     recipeRow {
-                        recipe = it
+                        this.recipe = recipe
                         onItemClick = props.onItemClick
+                        number = props.numberMap?.get(recipe)
+                        onNumberChange = {
+                            props.onNumberChange?.invoke(recipe, it)
+                        }
                     }
                 }
             }
@@ -32,6 +36,8 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
     interface Props : RProps {
         var list: List<Recipe>
         var onItemClick: (Item) -> Unit
+        var numberMap: Map<Recipe, Int>?
+        var onNumberChange: ((Recipe, Int) -> Unit)?
     }
 }
 
