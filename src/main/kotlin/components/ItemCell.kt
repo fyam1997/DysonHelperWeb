@@ -24,6 +24,7 @@ class ItemCell : RComponent<ItemCell.Props, RState>() {
                     onClickFunction = { onItemClick(item) }
                 }
                 css {
+                    userSelect = UserSelect.none
                     display = Display.flex
                     alignItems = Align.center
                     padding(1.px)

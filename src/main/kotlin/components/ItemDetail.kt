@@ -14,12 +14,14 @@ import react.dom.p
 import styled.css
 import styled.styledDiv
 import styled.styledImg
+import utils.fillRemaining
 import utils.size
 
 class ItemDetail : RComponent<ItemDetail.Props, RState>() {
     override fun RBuilder.render() {
         styledDiv {
             css {
+                fillRemaining()
                 display = Display.flex
                 flexDirection = FlexDirection.column
             }

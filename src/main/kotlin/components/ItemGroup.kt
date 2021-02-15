@@ -8,6 +8,7 @@ import react.RProps
 import react.RState
 import styled.css
 import styled.styledDiv
+import utils.fillRemaining
 import utils.forEachPair
 
 class ItemGroup : RComponent<ItemGroup.Props, RState>() {
@@ -19,6 +20,7 @@ class ItemGroup : RComponent<ItemGroup.Props, RState>() {
                 gridTemplateColumns = GridTemplateColumns("auto " * props.columnCount)
                 alignItems = Align.center
                 justifyContent = JustifyContent.center
+                fillRemaining()
             }
             props.items.forEachPair { item, num ->
                 itemCell {

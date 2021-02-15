@@ -107,7 +107,9 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
 
     private fun RBuilder.selectedRecipeColumn() {
         contentBoard(
-            fillHRemaining = false
+            marginTop = generalPadding,
+            minHeight = 200.px,
+            fillHRemaining = true
         ) {
             recipeList {
                 list = state.selectedRecipes?.keys?.toList().orEmpty()
@@ -118,6 +120,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         }
         contentBoard(
             marginTop = generalPadding,
+            maxHeight = 300.px,
             fillHRemaining = false
         ) {
             itemGroup(
@@ -155,6 +158,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 maxHeight?.let { this.maxHeight = it }
                 padding(generalPadding)
                 defaultBorder()
+                display = Display.flex
             }
             block()
         }

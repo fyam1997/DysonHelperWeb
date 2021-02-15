@@ -11,11 +11,13 @@ import react.RState
 import react.dom.tbody
 import styled.css
 import styled.styledTable
+import utils.fillRemaining
 
 class RecipeList : RComponent<RecipeList.Props, RState>() {
     override fun RBuilder.render() {
         styledTable {
             css {
+                fillRemaining()
                 borderCollapse = BorderCollapse.collapse
             }
             tbody {

@@ -12,11 +12,10 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
+import react.dom.p
 import react.dom.td
-import styled.css
-import styled.styledImg
-import styled.styledInput
-import styled.styledTr
+import styled.*
+import utils.fillRemaining
 import utils.size
 
 class RecipeRow : RComponent<RecipeRow.Props, RState>() {
@@ -24,6 +23,7 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
         with(props) {
             styledTr {
                 css {
+                    userSelect = UserSelect.none
                     borderBottomStyle = BorderStyle.solid
                     borderBottomColor = Color.darkGrey
                     borderBottomWidth = 1.px
@@ -71,9 +71,16 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                     )
                 }
                 // TODO check language here
-                td {
+                styledTd {
+                    css {
+                        fillRemaining()
+                        display = Display.flex
+                    }
                     styledImg {
-                        css { size = 32.px }
+                        css {
+                            marginLeft = LinearDimension.auto
+                            size = 32.px
+                        }
                         attrs {
                             src = recipe.facility.iconPath
                             // TODO check language here
@@ -81,8 +88,8 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                             title = recipe.facility.name
                         }
                     }
+                    p { +"${recipe.time}s" }
                 }
-                td { +"${recipe.time}s" }
             }
         }
     }
