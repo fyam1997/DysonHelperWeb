@@ -13,6 +13,7 @@ import react.RState
 import react.dom.tbody
 import react.dom.td
 import styled.*
+import utils.forEachPair
 import utils.size
 
 class RecipeList : RComponent<RecipeList.Props, RState>() {
@@ -57,7 +58,7 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
                     }
                 }
             }
-            td { +recipe.time.toString() }
+            td { +"${recipe.time}s" }
         }
     }
 
@@ -70,24 +71,29 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
         styledTd {
             styledDiv {
                 css {
-                    minWidth = 32.px * columnCount
                     height = LinearDimension.auto
                     display = Display.grid
                     gridTemplateColumns = GridTemplateColumns("auto " * columnCount)
                     alignItems = Align.center
                     justifyContent = JustifyContent.center
                 }
-                items.forEach {
-                    val item = it.key
-                    styledImg {
-                        css { size = 32.px }
-                        attrs {
-                            src = item.iconPath
-                            // TODO check language here
-                            alt = item.name
-                            title = item.name
-                            onClickFunction = { onItemClick(item) }
+                items.forEachPair { item, num ->
+                    styledDiv {
+                        css {
+                            display = Display.flex
+                            verticalAlign = VerticalAlign.bottom
                         }
+                        styledImg {
+                            css { size = 32.px }
+                            attrs {
+                                src = item.iconPath
+                                // TODO check language here
+                                alt = item.name
+                                title = item.name
+                                onClickFunction = { onItemClick(item) }
+                            }
+                        }
+                        styledP { +num.toString() }
                     }
                 }
             }
