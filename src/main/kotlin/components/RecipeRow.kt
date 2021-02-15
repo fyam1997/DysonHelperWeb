@@ -1,22 +1,20 @@
 package components
 
 import kotlinx.css.*
-import kotlinx.html.HtmlTagMarker
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
-import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onDoubleClickFunction
 import kotlinx.html.title
 import model.Item
 import model.Recipe
-import org.w3c.dom.HTMLInputElement
 import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
 import react.dom.td
 import styled.*
-import utils.forEachPair
+import utils.fillRemaining
+import utils.inputValue
 import utils.size
 
 class RecipeRow : RComponent<RecipeRow.Props, RState>() {
@@ -24,6 +22,7 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
         with(props) {
             styledTr {
                 css {
+                    userSelect = UserSelect.none
                     borderBottomStyle = BorderStyle.solid
                     borderBottomColor = Color.darkGrey
                     borderBottomWidth = 1.px
@@ -48,20 +47,39 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                                 step = "1"
                                 onChangeFunction = {
                                     onNumberChange?.invoke(
-                                        (it.target as HTMLInputElement).value.toFloatOrNull()?.toInt() ?: 0
+                                        it.inputValue.toFloatOrNull()?.toInt() ?: 0
                                     )
                                 }
                             }
                         }
                     }
                 }
-                itemCellView(recipe.outputs, onItemClick, 2)
-                td { +"←" }
-                itemCellView(recipe.inputs, onItemClick, 3)
-                // TODO check language here
                 td {
+                    itemGroup {
+                        items = recipe.outputs
+                        onItemClick = props.onItemClick
+                        columnCount = 3
+                    }
+                }
+                td { +"←" }
+                td {
+                    itemGroup {
+                        items = recipe.inputs
+                        onItemClick = props.onItemClick
+                        columnCount = 3
+                    }
+                }
+                // TODO check language here
+                styledTd {
+                    css {
+                        fillRemaining()
+                        display = Display.flex
+                    }
                     styledImg {
-                        css { size = 32.px }
+                        css {
+                            marginLeft = LinearDimension.auto
+                            size = 32.px
+                        }
                         attrs {
                             src = recipe.facility.iconPath
                             // TODO check language here
@@ -71,44 +89,6 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                     }
                 }
                 td { +"${recipe.time}s" }
-            }
-        }
-    }
-
-    @HtmlTagMarker
-    private fun RBuilder.itemCellView(
-        items: Map<Item, Int>,
-        onItemClick: (Item) -> Unit,
-        columnCount: Int
-    ) {
-        styledTd {
-            styledDiv {
-                css {
-                    height = LinearDimension.auto
-                    display = Display.grid
-                    gridTemplateColumns = GridTemplateColumns("auto " * columnCount)
-                    alignItems = Align.center
-                    justifyContent = JustifyContent.center
-                }
-                items.forEachPair { item, num ->
-                    styledDiv {
-                        css {
-                            display = Display.flex
-                            verticalAlign = VerticalAlign.bottom
-                        }
-                        styledImg {
-                            css { size = 32.px }
-                            attrs {
-                                src = item.iconPath
-                                // TODO check language here
-                                alt = item.name
-                                title = item.name
-                                onClickFunction = { onItemClick(item) }
-                            }
-                        }
-                        styledP { +num.toString() }
-                    }
-                }
             }
         }
     }
