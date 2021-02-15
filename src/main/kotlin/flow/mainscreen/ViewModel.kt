@@ -66,6 +66,17 @@ class ViewModel(
         updateBalance()
     }
 
+    fun selectRecipeNumber(recipe: Recipe) {
+        selectedRecipes.update { map ->
+            map.copy {
+                editOrPut(recipe, 0) { it + 1 }
+            }.filter {
+                it.value != 0
+            }
+        }
+        updateBalance()
+    }
+
     private fun updateBalance() {
         val newItemBalance = mutableMapOf<Item, Float>()
         val newFacilityRequirement = mutableMapOf<Item, Int>()

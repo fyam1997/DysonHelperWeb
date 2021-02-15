@@ -87,6 +87,9 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 recipeList {
                     list = state.recipeList.orEmpty()
                     onItemClick = vm::onItemClick
+                    onRecipeDoubleClick = {
+                        vm.selectRecipeNumber(it)
+                    }
                 }
             }
             styledDiv {
@@ -125,10 +128,12 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                     defaultBorder()
                     padding(generalPadding)
                 }
-                state.itemDetail?.let {
+                state.selectedRecipes?.let {
                     recipeList {
                         list = state.recipeList.orEmpty()
                         onItemClick = vm::onItemClick
+                        numberMap = it
+                        onNumberChange = vm::selectRecipeNumber
                     }
                 }
             }
