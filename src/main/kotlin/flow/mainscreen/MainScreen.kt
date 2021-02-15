@@ -4,10 +4,14 @@ import components.itemDetail
 import components.recipeList
 import kotlinx.css.*
 import kotlinx.html.js.onChangeFunction
+import model.Item
 import model.ItemDetailModel
 import model.Recipe
 import org.w3c.dom.HTMLInputElement
-import react.*
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
 import react.dom.br
 import react.dom.p
 import styled.css
@@ -50,12 +54,8 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     }
 
     private fun observeData() {
-        vm.recipes.collectWithScope {
-            setState { recipeList = it }
-        }
-        vm.focusingItem.collectWithScope {
-            setState { itemDetail = it }
-        }
+        collectToState(vm.recipes) { recipeList = it }
+        collectToState(vm.focusingItem) { itemDetail = it }
     }
 
     private fun RBuilder.recipeListColumn() {
