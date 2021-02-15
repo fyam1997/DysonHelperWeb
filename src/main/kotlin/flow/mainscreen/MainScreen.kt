@@ -45,6 +45,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                     time unit
                     dark mode
                     migrate to kotlin-multiplatform
+                    requirement group
                 """.trimIndent().split("\n").forEach {
                     +it
                     br {}
