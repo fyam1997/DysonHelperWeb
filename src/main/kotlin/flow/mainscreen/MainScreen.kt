@@ -105,6 +105,9 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                     itemDetail {
                         detail = it
                         onItemClick = vm::onItemClick
+                        onRecipeDoubleClick = {
+                            vm.selectRecipeNumber(it)
+                        }
                     }
                 }
             }
