@@ -18,7 +18,8 @@ fun CSSBuilder.fillRemaining() = flex(flexGrow = 1.0, flexShrink = 1.0, flexBasi
 fun CSSBuilder.defaultBorder() = border(
     width = 2.px,
     style = BorderStyle.solid,
-    color = Color.darkGrey
+    color = Color.darkGrey,
+    borderRadius = 8.px
 )
 
 val generalPadding get() = 8.px

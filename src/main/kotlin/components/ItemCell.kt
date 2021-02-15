@@ -31,7 +31,8 @@ class ItemCell : RComponent<ItemCell.Props, RState>() {
                         border(
                             width = 1.px,
                             style = BorderStyle.solid,
-                            color = Color.grey
+                            color = Color.grey,
+                            borderRadius = 4.px
                         )
                     }
                 }
