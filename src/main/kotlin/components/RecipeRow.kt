@@ -5,6 +5,7 @@ import kotlinx.html.HtmlTagMarker
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
+import kotlinx.html.js.onDoubleClickFunction
 import kotlinx.html.title
 import model.Item
 import model.Recipe
@@ -28,6 +29,11 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                     borderBottomWidth = 1.px
                     hover {
                         background = Color.aliceBlue.value
+                    }
+                }
+                attrs {
+                    onDoubleClickFunction = {
+                        onRecipeDoubleClick?.invoke(props.recipe)
                     }
                 }
                 number?.let {
@@ -109,6 +115,7 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
 
     interface Props : RProps {
         var recipe: Recipe
+        var onRecipeDoubleClick: ((Recipe) -> Unit)?
         var onItemClick: (Item) -> Unit
         var number: Int?
         var onNumberChange: ((Int) -> Unit)?

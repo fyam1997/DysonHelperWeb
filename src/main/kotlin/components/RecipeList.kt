@@ -23,6 +23,7 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
                     recipeRow {
                         this.recipe = recipe
                         onItemClick = props.onItemClick
+                        onRecipeDoubleClick = props.onRecipeDoubleClick
                         number = props.numberMap?.get(recipe)
                         onNumberChange = {
                             props.onNumberChange?.invoke(recipe, it)
@@ -38,6 +39,7 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
         var onItemClick: (Item) -> Unit
         var numberMap: Map<Recipe, Int>?
         var onNumberChange: ((Recipe, Int) -> Unit)?
+        var onRecipeDoubleClick: ((Recipe) -> Unit)?
     }
 }
 
