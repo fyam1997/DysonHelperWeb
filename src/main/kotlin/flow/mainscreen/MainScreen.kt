@@ -97,7 +97,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 css {
                     wrapContent()
                     overflow = Overflow.auto
-                    maxHeight = 40.pct
+                    maxHeight = 300.px
                     marginTop = generalPadding
                     defaultBorder()
                     padding(generalPadding)
