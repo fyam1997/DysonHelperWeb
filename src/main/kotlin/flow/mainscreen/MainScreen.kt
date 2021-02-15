@@ -1,13 +1,19 @@
 package flow.mainscreen
 
+import components.balanceCell
 import components.itemDetail
 import components.recipeList
 import kotlinx.css.*
+import kotlinx.html.DIV
 import kotlinx.html.js.onChangeFunction
+import model.Item
 import model.ItemDetailModel
 import model.Recipe
 import org.w3c.dom.HTMLInputElement
 import react.*
+import react.dom.br
+import react.dom.p
+import styled.StyledDOMBuilder
 import styled.css
 import styled.styledDiv
 import styled.styledInput
@@ -29,80 +35,143 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 height = 100.vh
                 width = 100.vw
             }
-            recipeListColumn()
-            styledDiv {
-                css {
-                    size = 200.px
-                    background = Color.indianRed.value
-                }
-            }
-            styledDiv {
-                css {
-                    size = 200.px
-                    background = Color.lawnGreen.value
+            column { recipeListColumn() }
+            column { selectedRecipeColumn() }
+            column {
+                p {
+                    """
+                    TODO
+                    make empty state for detail and selected recipes
+                    locale
+                    time unit
+                    dark mode
+                    migrate to kotlin-multiplatform
+                    add buildSrc module and global version 
+                    requirement group
+                    component constructor
+                """.trimIndent().split("\n").forEach {
+                        +it
+                        br {}
+                    }
                 }
             }
         }
     }
 
     private fun observeData() {
-        vm.recipes.collectWithScope {
-            setState { recipeList = it }
-        }
-        vm.focusingItem.collectWithScope {
-            setState { itemDetail = it }
-        }
+        collectToState(vm.recipes) { recipeList = it }
+        collectToState(vm.focusingItem) { itemDetail = it }
+        collectToState(vm.selectedRecipes) { selectedRecipes = it }
+        collectToState(vm.itemBalance) { itemBalance = it }
+        collectToState(vm.facilityRequirement) { facilityRequirement = it }
     }
 
     private fun RBuilder.recipeListColumn() {
+        styledInput {
+            attrs {
+                onChangeFunction = {
+                    vm.onFilterTextChange((it.target as HTMLInputElement).value)
+                }
+            }
+        }
+        contentBoard(
+            marginTop = generalPadding,
+            minHeight = 200.px,
+            fillHRemaining = true
+        ) {
+            recipeList {
+                list = state.recipeList.orEmpty()
+                onItemClick = vm::onItemClick
+                onRecipeDoubleClick = {
+                    vm.selectRecipeNumber(it)
+                }
+            }
+        }
+        contentBoard(
+            marginTop = generalPadding,
+            maxHeight = 300.px,
+            fillHRemaining = false
+        ) {
+            state.itemDetail?.let {
+                itemDetail {
+                    detail = it
+                    onItemClick = vm::onItemClick
+                    onRecipeDoubleClick = {
+                        vm.selectRecipeNumber(it)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun RBuilder.selectedRecipeColumn() {
+        contentBoard(
+            marginTop = generalPadding,
+            minHeight = 200.px,
+            fillHRemaining = true
+        ) {
+            recipeList {
+                list = state.selectedRecipes?.keys?.toList().orEmpty()
+                onItemClick = vm::onItemClick
+                numberMap = state.selectedRecipes
+                onNumberChange = vm::selectRecipeNumber
+            }
+        }
+        contentBoard(
+            marginTop = generalPadding,
+            maxHeight = 300.px,
+            fillHRemaining = false
+        ) {
+            balanceCell {
+                balanceSecond = state.balanceSecond ?: 1
+                itemBalance = state.itemBalance
+                onItemClick = vm::onItemClick
+                onBalanceSecondChange = {
+                    setState { balanceSecond = it }
+                }
+            }
+        }
+    }
+
+    private fun RBuilder.column(block: StyledDOMBuilder<DIV>.() -> Unit) {
         styledDiv {
             css {
                 display = Display.flex
                 flexDirection = FlexDirection.column
                 margin(all = generalPadding)
             }
-            styledInput {
-                attrs {
-                    onChangeFunction = {
-                        vm.onFilterTextChange((it.target as HTMLInputElement).value)
-                    }
-                }
+            block()
+        }
+    }
+
+    private fun RBuilder.contentBoard(
+        fillHRemaining: Boolean = false,
+        marginTop: LinearDimension? = null,
+        minHeight: LinearDimension? = null,
+        maxHeight: LinearDimension? = null,
+        block: StyledDOMBuilder<DIV>.() -> Unit
+    ) {
+        styledDiv {
+            css {
+                if (fillHRemaining) fillRemaining() else wrapContent()
+                overflow = Overflow.auto
+                marginTop?.let { this.marginTop = it }
+                minHeight?.let { this.minHeight = it }
+                maxHeight?.let { this.maxHeight = it }
+                padding(generalPadding)
+                defaultBorder()
+                display = Display.flex
             }
-            styledDiv {
-                css {
-                    fillRemaining()
-                    minHeight = 200.px
-                    overflow = Overflow.auto
-                    marginTop = generalPadding
-                    padding(generalPadding)
-                    defaultBorder()
-                }
-                recipeList {
-                    list = state.recipeList.orEmpty()
-                    onItemClick = vm::onItemClick
-                }
-            }
-            styledDiv {
-                css {
-                    wrapContent()
-                    overflow = Overflow.auto
-                    maxHeight = 40.pct
-                    marginTop = generalPadding
-                    defaultBorder()
-                    padding(generalPadding)
-                }
-                state.itemDetail?.let {
-                    itemDetail {
-                        detail = it
-                        onItemClick = vm::onItemClick
-                    }
-                }
-            }
+            block()
         }
     }
 
     interface State : RState {
         var recipeList: List<Recipe>?
         var itemDetail: ItemDetailModel?
+        var selectedRecipes: Map<Recipe, Int>?
+        var itemBalance: Map<Item, kotlin.Float>?
+        var facilityRequirement: Map<Item, Int>?
+        var balanceSecond: Int?
     }
 }
