@@ -47,6 +47,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                     dark mode
                     migrate to kotlin-multiplatform
                     requirement group
+                    component constructor
                 """.trimIndent().split("\n").forEach {
                         +it
                         br {}
