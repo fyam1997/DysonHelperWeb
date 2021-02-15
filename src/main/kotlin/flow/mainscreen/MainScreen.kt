@@ -74,15 +74,11 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 }
             }
         }
-        styledDiv {
-            css {
-                fillRemaining()
-                minHeight = 200.px
-                overflow = Overflow.auto
-                marginTop = generalPadding
-                padding(generalPadding)
-                defaultBorder()
-            }
+        contentBoard(
+            marginTop = generalPadding,
+            minHeight = 200.px,
+            fillHRemaining = true
+        ) {
             recipeList {
                 list = state.recipeList.orEmpty()
                 onItemClick = vm::onItemClick
@@ -91,15 +87,11 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 }
             }
         }
-        styledDiv {
-            css {
-                wrapContent()
-                overflow = Overflow.auto
-                maxHeight = 300.px
-                marginTop = generalPadding
-                defaultBorder()
-                padding(generalPadding)
-            }
+        contentBoard(
+            marginTop = generalPadding,
+            maxHeight = 300.px,
+            fillHRemaining = false
+        ) {
             state.itemDetail?.let {
                 itemDetail {
                     detail = it
@@ -113,14 +105,10 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     }
 
     private fun RBuilder.selectedRecipeColumn() {
-        styledDiv {
-            css {
-                fillRemaining()
-                overflow = Overflow.auto
-                marginTop = generalPadding
-                padding(generalPadding)
-                defaultBorder()
-            }
+        contentBoard(
+            marginTop = generalPadding,
+            fillHRemaining = true
+        ) {
             state.selectedRecipes?.let {
                 recipeList {
                     list = it.keys.toList()
@@ -138,6 +126,27 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 display = Display.flex
                 flexDirection = FlexDirection.column
                 margin(all = generalPadding)
+            }
+            block()
+        }
+    }
+
+    private fun RBuilder.contentBoard(
+        fillHRemaining: Boolean = false,
+        marginTop: LinearDimension? = null,
+        minHeight: LinearDimension? = null,
+        maxHeight: LinearDimension? = null,
+        block: StyledDOMBuilder<DIV>.() -> Unit
+    ) {
+        styledDiv {
+            css {
+                if (fillHRemaining) fillRemaining() else wrapContent()
+                overflow = Overflow.auto
+                marginTop?.let { this.marginTop = it }
+                minHeight?.let { this.minHeight = it }
+                maxHeight?.let { this.maxHeight = it }
+                padding(generalPadding)
+                defaultBorder()
             }
             block()
         }
