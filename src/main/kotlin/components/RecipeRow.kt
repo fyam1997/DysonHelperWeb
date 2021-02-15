@@ -7,7 +7,6 @@ import kotlinx.html.js.onDoubleClickFunction
 import kotlinx.html.title
 import model.Item
 import model.Recipe
-import org.w3c.dom.HTMLInputElement
 import react.RBuilder
 import react.RComponent
 import react.RProps
@@ -15,6 +14,7 @@ import react.RState
 import react.dom.td
 import styled.*
 import utils.fillRemaining
+import utils.inputValue
 import utils.size
 
 class RecipeRow : RComponent<RecipeRow.Props, RState>() {
@@ -47,7 +47,7 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                                 step = "1"
                                 onChangeFunction = {
                                     onNumberChange?.invoke(
-                                        (it.target as HTMLInputElement).value.toFloatOrNull()?.toInt() ?: 0
+                                        it.inputValue.toFloatOrNull()?.toInt() ?: 0
                                     )
                                 }
                             }
@@ -55,19 +55,19 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                     }
                 }
                 td {
-                    itemGroup(
-                        items = recipe.outputs,
-                        onItemClick = onItemClick,
+                    itemGroup {
+                        items = recipe.outputs
+                        onItemClick = props.onItemClick
                         columnCount = 3
-                    )
+                    }
                 }
                 td { +"←" }
                 td {
-                    itemGroup(
-                        items = recipe.inputs,
-                        onItemClick = onItemClick,
+                    itemGroup {
+                        items = recipe.inputs
+                        onItemClick = props.onItemClick
                         columnCount = 3
-                    )
+                    }
                 }
                 // TODO check language here
                 styledTd {

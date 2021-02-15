@@ -1,7 +1,7 @@
 package flow.mainscreen
 
+import components.balanceCell
 import components.itemDetail
-import components.itemGroup
 import components.recipeList
 import kotlinx.css.*
 import kotlinx.html.DIV
@@ -10,10 +10,7 @@ import model.Item
 import model.ItemDetailModel
 import model.Recipe
 import org.w3c.dom.HTMLInputElement
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.br
 import react.dom.p
 import styled.StyledDOMBuilder
@@ -123,11 +120,14 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             maxHeight = 300.px,
             fillHRemaining = false
         ) {
-            itemGroup(
-                items = state.itemBalance.orEmpty(),
-                onItemClick = vm::onItemClick,
-                columnCount = 5
-            )
+            balanceCell {
+                balanceSecond = state.balanceSecond ?: 0
+                itemBalance = state.itemBalance
+                onItemClick = vm::onItemClick
+                onBalanceSecondChange = {
+                    setState { balanceSecond = it }
+                }
+            }
         }
     }
 
@@ -170,5 +170,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         var selectedRecipes: Map<Recipe, Int>?
         var itemBalance: Map<Item, kotlin.Float>?
         var facilityRequirement: Map<Item, Int>?
+        var balanceSecond: Int?
     }
 }
