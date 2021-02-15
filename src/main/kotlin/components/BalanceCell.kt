@@ -8,10 +8,10 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.p
 import styled.css
 import styled.styledDiv
 import styled.styledInput
+import styled.styledP
 import utils.inputValue
 
 class BalanceCell : RComponent<BalanceCell.Props, RState>() {
@@ -25,27 +25,42 @@ class BalanceCell : RComponent<BalanceCell.Props, RState>() {
                 onItemClick = props.onItemClick
                 columnCount = 5
             }
-            styledDiv {
+            secondInput()
+        }
+    }
+
+    private fun RBuilder.secondInput() {
+        styledDiv {
+            css {
+                display = Display.flex
+                flexDirection = FlexDirection.row
+                alignItems = Align.center
+            }
+            styledP {
                 css {
-                    display = Display.flex
-                    flexDirection = FlexDirection.row
+                    margin(0.px)
                 }
-                p { +"每" }
-                styledInput {
-                    css {
-                        width = 64.px
-                    }
-                    attrs {
-                        value = props.balanceSecond.toString()
-                        type = InputType.number
-                        step = "1"
-                        min = "1"
-                        onChangeFunction = {
-                            props.onBalanceSecondChange(it.inputValue.toFloatOrNull()?.toInt() ?: 0)
-                        }
+                +"每"
+            }
+            styledInput {
+                css {
+                    width = 64.px
+                }
+                attrs {
+                    value = props.balanceSecond.toString()
+                    type = InputType.number
+                    step = "1"
+                    min = "1"
+                    onChangeFunction = {
+                        props.onBalanceSecondChange(it.inputValue.toFloatOrNull()?.toInt() ?: 0)
                     }
                 }
-                p { +"秒" }
+            }
+            styledP {
+                css {
+                    margin(0.px)
+                }
+                +"秒"
             }
         }
     }
