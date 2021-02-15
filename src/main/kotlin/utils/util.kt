@@ -9,4 +9,4 @@ fun <K, V> Map<K, V>.copy(action: MutableMap<K, V>.() -> Unit) = toMutableMap().
 
 fun <K, V> Map<K, V>.forEachPair(action: (K, V) -> Unit) = forEach { action(it.key, it.value) }
 
-fun <K, V> MutableMap<K, V>.editOrPut(key: K, default: V, action: (V) -> V) = put(key, get(key)?.let(action) ?: default)
+fun <K, V> MutableMap<K, V>.edit(key: K, default: V, action: (V) -> V) = put(key, (get(key) ?: default).let(action))
