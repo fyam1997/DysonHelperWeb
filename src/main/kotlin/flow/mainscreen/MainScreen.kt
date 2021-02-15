@@ -88,7 +88,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                     list = state.recipeList.orEmpty()
                     onItemClick = vm::onItemClick
                     onRecipeDoubleClick = {
-                        console.log("double click")
                         vm.selectRecipeNumber(it)
                     }
                 }

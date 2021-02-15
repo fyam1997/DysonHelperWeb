@@ -1,10 +1,8 @@
 package components
 
 import kotlinx.css.*
-import kotlinx.html.HtmlTagMarker
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
-import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onDoubleClickFunction
 import kotlinx.html.title
 import model.Item
@@ -75,7 +73,6 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
         }
     }
 
-    @HtmlTagMarker
     private fun RBuilder.itemCellView(
         items: Map<Item, Int>,
         onItemClick: (Item) -> Unit,
@@ -91,22 +88,10 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                     justifyContent = JustifyContent.center
                 }
                 items.forEachPair { item, num ->
-                    styledDiv {
-                        css {
-                            display = Display.flex
-                            verticalAlign = VerticalAlign.bottom
-                        }
-                        styledImg {
-                            css { size = 32.px }
-                            attrs {
-                                src = item.iconPath
-                                // TODO check language here
-                                alt = item.name
-                                title = item.name
-                                onClickFunction = { onItemClick(item) }
-                            }
-                        }
-                        styledP { +num.toString() }
+                    itemCell {
+                        this.item = item
+                        this.onItemClick = onItemClick
+                        number = num
                     }
                 }
             }
