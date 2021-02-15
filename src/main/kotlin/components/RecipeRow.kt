@@ -13,8 +13,10 @@ import react.RComponent
 import react.RProps
 import react.RState
 import react.dom.td
-import styled.*
-import utils.forEachPair
+import styled.css
+import styled.styledImg
+import styled.styledInput
+import styled.styledTr
 import utils.size
 
 class RecipeRow : RComponent<RecipeRow.Props, RState>() {
@@ -53,9 +55,17 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                         }
                     }
                 }
-                itemCellView(recipe.outputs, onItemClick, 2)
+                itemGroup {
+                    items = recipe.outputs
+                    onItemClick = onItemClick
+                    columnCount = 2
+                }
                 td { +"←" }
-                itemCellView(recipe.inputs, onItemClick, 3)
+                itemGroup {
+                    items = recipe.inputs
+                    onItemClick = onItemClick
+                    columnCount = 2
+                }
                 // TODO check language here
                 td {
                     styledImg {
@@ -69,31 +79,6 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                     }
                 }
                 td { +"${recipe.time}s" }
-            }
-        }
-    }
-
-    private fun RBuilder.itemCellView(
-        items: Map<Item, Int>,
-        onItemClick: (Item) -> Unit,
-        columnCount: Int
-    ) {
-        styledTd {
-            styledDiv {
-                css {
-                    height = LinearDimension.auto
-                    display = Display.grid
-                    gridTemplateColumns = GridTemplateColumns("auto " * columnCount)
-                    alignItems = Align.center
-                    justifyContent = JustifyContent.center
-                }
-                items.forEachPair { item, num ->
-                    itemCell {
-                        this.item = item
-                        this.onItemClick = onItemClick
-                        number = num
-                    }
-                }
             }
         }
     }
