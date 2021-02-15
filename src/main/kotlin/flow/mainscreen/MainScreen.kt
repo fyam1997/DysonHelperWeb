@@ -109,26 +109,22 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         contentBoard(
             fillHRemaining = false
         ) {
-            state.selectedRecipes?.let {
-                recipeList {
-                    list = it.keys.toList()
-                    onItemClick = vm::onItemClick
-                    numberMap = it
-                    onNumberChange = vm::selectRecipeNumber
-                }
+            recipeList {
+                list = state.selectedRecipes?.keys?.toList().orEmpty()
+                onItemClick = vm::onItemClick
+                numberMap = state.selectedRecipes
+                onNumberChange = vm::selectRecipeNumber
             }
         }
         contentBoard(
             marginTop = generalPadding,
             fillHRemaining = false
         ) {
-            state.selectedRecipes?.let {
-                itemGroup(
-                    items = state.itemBalance.orEmpty(),
-                    onItemClick = vm::onItemClick,
-                    columnCount = 5
-                )
-            }
+            itemGroup(
+                items = state.itemBalance.orEmpty(),
+                onItemClick = vm::onItemClick,
+                columnCount = 5
+            )
         }
     }
 
