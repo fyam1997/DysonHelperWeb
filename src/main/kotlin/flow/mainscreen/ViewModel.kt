@@ -6,13 +6,17 @@ import kotlinx.coroutines.launch
 import model.Item
 import model.ItemDetailModel
 import model.Recipe
-import utils.doIf
+import utils.*
 
 class ViewModel(
     private val jsonRepo: JsonRepository
 ) {
     private val originRecipes = MutableStateFlow(emptyList<Recipe>())
     val recipes = MutableStateFlow(emptyList<Recipe>())
+
+    val selectedRecipes = MutableStateFlow(emptyMap<Recipe, Int>())
+    val itemBalance = MutableStateFlow(emptyMap<Item, Float>())
+    val facilityRequirement = MutableStateFlow(emptyMap<Item, Int>())
 
     val focusingItem = MutableStateFlow<ItemDetailModel?>(null)
 
@@ -49,6 +53,50 @@ class ViewModel(
                 }
             }
         }
+    }
+
+    fun selectRecipeNumber(recipe: Recipe, number: Int) {
+        selectedRecipes.update { map ->
+            map.copy {
+                put(recipe, number)
+            }.filter {
+                it.value != 0
+            }
+        }
+        updateBalance()
+    }
+
+    fun selectRecipeNumber(recipe: Recipe) {
+        selectedRecipes.update { map ->
+            map.copy {
+                edit(recipe, 0) { it + 1 }
+            }.filter {
+                it.value != 0
+            }
+        }
+        updateBalance()
+    }
+
+    private fun updateBalance() {
+        val newItemBalance = mutableMapOf<Item, Float>()
+        val newFacilityRequirement = mutableMapOf<Item, Int>()
+        selectedRecipes.value.forEachPair { recipe, recipeNum ->
+            recipe.inputs.forEachPair { item, number ->
+                newItemBalance.edit(item, 0f) {
+                    it - number.toFloat() * recipeNum / recipe.time
+                }
+            }
+            recipe.outputs.forEachPair { item, number ->
+                newItemBalance.edit(item, 0f) {
+                    it + number.toFloat() * recipeNum / recipe.time
+                }
+            }
+            newFacilityRequirement.edit(recipe.facility, 0) {
+                it + recipeNum
+            }
+        }
+        itemBalance.value = newItemBalance
+        facilityRequirement.value = newFacilityRequirement
     }
 
     class RecipeFactory(

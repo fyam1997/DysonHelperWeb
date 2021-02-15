@@ -4,10 +4,16 @@ import components.itemDetail
 import components.recipeList
 import kotlinx.css.*
 import kotlinx.html.js.onChangeFunction
+import model.Item
 import model.ItemDetailModel
 import model.Recipe
 import org.w3c.dom.HTMLInputElement
-import react.*
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
+import react.dom.br
+import react.dom.p
 import styled.css
 import styled.styledDiv
 import styled.styledInput
@@ -30,28 +36,29 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 width = 100.vw
             }
             recipeListColumn()
-            styledDiv {
-                css {
-                    size = 200.px
-                    background = Color.indianRed.value
-                }
-            }
-            styledDiv {
-                css {
-                    size = 200.px
-                    background = Color.lawnGreen.value
+            selectedRecipeColumn()
+            p {
+                """
+                    TODO
+                    make empty state for detail and selected recipes
+                    locale
+                    time unit
+                    dark mode
+                    migrate to kotlin-multiplatform
+                """.trimIndent().split("\n").forEach {
+                    +it
+                    br {}
                 }
             }
         }
     }
 
     private fun observeData() {
-        vm.recipes.collectWithScope {
-            setState { recipeList = it }
-        }
-        vm.focusingItem.collectWithScope {
-            setState { itemDetail = it }
-        }
+        collectToState(vm.recipes) { recipeList = it }
+        collectToState(vm.focusingItem) { itemDetail = it }
+        collectToState(vm.selectedRecipes) { selectedRecipes = it }
+        collectToState(vm.itemBalance) { itemBalance = it }
+        collectToState(vm.facilityRequirement) { facilityRequirement = it }
     }
 
     private fun RBuilder.recipeListColumn() {
@@ -80,6 +87,10 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 recipeList {
                     list = state.recipeList.orEmpty()
                     onItemClick = vm::onItemClick
+                    onRecipeDoubleClick = {
+                        console.log("double click")
+                        vm.selectRecipeNumber(it)
+                    }
                 }
             }
             styledDiv {
@@ -101,8 +112,39 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         }
     }
 
+    private fun RBuilder.selectedRecipeColumn() {
+        styledDiv {
+            css {
+                display = Display.flex
+                flexDirection = FlexDirection.column
+                margin(all = generalPadding)
+            }
+            styledDiv {
+                css {
+                    wrapContent()
+                    overflow = Overflow.auto
+                    maxHeight = 40.pct
+                    marginTop = generalPadding
+                    defaultBorder()
+                    padding(generalPadding)
+                }
+                state.selectedRecipes?.let {
+                    recipeList {
+                        list = it.keys.toList()
+                        onItemClick = vm::onItemClick
+                        numberMap = it
+                        onNumberChange = vm::selectRecipeNumber
+                    }
+                }
+            }
+        }
+    }
+
     interface State : RState {
         var recipeList: List<Recipe>?
         var itemDetail: ItemDetailModel?
+        var selectedRecipes: Map<Recipe, Int>?
+        var itemBalance: Map<Item, kotlin.Float>?
+        var facilityRequirement: Map<Item, Int>?
     }
 }
