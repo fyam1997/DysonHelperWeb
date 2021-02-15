@@ -32,14 +32,14 @@ class ItemGroup : RComponent<ItemGroup.Props, RState>() {
     }
 
     interface Props : RProps {
-        var items: Map<Item, Int>
+        var items: Map<Item, Number>
         var onItemClick: (Item) -> Unit
         var columnCount: Int
     }
 }
 
 fun RBuilder.itemGroup(
-    items: Map<Item, Int>,
+    items: Map<Item, Number>,
     onItemClick: (Item) -> Unit,
     columnCount: Int
 ) = child(ItemGroup::class) {

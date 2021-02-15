@@ -1,6 +1,7 @@
 package flow.mainscreen
 
 import components.itemDetail
+import components.itemGroup
 import components.recipeList
 import kotlinx.css.*
 import kotlinx.html.DIV
@@ -106,8 +107,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
 
     private fun RBuilder.selectedRecipeColumn() {
         contentBoard(
-            marginTop = generalPadding,
-            fillHRemaining = true
+            fillHRemaining = false
         ) {
             state.selectedRecipes?.let {
                 recipeList {
@@ -116,6 +116,18 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                     numberMap = it
                     onNumberChange = vm::selectRecipeNumber
                 }
+            }
+        }
+        contentBoard(
+            marginTop = generalPadding,
+            fillHRemaining = false
+        ) {
+            state.selectedRecipes?.let {
+                itemGroup(
+                    items = state.itemBalance.orEmpty(),
+                    onItemClick = vm::onItemClick,
+                    columnCount = 5
+                )
             }
         }
     }

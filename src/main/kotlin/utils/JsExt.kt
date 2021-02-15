@@ -13,3 +13,7 @@ suspend fun Window.fetString(url: String): String {
 inline fun <reified T> String.decodeToJson(): T {
     return Json.decodeFromString(this)
 }
+
+external fun parseFloat(num: dynamic): dynamic
+
+fun Number.roundTo(decimalPlace: Int): String = parseFloat(asDynamic().toFixed(decimalPlace)).unsafeCast<String>()

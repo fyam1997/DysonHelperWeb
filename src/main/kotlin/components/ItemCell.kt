@@ -13,6 +13,7 @@ import styled.css
 import styled.styledDiv
 import styled.styledImg
 import styled.styledP
+import utils.roundTo
 import utils.size
 
 class ItemCell : RComponent<ItemCell.Props, RState>() {
@@ -45,7 +46,9 @@ class ItemCell : RComponent<ItemCell.Props, RState>() {
                         title = item.name
                     }
                 }
-                styledP { +number.toString() }
+                styledP {
+                    +number.roundTo(2)
+                }
             }
         }
     }
@@ -53,7 +56,7 @@ class ItemCell : RComponent<ItemCell.Props, RState>() {
     interface Props : RProps {
         var item: Item
         var onItemClick: (Item) -> Unit
-        var number: Int
+        var number: Number
     }
 }
 
