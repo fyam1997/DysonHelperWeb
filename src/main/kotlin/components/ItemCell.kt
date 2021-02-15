@@ -1,6 +1,7 @@
 package components
 
 import kotlinx.css.*
+import kotlinx.css.properties.border
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.title
 import model.Item
@@ -23,7 +24,16 @@ class ItemCell : RComponent<ItemCell.Props, RState>() {
                 }
                 css {
                     display = Display.flex
-                    verticalAlign = VerticalAlign.bottom
+                    alignItems = Align.center
+                    padding(1.px)
+                    hover {
+                        padding(0.px)
+                        border(
+                            width = 1.px,
+                            style = BorderStyle.solid,
+                            color = Color.grey
+                        )
+                    }
                 }
                 styledImg {
                     css { size = 32.px }
