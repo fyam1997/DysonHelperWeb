@@ -6,9 +6,7 @@ import kotlinx.coroutines.launch
 import model.Item
 import model.ItemDetailModel
 import model.Recipe
-import utils.copy
-import utils.doIf
-import utils.update
+import utils.*
 
 class ViewModel(
     private val jsonRepo: JsonRepository
@@ -17,6 +15,8 @@ class ViewModel(
     val recipes = MutableStateFlow(emptyList<Recipe>())
 
     val selectedRecipes = MutableStateFlow(emptyMap<Recipe, Int>())
+    val itemBalance = MutableStateFlow(emptyMap<Item, Float>())
+    val facilityRequirement = MutableStateFlow(emptyMap<Item, Int>())
 
     val focusingItem = MutableStateFlow<ItemDetailModel?>(null)
 
@@ -63,6 +63,29 @@ class ViewModel(
                 it.value != 0
             }
         }
+        updateBalance()
+    }
+
+    private fun updateBalance() {
+        val newItemBalance = mutableMapOf<Item, Float>()
+        val newFacilityRequirement = mutableMapOf<Item, Int>()
+        selectedRecipes.value.forEachPair { recipe, recipeNum ->
+            recipe.inputs.forEachPair { item, number ->
+                newItemBalance.editOrPut(item, 0f) {
+                    it - number.toFloat() * recipeNum / recipe.time
+                }
+            }
+            recipe.outputs.forEachPair { item, number ->
+                newItemBalance.editOrPut(item, 0f) {
+                    it + number.toFloat() * recipeNum / recipe.time
+                }
+            }
+            newFacilityRequirement.editOrPut(recipe.facility, 0) {
+                it + recipeNum
+            }
+        }
+        itemBalance.value = newItemBalance
+        facilityRequirement.value = newFacilityRequirement
     }
 
     class RecipeFactory(
