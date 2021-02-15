@@ -12,7 +12,6 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.p
 import react.dom.td
 import styled.*
 import utils.fillRemaining
@@ -59,7 +58,7 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                     itemGroup(
                         items = recipe.outputs,
                         onItemClick = onItemClick,
-                        columnCount = 2
+                        columnCount = 3
                     )
                 }
                 td { +"←" }
@@ -67,7 +66,7 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                     itemGroup(
                         items = recipe.inputs,
                         onItemClick = onItemClick,
-                        columnCount = 2
+                        columnCount = 3
                     )
                 }
                 // TODO check language here
@@ -88,8 +87,8 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                             title = recipe.facility.name
                         }
                     }
-                    p { +"${recipe.time}s" }
                 }
+                td { +"${recipe.time}s" }
             }
         }
     }
