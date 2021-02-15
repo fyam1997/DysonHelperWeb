@@ -2,10 +2,13 @@ package components
 
 import kotlinx.css.*
 import kotlinx.html.HtmlTagMarker
+import kotlinx.html.InputType
+import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.title
 import model.Item
 import model.Recipe
+import org.w3c.dom.HTMLInputElement
 import react.RBuilder
 import react.RComponent
 import react.RProps
@@ -24,7 +27,7 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
             }
             tbody {
                 props.list.forEach { recipe ->
-                    recipeRowView(recipe, props.onItemClick)
+                    recipeRowView(recipe, props.onItemClick, props.onNumberChange)
                 }
             }
         }
@@ -32,7 +35,8 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
 
     private fun RBuilder.recipeRowView(
         recipe: Recipe,
-        onItemClick: (Item) -> Unit
+        onItemClick: (Item) -> Unit,
+        onNumberChange: ((Item, Int) -> Unit)?
     ) {
         styledTr {
             css {
@@ -43,9 +47,26 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
                     background = Color.aliceBlue.value
                 }
             }
-            itemCellView(recipe.outputs, onItemClick, 2)
+            onNumberChange?.let {
+                td {
+                    styledInput {
+                        css {
+                            width = 64.px
+                        }
+                        attrs {
+                            type = InputType.number
+                            max = "100"
+                            min = "0"
+                            onChangeFunction = {
+                                (it.target as HTMLInputElement).value
+                            }
+                        }
+                    }
+                }
+            }
+            itemCellView(recipe.outputs, onItemClick, onNumberChange, 2)
             td { +"←" }
-            itemCellView(recipe.inputs, onItemClick, 3)
+            itemCellView(recipe.inputs, onItemClick, onNumberChange, 3)
             // TODO check language here
             td {
                 styledImg {
@@ -66,6 +87,7 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
     private fun RBuilder.itemCellView(
         items: Map<Item, Int>,
         onItemClick: (Item) -> Unit,
+        onNumberChange: ((Item, Int) -> Unit)?,
         columnCount: Int
     ) {
         styledTd {
@@ -103,6 +125,7 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
     interface Props : RProps {
         var list: List<Recipe>
         var onItemClick: (Item) -> Unit
+        var onNumberChange: ((Item, Int) -> Unit)?
     }
 }
 
