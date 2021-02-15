@@ -55,16 +55,20 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                         }
                     }
                 }
-                itemGroup {
-                    items = recipe.outputs
-                    onItemClick = onItemClick
-                    columnCount = 2
+                td {
+                    itemGroup(
+                        items = recipe.outputs,
+                        onItemClick = onItemClick,
+                        columnCount = 2
+                    )
                 }
                 td { +"←" }
-                itemGroup {
-                    items = recipe.inputs
-                    onItemClick = onItemClick
-                    columnCount = 2
+                td {
+                    itemGroup(
+                        items = recipe.inputs,
+                        onItemClick = onItemClick,
+                        columnCount = 2
+                    )
                 }
                 // TODO check language here
                 td {
