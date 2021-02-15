@@ -122,7 +122,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             fillHRemaining = false
         ) {
             balanceCell {
-                balanceSecond = state.balanceSecond ?: 0
+                balanceSecond = state.balanceSecond ?: 1
                 itemBalance = state.itemBalance
                 onItemClick = vm::onItemClick
                 onBalanceSecondChange = {
