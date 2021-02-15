@@ -56,6 +56,9 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     private fun observeData() {
         collectToState(vm.recipes) { recipeList = it }
         collectToState(vm.focusingItem) { itemDetail = it }
+        collectToState(vm.selectedRecipes) { selectedRecipes = it }
+        collectToState(vm.itemBalance) { itemBalance = it }
+        collectToState(vm.facilityRequirement) { facilityRequirement = it }
     }
 
     private fun RBuilder.recipeListColumn() {
@@ -113,11 +116,30 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 margin(all = generalPadding)
                 defaultBorder()
             }
+            styledDiv {
+                css {
+                    wrapContent()
+                    overflow = Overflow.auto
+                    maxHeight = 40.pct
+                    marginTop = generalPadding
+                    defaultBorder()
+                    padding(generalPadding)
+                }
+                state.itemDetail?.let {
+                    recipeList {
+                        list = state.recipeList.orEmpty()
+                        onItemClick = vm::onItemClick
+                    }
+                }
+            }
         }
     }
 
     interface State : RState {
         var recipeList: List<Recipe>?
         var itemDetail: ItemDetailModel?
+        var selectedRecipes: Map<Recipe, Int>?
+        var itemBalance: Map<Item, kotlin.Float>?
+        var facilityRequirement: Map<Item, Int>?
     }
 }
