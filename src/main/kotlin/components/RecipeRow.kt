@@ -37,17 +37,13 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                                 width = 64.px
                             }
                             attrs {
-                                value = it.toString()
+                                value = number?.toString() ?: ""
                                 type = InputType.number
-                                max = "100"
-                                min = "0"
                                 step = "1"
                                 onChangeFunction = {
-                                    val toFloat = (it.target as HTMLInputElement).value.toFloat()
-                                    console.log()
-//                                onNumberChange(
-//                                    (it.target as HTMLInputElement).value.toInt()
-//                                )
+                                    onNumberChange?.invoke(
+                                        (it.target as HTMLInputElement).value.toFloatOrNull()?.toInt() ?: 0
+                                    )
                                 }
                             }
                         }
