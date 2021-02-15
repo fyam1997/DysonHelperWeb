@@ -69,7 +69,7 @@ class ViewModel(
     fun selectRecipeNumber(recipe: Recipe) {
         selectedRecipes.update { map ->
             map.copy {
-                editOrPut(recipe, 0) { it + 1 }
+                edit(recipe, 0) { it + 1 }
             }.filter {
                 it.value != 0
             }
@@ -82,16 +82,16 @@ class ViewModel(
         val newFacilityRequirement = mutableMapOf<Item, Int>()
         selectedRecipes.value.forEachPair { recipe, recipeNum ->
             recipe.inputs.forEachPair { item, number ->
-                newItemBalance.editOrPut(item, 0f) {
+                newItemBalance.edit(item, 0f) {
                     it - number.toFloat() * recipeNum / recipe.time
                 }
             }
             recipe.outputs.forEachPair { item, number ->
-                newItemBalance.editOrPut(item, 0f) {
+                newItemBalance.edit(item, 0f) {
                     it + number.toFloat() * recipeNum / recipe.time
                 }
             }
-            newFacilityRequirement.editOrPut(recipe.facility, 0) {
+            newFacilityRequirement.edit(recipe.facility, 0) {
                 it + recipeNum
             }
         }

@@ -88,6 +88,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                     list = state.recipeList.orEmpty()
                     onItemClick = vm::onItemClick
                     onRecipeDoubleClick = {
+                        console.log("double click")
                         vm.selectRecipeNumber(it)
                     }
                 }
@@ -117,7 +118,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 display = Display.flex
                 flexDirection = FlexDirection.column
                 margin(all = generalPadding)
-                defaultBorder()
             }
             styledDiv {
                 css {
@@ -130,7 +130,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 }
                 state.selectedRecipes?.let {
                     recipeList {
-                        list = state.recipeList.orEmpty()
+                        list = it.keys.toList()
                         onItemClick = vm::onItemClick
                         numberMap = it
                         onNumberChange = vm::selectRecipeNumber
