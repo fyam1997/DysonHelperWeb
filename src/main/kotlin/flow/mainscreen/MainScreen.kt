@@ -35,8 +35,15 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 height = 100.vh
                 width = 100.vw
             }
-            column { recipeListColumn() }
-            column { selectedRecipeColumn() }
+            column {
+                itemSearchBox()
+                recipeListBoard()
+                itemDetailBoard()
+            }
+            column {
+                selectedRecipeListBoard()
+                balanceCellBoard()
+            }
             column {
                 p {
                     """
@@ -66,77 +73,76 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         collectToState(vm.facilityRequirement) { facilityRequirement = it }
     }
 
-    private fun RBuilder.recipeListColumn() {
-        styledInput {
-            attrs {
-                onChangeFunction = {
-                    vm.onFilterTextChange((it.target as HTMLInputElement).value)
-                }
+    private fun RBuilder.itemSearchBox() = styledInput {
+        attrs {
+            onChangeFunction = {
+                vm.onFilterTextChange((it.target as HTMLInputElement).value)
             }
-        }
-        contentBoard(
-            marginTop = generalPadding,
-            minHeight = 200.px,
-            fillHRemaining = true
-        ) {
-            state.recipeList?.takeIf { it.isNotEmpty() }?.let {
-                recipeList {
-                    list = it
-                    onItemClick = vm::onItemClick
-                    onRecipeDoubleClick = {
-                        vm.selectRecipeNumber(it)
-                    }
-                }
-            } ?: p { +"Loading data" }
-        }
-        contentBoard(
-            marginTop = generalPadding,
-            maxHeight = 300.px,
-            fillHRemaining = false
-        ) {
-            state.itemDetail?.let {
-                itemDetail {
-                    detail = it
-                    onItemClick = vm::onItemClick
-                    onRecipeDoubleClick = {
-                        vm.selectRecipeNumber(it)
-                    }
-                }
-            } ?: p { +"Please select an item" }
         }
     }
 
-    private fun RBuilder.selectedRecipeColumn() {
-        contentBoard(
-            marginTop = generalPadding,
-            minHeight = 200.px,
-            fillHRemaining = true
-        ) {
-            state.selectedRecipes?.takeIf { it.isNotEmpty() }?.keys?.let {
-                recipeList {
-                    list = it
-                    onItemClick = vm::onItemClick
-                    numberMap = state.selectedRecipes
-                    onNumberChange = vm::selectRecipeNumber
+    private fun RBuilder.recipeListBoard() = contentBoard(
+        marginTop = generalPadding,
+        minHeight = 200.px,
+        fillHRemaining = true
+    ) {
+        state.recipeList?.takeIf { it.isNotEmpty() }?.let {
+            recipeList {
+                list = it
+                onItemClick = vm::onItemClick
+                onRecipeDoubleClick = {
+                    vm.selectRecipeNumber(it)
                 }
-            } ?: p { +"Please Select Recipes" }
-        }
-        contentBoard(
-            marginTop = generalPadding,
-            maxHeight = 300.px,
-            fillHRemaining = false
-        ) {
-            state.itemBalance?.takeIf { it.isNotEmpty() }?.let {
-                balanceCell {
-                    balanceSecond = state.balanceSecond ?: 1
-                    itemBalance = it
-                    onItemClick = vm::onItemClick
-                    onBalanceSecondChange = {
-                        setState { balanceSecond = it }
-                    }
+            }
+        } ?: p { +"Loading data" }
+    }
+
+    private fun RBuilder.itemDetailBoard() = contentBoard(
+        marginTop = generalPadding,
+        maxHeight = 300.px,
+        fillHRemaining = false
+    ) {
+        state.itemDetail?.let {
+            itemDetail {
+                detail = it
+                onItemClick = vm::onItemClick
+                onRecipeDoubleClick = {
+                    vm.selectRecipeNumber(it)
                 }
-            } ?: p { +"Please Select Recipes" }
-        }
+            }
+        } ?: p { +"Please select an item" }
+    }
+
+    private fun RBuilder.selectedRecipeListBoard() = contentBoard(
+        marginTop = generalPadding,
+        minHeight = 200.px,
+        fillHRemaining = true
+    ) {
+        state.selectedRecipes?.takeIf { it.isNotEmpty() }?.keys?.let {
+            recipeList {
+                list = it
+                onItemClick = vm::onItemClick
+                numberMap = state.selectedRecipes
+                onNumberChange = vm::selectRecipeNumber
+            }
+        } ?: p { +"Please Select Recipes" }
+    }
+
+    private fun RBuilder.balanceCellBoard() = contentBoard(
+        marginTop = generalPadding,
+        maxHeight = 300.px,
+        fillHRemaining = false
+    ) {
+        state.itemBalance?.takeIf { it.isNotEmpty() }?.let {
+            balanceCell {
+                balanceSecond = state.balanceSecond ?: 1
+                itemBalance = it
+                onItemClick = vm::onItemClick
+                onBalanceSecondChange = {
+                    setState { balanceSecond = it }
+                }
+            }
+        } ?: p { +"Please Select Recipes" }
     }
 
     private fun RBuilder.column(block: StyledDOMBuilder<DIV>.() -> Unit) {
