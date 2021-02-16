@@ -79,26 +79,30 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             minHeight = 200.px,
             fillHRemaining = true
         ) {
-            recipeList {
-                list = state.recipeList
-                onItemClick = vm::onItemClick
-                onRecipeDoubleClick = {
-                    vm.selectRecipeNumber(it)
+            state.recipeList?.takeIf { it.isNotEmpty() }?.let {
+                recipeList {
+                    list = it
+                    onItemClick = vm::onItemClick
+                    onRecipeDoubleClick = {
+                        vm.selectRecipeNumber(it)
+                    }
                 }
-            }
+            } ?: p { +"Loading data" }
         }
         contentBoard(
             marginTop = generalPadding,
             maxHeight = 300.px,
             fillHRemaining = false
         ) {
-            itemDetail {
-                detail = state.itemDetail
-                onItemClick = vm::onItemClick
-                onRecipeDoubleClick = {
-                    vm.selectRecipeNumber(it)
+            state.itemDetail?.let {
+                itemDetail {
+                    detail = it
+                    onItemClick = vm::onItemClick
+                    onRecipeDoubleClick = {
+                        vm.selectRecipeNumber(it)
+                    }
                 }
-            }
+            } ?: p { +"Please select an item" }
         }
     }
 
@@ -108,26 +112,30 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             minHeight = 200.px,
             fillHRemaining = true
         ) {
-            recipeList {
-                list = state.selectedRecipes?.keys
-                onItemClick = vm::onItemClick
-                numberMap = state.selectedRecipes
-                onNumberChange = vm::selectRecipeNumber
-            }
+            state.selectedRecipes?.takeIf { it.isNotEmpty() }?.keys?.let {
+                recipeList {
+                    list = it
+                    onItemClick = vm::onItemClick
+                    numberMap = state.selectedRecipes
+                    onNumberChange = vm::selectRecipeNumber
+                }
+            } ?: p { +"Please Select Recipes" }
         }
         contentBoard(
             marginTop = generalPadding,
             maxHeight = 300.px,
             fillHRemaining = false
         ) {
-            balanceCell {
-                balanceSecond = state.balanceSecond ?: 1
-                itemBalance = state.itemBalance
-                onItemClick = vm::onItemClick
-                onBalanceSecondChange = {
-                    setState { balanceSecond = it }
+            state.itemBalance?.takeIf { it.isNotEmpty() }?.let {
+                balanceCell {
+                    balanceSecond = state.balanceSecond ?: 1
+                    itemBalance = it
+                    onItemClick = vm::onItemClick
+                    onBalanceSecondChange = {
+                        setState { balanceSecond = it }
+                    }
                 }
-            }
+            } ?: p { +"Please Select Recipes" }
         }
     }
 
