@@ -10,7 +10,6 @@ import utils.element
 
 fun main() {
     injectGlobal { +ComponentStyles.globalStyle }
-    document.title = "Dyson Sphere Helper-1.0.0"
     changeIcon("itemIcons/t-matrix.png")
     render(document.getElementById("root")) {
         child(MainScreen::class) {}
