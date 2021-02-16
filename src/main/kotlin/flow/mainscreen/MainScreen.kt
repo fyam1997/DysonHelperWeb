@@ -180,7 +180,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         var itemDetail: ItemDetailModel?
         var selectedRecipes: Map<Recipe, Int>?
         var itemBalance: Map<Item, kotlin.Float>?
-        var facilityRequirement: Map<Item, Int>?
         var balanceSecond: Int?
     }
 }
