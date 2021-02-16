@@ -48,9 +48,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 p {
                     """
                     TODO
-                    make empty state for detail and selected recipes
                     locale
-                    time unit
                     dark mode
                     migrate to kotlin-multiplatform
                     add buildSrc module and global version 
@@ -70,7 +68,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         collectToState(vm.focusingItem) { itemDetail = it }
         collectToState(vm.selectedRecipes) { selectedRecipes = it }
         collectToState(vm.itemBalance) { itemBalance = it }
-        collectToState(vm.facilityRequirement) { facilityRequirement = it }
     }
 
     private fun RBuilder.itemSearchBox() = styledInput {
