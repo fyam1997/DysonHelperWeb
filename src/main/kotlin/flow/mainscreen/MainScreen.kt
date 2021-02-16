@@ -37,12 +37,28 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             }
             column {
                 itemSearchBox()
-                recipeListBoard()
-                itemDetailBoard()
+                contentBoard(
+                    marginTop = generalPadding,
+                    minHeight = 200.px,
+                    fillHRemaining = true
+                ) { recipeListBoard() }
+                contentBoard(
+                    marginTop = generalPadding,
+                    maxHeight = 300.px,
+                    fillHRemaining = false
+                ) { itemDetailBoard() }
             }
             column {
-                selectedRecipeListBoard()
-                balanceCellBoard()
+                contentBoard(
+                    marginTop = generalPadding,
+                    minHeight = 200.px,
+                    fillHRemaining = true
+                ) { selectedRecipeListBoard() }
+                contentBoard(
+                    marginTop = generalPadding,
+                    maxHeight = 300.px,
+                    fillHRemaining = false
+                ) { balanceCellBoard() }
             }
             column {
                 p {
@@ -78,11 +94,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         }
     }
 
-    private fun RBuilder.recipeListBoard() = contentBoard(
-        marginTop = generalPadding,
-        minHeight = 200.px,
-        fillHRemaining = true
-    ) {
+    private fun RBuilder.recipeListBoard() {
         state.recipeList?.takeIf { it.isNotEmpty() }?.let {
             recipeList {
                 list = it
@@ -94,11 +106,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         } ?: p { +"Loading data" }
     }
 
-    private fun RBuilder.itemDetailBoard() = contentBoard(
-        marginTop = generalPadding,
-        maxHeight = 300.px,
-        fillHRemaining = false
-    ) {
+    private fun RBuilder.itemDetailBoard() {
         state.itemDetail?.let {
             itemDetail {
                 detail = it
@@ -110,11 +118,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         } ?: p { +"Please select an item" }
     }
 
-    private fun RBuilder.selectedRecipeListBoard() = contentBoard(
-        marginTop = generalPadding,
-        minHeight = 200.px,
-        fillHRemaining = true
-    ) {
+    private fun RBuilder.selectedRecipeListBoard() {
         state.selectedRecipes?.takeIf { it.isNotEmpty() }?.keys?.let {
             recipeList {
                 list = it
@@ -125,11 +129,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         } ?: p { +"Please Select Recipes" }
     }
 
-    private fun RBuilder.balanceCellBoard() = contentBoard(
-        marginTop = generalPadding,
-        maxHeight = 300.px,
-        fillHRemaining = false
-    ) {
+    private fun RBuilder.balanceCellBoard() {
         state.itemBalance?.takeIf { it.isNotEmpty() }?.let {
             balanceCell {
                 balanceSecond = state.balanceSecond ?: 1
