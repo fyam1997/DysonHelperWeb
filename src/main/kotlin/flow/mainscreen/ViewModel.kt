@@ -16,7 +16,6 @@ class ViewModel(
 
     val selectedRecipes = MutableStateFlow(emptyMap<Recipe, Int>())
     val itemBalance = MutableStateFlow(emptyMap<Item, Float>())
-    val facilityRequirement = MutableStateFlow(emptyMap<Item, Int>())
 
     val focusingItem = MutableStateFlow<ItemDetailModel?>(null)
 
@@ -79,7 +78,6 @@ class ViewModel(
 
     private fun updateBalance() {
         val newItemBalance = mutableMapOf<Item, Float>()
-        val newFacilityRequirement = mutableMapOf<Item, Int>()
         selectedRecipes.value.forEachPair { recipe, recipeNum ->
             recipe.inputs.forEachPair { item, number ->
                 newItemBalance.edit(item, 0f) {
@@ -91,12 +89,8 @@ class ViewModel(
                     it + number.toFloat() * recipeNum / recipe.time
                 }
             }
-            newFacilityRequirement.edit(recipe.facility, 0) {
-                it + recipeNum
-            }
         }
         itemBalance.value = newItemBalance
-        facilityRequirement.value = newFacilityRequirement
     }
 
     class RecipeFactory(

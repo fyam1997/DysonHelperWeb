@@ -21,7 +21,7 @@ class BalanceCell : RComponent<BalanceCell.Props, RState>() {
                 flexDirection = FlexDirection.column
             }
             itemGroup {
-                items = props.itemBalance?.mapValues { it.value * props.balanceSecond }.orEmpty()
+                items = props.itemBalance.mapValues { it.value * props.balanceSecond }
                 onItemClick = props.onItemClick
                 columnCount = 5
             }
@@ -68,7 +68,7 @@ class BalanceCell : RComponent<BalanceCell.Props, RState>() {
     interface Props : RProps {
         var balanceSecond: Int
         var onBalanceSecondChange: (Int) -> Unit
-        var itemBalance: Map<Item, kotlin.Float>?
+        var itemBalance: Map<Item, kotlin.Float>
         var onItemClick: (Item) -> Unit
     }
 }
