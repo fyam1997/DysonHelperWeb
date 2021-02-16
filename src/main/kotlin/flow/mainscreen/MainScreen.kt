@@ -48,9 +48,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 p {
                     """
                     TODO
-                    make empty state for detail and selected recipes
                     locale
-                    time unit
                     dark mode
                     migrate to kotlin-multiplatform
                     add buildSrc module and global version 
