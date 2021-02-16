@@ -37,7 +37,7 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
     }
 
     interface Props : RProps {
-        var list: List<Recipe>
+        var list: Collection<Recipe>
         var onItemClick: (Item) -> Unit
         var numberMap: Map<Recipe, Int>?
         var onNumberChange: ((Recipe, Int) -> Unit)?

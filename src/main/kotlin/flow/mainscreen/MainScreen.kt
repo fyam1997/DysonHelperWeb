@@ -80,7 +80,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             fillHRemaining = true
         ) {
             recipeList {
-                list = state.recipeList.orEmpty()
+                list = state.recipeList
                 onItemClick = vm::onItemClick
                 onRecipeDoubleClick = {
                     vm.selectRecipeNumber(it)
@@ -92,13 +92,11 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             maxHeight = 300.px,
             fillHRemaining = false
         ) {
-            state.itemDetail?.let {
-                itemDetail {
-                    detail = it
-                    onItemClick = vm::onItemClick
-                    onRecipeDoubleClick = {
-                        vm.selectRecipeNumber(it)
-                    }
+            itemDetail {
+                detail = state.itemDetail
+                onItemClick = vm::onItemClick
+                onRecipeDoubleClick = {
+                    vm.selectRecipeNumber(it)
                 }
             }
         }
@@ -111,7 +109,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             fillHRemaining = true
         ) {
             recipeList {
-                list = state.selectedRecipes?.keys?.toList().orEmpty()
+                list = state.selectedRecipes?.keys
                 onItemClick = vm::onItemClick
                 numberMap = state.selectedRecipes
                 onNumberChange = vm::selectRecipeNumber
