@@ -68,7 +68,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         collectToState(vm.focusingItem) { itemDetail = it }
         collectToState(vm.selectedRecipes) { selectedRecipes = it }
         collectToState(vm.itemBalance) { itemBalance = it }
-        collectToState(vm.facilityRequirement) { facilityRequirement = it }
     }
 
     private fun RBuilder.itemSearchBox() = styledInput {
