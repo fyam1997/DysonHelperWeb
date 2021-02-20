@@ -5,6 +5,7 @@ import components.itemDetail
 import components.recipeList
 import kotlinx.css.*
 import kotlinx.html.DIV
+import kotlinx.html.InputType
 import kotlinx.html.TD
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
@@ -125,10 +126,22 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
 
     private fun RBuilder.selectedRecipeListBoard() {
         state.selectedRecipes?.takeIf { it.isNotEmpty() }?.keys?.let {
-            getRecipeList(
-                list = it,
-//                numberMap = state.selectedRecipes
-            )
+            getRecipeList(list = it) { recipe ->
+                styledInput {
+                    css {
+                        width = 64.px
+                    }
+                    attrs {
+                        value = state.selectedRecipes?.get(recipe)?.toString() ?: ""
+                        type = InputType.number
+                        step = "1"
+                        onChangeFunction = { event ->
+                            val num = event.inputValue.toFloatOrNull()?.toInt() ?: 0
+                            vm.selectRecipeNumber(recipe, num)
+                        }
+                    }
+                }
+            }
         } ?: p { +"Please Select Recipes" }
     }
 
