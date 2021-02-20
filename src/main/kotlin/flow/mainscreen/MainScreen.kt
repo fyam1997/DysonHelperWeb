@@ -103,14 +103,21 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
 
     private fun RBuilder.itemDetailBoard() {
         state.itemDetail?.let {
-            itemDetail {
-                detail = it
+            styledDiv {
+                css {
+                    fillRemaining()
+                    display = Display.flex
+                    flexDirection = FlexDirection.column
+                }
+                itemDetail {
+                    detail = it
+                }
+                // TODO check language here
+                p { +"可产出自：" }
+                getRecipeList(list = it.asInput)
+                p { +"可用于：" }
+                getRecipeList(list = it.asOutput)
             }
-            // TODO check language here
-            p { +"可产出自：" }
-            getRecipeList(list = it.asInput)
-            p { +"可用于：" }
-            getRecipeList(list = it.asOutput)
         } ?: p { +"Please select an item" }
     }
 
