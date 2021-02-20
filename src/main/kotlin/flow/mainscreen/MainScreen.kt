@@ -182,7 +182,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     private fun RBuilder.getRecipeList(
         list: Collection<Recipe>,
         onItemClick: (Item) -> Unit = vm::onItemClick,
-        startingColumn: StyledDOMBuilder<TD>.(Recipe) -> Unit = { selectButton {} }
+        startingColumn: StyledDOMBuilder<TD>.(Recipe) -> Unit = { selectButton(it) }
     ) {
         recipeList {
             this.list = list
@@ -192,7 +192,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     }
 
     // TODO use RBuilder
-    private fun StyledDOMBuilder<TD>.selectButton(onClick: () -> Unit) {
+    private fun StyledDOMBuilder<TD>.selectButton(recipe: Recipe) {
         styledDiv {
             css {
                 marginLeft = 8.px
@@ -203,7 +203,9 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 alignItems = Align.center
             }
             attrs {
-                onClickFunction = { onClick() }
+                onClickFunction = {
+                    vm.selectRecipeNumber(recipe)
+                }
             }
             +"+"
         }
