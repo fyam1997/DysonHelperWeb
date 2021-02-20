@@ -27,13 +27,13 @@ class ItemDetail : RComponent<ItemDetail.Props, RState>() {
             }
             itemDesc(props.detail)
             // TODO check language here
-            p { +"可用于：" }
+            p { +"可产出自：" }
             recipeList {
                 list = props.detail.asInput
                 onItemClick = props.onItemClick
                 onRecipeDoubleClick = props.onRecipeDoubleClick
             }
-            p { +"可产出自：" }
+            p { +"可用于：" }
             recipeList {
                 list = props.detail.asOutput
                 onItemClick = props.onItemClick
