@@ -97,13 +97,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
 
     private fun RBuilder.recipeListBoard() {
         state.recipeList?.takeIf { it.isNotEmpty() }?.let {
-            recipeList {
-                list = it
-                onItemClick = vm::onItemClick
-                onRecipeDoubleClick = {
-                    vm.selectRecipeNumber(it)
-                }
-            }
+            getRecipeList(list = it)
         } ?: p { +"Loading data" }
     }
 
@@ -114,28 +108,18 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
             }
             // TODO check language here
             p { +"可产出自：" }
-            recipeList {
-                list = it.asInput
-                onItemClick = vm::onItemClick
-                onRecipeDoubleClick = vm::selectRecipeNumber
-            }
+            getRecipeList(list = it.asInput)
             p { +"可用于：" }
-            recipeList {
-                list = it.asOutput
-                onItemClick = vm::onItemClick
-                onRecipeDoubleClick = vm::selectRecipeNumber
-            }
+            getRecipeList(list = it.asOutput)
         } ?: p { +"Please select an item" }
     }
 
     private fun RBuilder.selectedRecipeListBoard() {
         state.selectedRecipes?.takeIf { it.isNotEmpty() }?.keys?.let {
-            recipeList {
-                list = it
-                onItemClick = vm::onItemClick
+            getRecipeList(
+                list = it,
                 numberMap = state.selectedRecipes
-                onNumberChange = vm::selectRecipeNumber
-            }
+            )
         } ?: p { +"Please Select Recipes" }
     }
 
@@ -183,6 +167,22 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 display = Display.flex
             }
             block()
+        }
+    }
+
+    private fun RBuilder.getRecipeList(
+        list: Collection<Recipe>,
+        onItemClick: (Item) -> Unit = vm::onItemClick,
+        numberMap: Map<Recipe, Int>? = null,
+        onNumberChange: ((Recipe, Int) -> Unit)? = vm::selectRecipeNumber,
+        onRecipeDoubleClick: ((Recipe) -> Unit)? = vm::selectRecipeNumber
+    ) {
+        recipeList {
+            this.list = list
+            this.onItemClick = onItemClick
+            this.numberMap = numberMap
+            this.onNumberChange = onNumberChange
+            this.onRecipeDoubleClick = onRecipeDoubleClick
         }
     }
 
