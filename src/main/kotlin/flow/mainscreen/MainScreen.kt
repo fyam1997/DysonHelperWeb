@@ -86,6 +86,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         collectToState(vm.itemBalance) { itemBalance = it }
     }
 
+    // content components
     private fun RBuilder.itemSearchBox() = styledInput {
         attrs {
             onChangeFunction = {
@@ -151,6 +152,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         } ?: p { +"Please Select Recipes" }
     }
 
+    // basic components
     private fun RBuilder.column(block: StyledDOMBuilder<DIV>.() -> Unit) {
         styledDiv {
             css {
