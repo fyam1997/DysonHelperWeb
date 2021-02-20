@@ -22,6 +22,23 @@ fun CSSBuilder.defaultBorder() = border(
     borderRadius = 8.px
 )
 
+fun CSSBuilder.defaultHoverable() {
+    border(
+        width = 1.px,
+        style = BorderStyle.solid,
+        color = Color.transparent,
+        borderRadius = 4.px
+    )
+    hover {
+        border(
+            width = 1.px,
+            style = BorderStyle.solid,
+            color = Color.grey,
+            borderRadius = 4.px
+        )
+    }
+}
+
 val generalPadding get() = 8.px
 
 fun CSSBuilder.setFonts(vararg fonts: String) {
