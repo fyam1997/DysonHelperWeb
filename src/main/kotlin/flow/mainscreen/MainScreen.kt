@@ -5,7 +5,10 @@ import components.itemDetail
 import components.recipeList
 import kotlinx.css.*
 import kotlinx.html.DIV
+import kotlinx.html.InputType
+import kotlinx.html.TD
 import kotlinx.html.js.onChangeFunction
+import kotlinx.html.js.onClickFunction
 import model.Item
 import model.ItemDetailModel
 import model.Recipe
@@ -86,6 +89,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         collectToState(vm.itemBalance) { itemBalance = it }
     }
 
+    // content components
     private fun RBuilder.itemSearchBox() = styledInput {
         attrs {
             onChangeFunction = {
@@ -96,44 +100,47 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
 
     private fun RBuilder.recipeListBoard() {
         state.recipeList?.takeIf { it.isNotEmpty() }?.let {
-            recipeList {
-                list = it
-                onItemClick = vm::onItemClick
-                onRecipeDoubleClick = {
-                    vm.selectRecipeNumber(it)
-                }
-            }
+            getRecipeList(list = it)
         } ?: p { +"Loading data" }
     }
 
     private fun RBuilder.itemDetailBoard() {
         state.itemDetail?.let {
-            itemDetail {
-                detail = it
-            }
-            // TODO check language here
-            p { +"可产出自：" }
-            recipeList {
-                list = it.asInput
-                onItemClick = vm::onItemClick
-                onRecipeDoubleClick = vm::selectRecipeNumber
-            }
-            p { +"可用于：" }
-            recipeList {
-                list = it.asOutput
-                onItemClick = vm::onItemClick
-                onRecipeDoubleClick = vm::selectRecipeNumber
+            styledDiv {
+                css {
+                    fillRemaining()
+                    display = Display.flex
+                    flexDirection = FlexDirection.column
+                }
+                itemDetail {
+                    detail = it
+                }
+                // TODO check language here
+                p { +"可产出自：" }
+                getRecipeList(list = it.asInput)
+                p { +"可用于：" }
+                getRecipeList(list = it.asOutput)
             }
         } ?: p { +"Please select an item" }
     }
 
     private fun RBuilder.selectedRecipeListBoard() {
         state.selectedRecipes?.takeIf { it.isNotEmpty() }?.keys?.let {
-            recipeList {
-                list = it
-                onItemClick = vm::onItemClick
-                numberMap = state.selectedRecipes
-                onNumberChange = vm::selectRecipeNumber
+            getRecipeList(list = it) { recipe ->
+                styledInput {
+                    css {
+                        width = 64.px
+                    }
+                    attrs {
+                        value = state.selectedRecipes?.get(recipe)?.toString() ?: ""
+                        type = InputType.number
+                        step = "1"
+                        onChangeFunction = { event ->
+                            val num = event.inputValue.toFloatOrNull()?.toInt() ?: 0
+                            vm.selectRecipeNumber(recipe, num)
+                        }
+                    }
+                }
             }
         } ?: p { +"Please Select Recipes" }
     }
@@ -151,6 +158,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         } ?: p { +"Please Select Recipes" }
     }
 
+    // basic components
     private fun RBuilder.column(block: StyledDOMBuilder<DIV>.() -> Unit) {
         styledDiv {
             css {
@@ -181,6 +189,38 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 display = Display.flex
             }
             block()
+        }
+    }
+
+    private fun RBuilder.getRecipeList(
+        list: Collection<Recipe>,
+        onItemClick: (Item) -> Unit = vm::onItemClick,
+        startingColumn: StyledDOMBuilder<TD>.(Recipe) -> Unit = { selectButton(it) }
+    ) {
+        recipeList {
+            this.list = list
+            this.onItemClick = onItemClick
+            this.startingColumn = startingColumn
+        }
+    }
+
+    // TODO use RBuilder
+    private fun StyledDOMBuilder<TD>.selectButton(recipe: Recipe) {
+        styledDiv {
+            css {
+                marginLeft = 8.px
+                size = 24.px
+                defaultHoverable()
+                display = Display.flex
+                justifyContent = JustifyContent.center
+                alignItems = Align.center
+            }
+            attrs {
+                onClickFunction = {
+                    vm.selectRecipeNumber(recipe)
+                }
+            }
+            +"+"
         }
     }
 

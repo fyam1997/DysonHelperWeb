@@ -1,9 +1,7 @@
 package components
 
 import kotlinx.css.*
-import kotlinx.html.InputType
-import kotlinx.html.js.onChangeFunction
-import kotlinx.html.js.onDoubleClickFunction
+import kotlinx.html.TD
 import kotlinx.html.title
 import model.Item
 import model.Recipe
@@ -14,7 +12,6 @@ import react.RState
 import react.dom.td
 import styled.*
 import utils.fillRemaining
-import utils.inputValue
 import utils.size
 
 class RecipeRow : RComponent<RecipeRow.Props, RState>() {
@@ -30,29 +27,8 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                         background = Color.aliceBlue.value
                     }
                 }
-                attrs {
-                    onDoubleClickFunction = {
-                        onRecipeDoubleClick?.invoke(props.recipe)
-                    }
-                }
-                number?.let {
-                    td {
-                        styledInput {
-                            css {
-                                width = 64.px
-                            }
-                            attrs {
-                                value = number?.toString() ?: ""
-                                type = InputType.number
-                                step = "1"
-                                onChangeFunction = {
-                                    onNumberChange?.invoke(
-                                        it.inputValue.toFloatOrNull()?.toInt() ?: 0
-                                    )
-                                }
-                            }
-                        }
-                    }
+                styledTd {
+                    startingColumn()
                 }
                 td {
                     itemGroup {
@@ -95,10 +71,8 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
 
     interface Props : RProps {
         var recipe: Recipe
-        var onRecipeDoubleClick: ((Recipe) -> Unit)?
         var onItemClick: (Item) -> Unit
-        var number: Int?
-        var onNumberChange: ((Int) -> Unit)?
+        var startingColumn: StyledDOMBuilder<TD>.() -> Unit
     }
 }
 

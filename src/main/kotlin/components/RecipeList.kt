@@ -2,6 +2,7 @@ package components
 
 import kotlinx.css.BorderCollapse
 import kotlinx.css.borderCollapse
+import kotlinx.html.TD
 import model.Item
 import model.Recipe
 import react.RBuilder
@@ -9,6 +10,7 @@ import react.RComponent
 import react.RProps
 import react.RState
 import react.dom.tbody
+import styled.StyledDOMBuilder
 import styled.css
 import styled.styledTable
 import utils.fillRemaining
@@ -25,10 +27,8 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
                     recipeRow {
                         this.recipe = recipe
                         onItemClick = props.onItemClick
-                        onRecipeDoubleClick = props.onRecipeDoubleClick
-                        number = props.numberMap?.get(recipe)
-                        onNumberChange = {
-                            props.onNumberChange?.invoke(recipe, it)
+                        startingColumn = {
+                            props.startingColumn(this, recipe)
                         }
                     }
                 }
@@ -39,9 +39,7 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
     interface Props : RProps {
         var list: Collection<Recipe>
         var onItemClick: (Item) -> Unit
-        var numberMap: Map<Recipe, Int>?
-        var onNumberChange: ((Recipe, Int) -> Unit)?
-        var onRecipeDoubleClick: ((Recipe) -> Unit)?
+        var startingColumn: StyledDOMBuilder<TD>.(Recipe) -> Unit
     }
 }
 

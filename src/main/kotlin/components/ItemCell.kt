@@ -1,7 +1,6 @@
 package components
 
 import kotlinx.css.*
-import kotlinx.css.properties.border
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.title
 import model.Item
@@ -13,6 +12,7 @@ import styled.css
 import styled.styledDiv
 import styled.styledImg
 import styled.styledP
+import utils.defaultHoverable
 import utils.roundTo
 import utils.size
 
@@ -27,16 +27,7 @@ class ItemCell : RComponent<ItemCell.Props, RState>() {
                     userSelect = UserSelect.none
                     display = Display.flex
                     alignItems = Align.center
-                    padding(1.px)
-                    hover {
-                        padding(0.px)
-                        border(
-                            width = 1.px,
-                            style = BorderStyle.solid,
-                            color = Color.grey,
-                            borderRadius = 4.px
-                        )
-                    }
+                    defaultHoverable()
                 }
                 styledImg {
                     css { size = 32.px }
