@@ -5,7 +5,9 @@ import components.itemDetail
 import components.recipeList
 import kotlinx.css.*
 import kotlinx.html.DIV
+import kotlinx.html.TD
 import kotlinx.html.js.onChangeFunction
+import kotlinx.html.js.onClickFunction
 import model.Item
 import model.ItemDetailModel
 import model.Recipe
@@ -125,7 +127,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         state.selectedRecipes?.takeIf { it.isNotEmpty() }?.keys?.let {
             getRecipeList(
                 list = it,
-                numberMap = state.selectedRecipes
+//                numberMap = state.selectedRecipes
             )
         } ?: p { +"Please Select Recipes" }
     }
@@ -180,16 +182,30 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     private fun RBuilder.getRecipeList(
         list: Collection<Recipe>,
         onItemClick: (Item) -> Unit = vm::onItemClick,
-        numberMap: Map<Recipe, Int>? = null,
-        onNumberChange: ((Recipe, Int) -> Unit)? = vm::selectRecipeNumber,
-        onRecipeDoubleClick: ((Recipe) -> Unit)? = vm::selectRecipeNumber
+        startingColumn: StyledDOMBuilder<TD>.(Recipe) -> Unit = { selectButton {} }
     ) {
         recipeList {
             this.list = list
             this.onItemClick = onItemClick
-            this.numberMap = numberMap
-            this.onNumberChange = onNumberChange
-            this.onRecipeDoubleClick = onRecipeDoubleClick
+            this.startingColumn = startingColumn
+        }
+    }
+
+    // TODO use RBuilder
+    private fun StyledDOMBuilder<TD>.selectButton(onClick: () -> Unit) {
+        styledDiv {
+            css {
+                marginLeft = 8.px
+                size = 24.px
+                defaultHoverable()
+                display = Display.flex
+                justifyContent = JustifyContent.center
+                alignItems = Align.center
+            }
+            attrs {
+                onClickFunction = { onClick() }
+            }
+            +"+"
         }
     }
 
