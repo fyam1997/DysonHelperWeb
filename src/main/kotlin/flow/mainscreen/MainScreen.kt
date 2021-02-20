@@ -110,10 +110,19 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         state.itemDetail?.let {
             itemDetail {
                 detail = it
+            }
+            // TODO check language here
+            p { +"可产出自：" }
+            recipeList {
+                list = it.asInput
                 onItemClick = vm::onItemClick
-                onRecipeDoubleClick = {
-                    vm.selectRecipeNumber(it)
-                }
+                onRecipeDoubleClick = vm::selectRecipeNumber
+            }
+            p { +"可用于：" }
+            recipeList {
+                list = it.asOutput
+                onItemClick = vm::onItemClick
+                onRecipeDoubleClick = vm::selectRecipeNumber
             }
         } ?: p { +"Please select an item" }
     }
