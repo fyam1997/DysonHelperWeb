@@ -1,9 +1,7 @@
 package components
 
 import kotlinx.css.*
-import model.Item
 import model.ItemDetailModel
-import model.Recipe
 import react.RBuilder
 import react.RComponent
 import react.RProps
@@ -26,19 +24,6 @@ class ItemDetail : RComponent<ItemDetail.Props, RState>() {
                 flexDirection = FlexDirection.column
             }
             itemDesc(props.detail)
-            // TODO check language here
-            p { +"可用于：" }
-            recipeList {
-                list = props.detail.asInput
-                onItemClick = props.onItemClick
-                onRecipeDoubleClick = props.onRecipeDoubleClick
-            }
-            p { +"可产出自：" }
-            recipeList {
-                list = props.detail.asOutput
-                onItemClick = props.onItemClick
-                onRecipeDoubleClick = props.onRecipeDoubleClick
-            }
         }
     }
 
@@ -67,8 +52,6 @@ class ItemDetail : RComponent<ItemDetail.Props, RState>() {
 
     interface Props : RProps {
         var detail: ItemDetailModel
-        var onItemClick: (Item) -> Unit
-        var onRecipeDoubleClick: ((Recipe) -> Unit)?
     }
 }
 
