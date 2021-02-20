@@ -1,6 +1,7 @@
 package components
 
 import kotlinx.css.*
+import kotlinx.html.TD
 import kotlinx.html.title
 import model.Item
 import model.Recipe
@@ -9,10 +10,7 @@ import react.RComponent
 import react.RProps
 import react.RState
 import react.dom.td
-import styled.css
-import styled.styledImg
-import styled.styledTd
-import styled.styledTr
+import styled.*
 import utils.fillRemaining
 import utils.size
 
@@ -29,7 +27,9 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                         background = Color.aliceBlue.value
                     }
                 }
-                startingColumn()
+                styledTd {
+                    startingColumn()
+                }
                 td {
                     itemGroup {
                         items = recipe.outputs
@@ -72,7 +72,7 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
     interface Props : RProps {
         var recipe: Recipe
         var onItemClick: (Item) -> Unit
-        var startingColumn: RBuilder.() -> Unit
+        var startingColumn: StyledDOMBuilder<TD>.() -> Unit
     }
 }
 

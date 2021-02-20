@@ -2,6 +2,7 @@ package components
 
 import kotlinx.css.BorderCollapse
 import kotlinx.css.borderCollapse
+import kotlinx.html.TD
 import model.Item
 import model.Recipe
 import react.RBuilder
@@ -9,6 +10,7 @@ import react.RComponent
 import react.RProps
 import react.RState
 import react.dom.tbody
+import styled.StyledDOMBuilder
 import styled.css
 import styled.styledTable
 import utils.fillRemaining
@@ -37,7 +39,7 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
     interface Props : RProps {
         var list: Collection<Recipe>
         var onItemClick: (Item) -> Unit
-        var startingColumn: RBuilder.(Recipe) -> Unit
+        var startingColumn: StyledDOMBuilder<TD>.(Recipe) -> Unit
     }
 }
 
