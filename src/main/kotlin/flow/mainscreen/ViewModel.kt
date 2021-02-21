@@ -18,6 +18,7 @@ class ViewModel(
     val itemBalance = MutableStateFlow(emptyMap<Item, Float>())
 
     val focusingItem = MutableStateFlow<ItemDetailModel?>(null)
+    val focusingRecipe = MutableStateFlow<Recipe?>(null)
 
     fun initData() {
         GlobalScope.launch {
@@ -40,6 +41,10 @@ class ViewModel(
             }
         }
         focusingItem.value = ItemDetailModel(item, canBeInputListTemp, canBeOutputListTemp)
+    }
+
+    fun onRecipeClick(recipe: Recipe) {
+        focusingRecipe.value = recipe
     }
 
     fun onFilterTextChange(value: String) {
