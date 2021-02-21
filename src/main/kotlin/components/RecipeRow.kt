@@ -2,6 +2,7 @@ package components
 
 import kotlinx.css.*
 import kotlinx.html.TD
+import kotlinx.html.js.onClickFunction
 import kotlinx.html.title
 import model.Item
 import model.Recipe
@@ -23,9 +24,15 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
                     borderBottomStyle = BorderStyle.solid
                     borderBottomColor = Color.darkGrey
                     borderBottomWidth = 1.px
-                    hover {
-                        background = Color.aliceBlue.value
-                    }
+                    if (props.selected)
+                        backgroundColor = Color.lightSteelBlue
+                    else
+                        hover {
+                            backgroundColor = Color.aliceBlue
+                        }
+                }
+                attrs {
+                    onClickFunction = { onClick() }
                 }
                 styledTd {
                     startingColumn()
@@ -70,6 +77,8 @@ class RecipeRow : RComponent<RecipeRow.Props, RState>() {
     }
 
     interface Props : RProps {
+        var onClick: () -> Unit
+        var selected: Boolean
         var recipe: Recipe
         var onItemClick: (Item) -> Unit
         var startingColumn: StyledDOMBuilder<TD>.() -> Unit

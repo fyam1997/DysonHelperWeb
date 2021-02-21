@@ -87,6 +87,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         collectToState(vm.focusingItem) { itemDetail = it }
         collectToState(vm.selectedRecipes) { selectedRecipes = it }
         collectToState(vm.itemBalance) { itemBalance = it }
+        collectToState(vm.focusingRecipe) { focusingRecipe = it }
     }
 
     // content components
@@ -194,13 +195,14 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
 
     private fun RBuilder.getRecipeList(
         list: Collection<Recipe>,
-        onItemClick: (Item) -> Unit = vm::onItemClick,
         startingColumn: StyledDOMBuilder<TD>.(Recipe) -> Unit = { selectButton(it) }
     ) {
         recipeList {
             this.list = list
-            this.onItemClick = onItemClick
+            this.onItemClick = vm::onItemClick
+            this.onRecipeClick = vm::onRecipeClick
             this.startingColumn = startingColumn
+            this.focusingRecipe = state.focusingRecipe
         }
     }
 
@@ -230,5 +232,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
         var selectedRecipes: Map<Recipe, Int>?
         var itemBalance: Map<Item, kotlin.Float>?
         var balanceSecond: Int?
+        var focusingRecipe: Recipe?
     }
 }

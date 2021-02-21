@@ -30,6 +30,8 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
                         startingColumn = {
                             props.startingColumn(this, recipe)
                         }
+                        selected = recipe == props.focusingRecipe
+                        onClick = { props.onRecipeClick(recipe) }
                     }
                 }
             }
@@ -37,6 +39,8 @@ class RecipeList : RComponent<RecipeList.Props, RState>() {
     }
 
     interface Props : RProps {
+        var onRecipeClick: (Recipe) -> Unit
+        var focusingRecipe: Recipe?
         var list: Collection<Recipe>
         var onItemClick: (Item) -> Unit
         var startingColumn: StyledDOMBuilder<TD>.(Recipe) -> Unit
