@@ -1,4 +1,10 @@
 {
+  "垂直发射井": "vertical-launching-silo",
+  "四向分流器": "splitter-4dir",
+  "制造台Mk.Ⅰ": "assembler-1",
+  "制造台Mk.Ⅱ": "assembler-2",
+  "制造台Mk.Ⅲ": "assembler-3",
+  "化工设备": "chemical-plant",
   "电磁轨道弹射器": "em-rail-ejector",
   "行星内物流运输站": "logistic-station",
   "星际物流运输站": "interstellar-logistic-station",
