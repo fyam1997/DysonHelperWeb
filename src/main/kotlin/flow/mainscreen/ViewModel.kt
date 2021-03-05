@@ -109,11 +109,17 @@ class ViewModel(
             )
         }
 
-        private fun makeItem(id: String) = Item(
-            id = id,
-            name = id,
-            desc = "",
-            iconPath = "itemIcons/${iconMap[id].orEmpty()}.png"
-        )
+        private fun makeItem(id: String): Item {
+            val iconName = iconMap.getOrElse(id) {
+                console.log("icon not found: $id")
+                ""
+            }
+            return Item(
+                id = id,
+                name = id,
+                desc = "",
+                iconPath = "itemIcons/$iconName.png"
+            )
+        }
     }
 }
