@@ -1,14 +1,19 @@
 # DysonHelperWeb
-please access [DysonHelperWeb](https://fyam1997.github.io/DysonHelperWeb/)
 
-# TODO
-- make empty state for detail and selected recipes
+please access [Dyson Sphere Helper](https://fyam1997.github.io/DysonHelperWeb/)
+
+### TODO
+
+- mobile
 - locale
-- time unit
 - dark mode
 - migrate to kotlin-multiplatform
-- add buildSrc module and global version
+- add buildSrc module and global
+  version [creating a properties file during the build](https://stackoverflow.com/a/33026919/10351342)
 - requirement group
-- component constructor
 - requirement calculator
-- add project tags
+
+### Source
+
+- recipes from [DysonSphereProgramTool](https://gitee.com/DysonSphereProgramTool)
+- icons from [DysonSphereProgram-Stuff](https://github.com/DivineChili/DysonSphereProgram-Stuff)
