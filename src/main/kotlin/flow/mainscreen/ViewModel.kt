@@ -3,6 +3,8 @@ package flow.mainscreen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import model.Item
 import model.ItemDetailModel
@@ -17,7 +19,22 @@ class ViewModel(
     val filteredRecipes = MutableStateFlow(emptyList<Recipe>())
 
     val selectedRecipes = MutableStateFlow(emptyMap<Recipe, Int>())
-    val itemBalance = MutableStateFlow(emptyMap<Item, Float>())
+    val itemBalance = selectedRecipes.map { map ->
+        val newItemBalance = mutableMapOf<Item, Float>()
+        map.forEachPair { recipe, recipeNum ->
+            recipe.inputs.forEachPair { item, number ->
+                newItemBalance.edit(item, 0f) {
+                    it - number * recipeNum / recipe.time
+                }
+            }
+            recipe.outputs.forEachPair { item, number ->
+                newItemBalance.edit(item, 0f) {
+                    it + number * recipeNum / recipe.time
+                }
+            }
+        }
+        newItemBalance
+    }
 
     val focusingItem = MutableStateFlow<ItemDetailModel?>(null)
 
@@ -38,6 +55,11 @@ class ViewModel(
                 originRecipes.value = recipes
                 filteredRecipes.value = originRecipes.value
                 selectedRecipes.value = selectedCache
+
+                // start observe and cache after init value
+                selectedRecipes.collect { map ->
+                    cacheRepo.putSelectedRecipeMap(map.mapKeys { it.key.raw })
+                }
             }
         }
     }
@@ -76,7 +98,6 @@ class ViewModel(
                 it.value != 0
             }
         }
-        updateBalance()
     }
 
     fun selectRecipeNumber(recipe: Recipe) {
@@ -85,29 +106,6 @@ class ViewModel(
                 edit(recipe, 0) { it + 1 }
             }.filter {
                 it.value != 0
-            }
-        }
-        updateBalance()
-    }
-
-    private fun updateBalance() {
-        GlobalScope.launch {
-            cacheRepo.putSelectedRecipeMap(selectedRecipes.value.mapKeys { it.key.raw })
-            val newItemBalance = mutableMapOf<Item, Float>()
-            selectedRecipes.value.forEachPair { recipe, recipeNum ->
-                recipe.inputs.forEachPair { item, number ->
-                    newItemBalance.edit(item, 0f) {
-                        it - number.toFloat() * recipeNum / recipe.time
-                    }
-                }
-                recipe.outputs.forEachPair { item, number ->
-                    newItemBalance.edit(item, 0f) {
-                        it + number.toFloat() * recipeNum / recipe.time
-                    }
-                }
-            }
-            launch(Dispatchers.Main) {
-                itemBalance.value = newItemBalance
             }
         }
     }
