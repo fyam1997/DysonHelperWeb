@@ -3,7 +3,6 @@ package flow.mainscreen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import model.Item
@@ -19,7 +18,13 @@ class ViewModel(
     val filteredRecipes = MutableStateFlow(emptyList<Recipe>())
 
     val selectedRecipes = MutableStateFlow(emptyMap<Recipe, Int>())
+
+    // TODO use StateFlow.mapIndexed
+    private var selectedRecipesCount = 0
     val itemBalance = selectedRecipes.map { map ->
+        if (selectedRecipesCount++ != 0)
+            cacheRepo.putSelectedRecipeMap(map.mapKeys { it.key.raw })
+
         val newItemBalance = mutableMapOf<Item, Float>()
         map.forEachPair { recipe, recipeNum ->
             recipe.inputs.forEachPair { item, number ->
@@ -55,11 +60,6 @@ class ViewModel(
                 originRecipes.value = recipes
                 filteredRecipes.value = originRecipes.value
                 selectedRecipes.value = selectedCache
-
-                // start observe and cache after init value
-                selectedRecipes.collect { map ->
-                    cacheRepo.putSelectedRecipeMap(map.mapKeys { it.key.raw })
-                }
             }
         }
     }
