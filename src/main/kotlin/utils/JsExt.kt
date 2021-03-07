@@ -2,6 +2,7 @@ package utils
 
 import kotlinx.coroutines.await
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.w3c.dom.Window
 
@@ -13,6 +14,8 @@ suspend fun Window.fetString(url: String): String {
 inline fun <reified T> String.decodeToJson(): T {
     return Json.decodeFromString(this)
 }
+
+inline fun <reified T> T.encodeToString() = Json.encodeToString(this)
 
 external fun parseFloat(num: dynamic): dynamic
 
