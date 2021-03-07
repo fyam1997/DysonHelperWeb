@@ -9,7 +9,8 @@ import model.Recipe
 import utils.*
 
 class ViewModel(
-    private val jsonRepo: JsonRepository
+    private val jsonRepo: JsonRepository,
+    private val cacheRepo: CacheRepository
 ) {
     private val originRecipes = MutableStateFlow(emptyList<Recipe>())
     val filteredRecipes = MutableStateFlow(emptyList<Recipe>())
