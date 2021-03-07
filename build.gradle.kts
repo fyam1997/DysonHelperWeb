@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.fyam"
-version = "1.0.3"
+version = "1.0.4"
 buildscript {
     repositories { jcenter() }
 
