@@ -30,7 +30,7 @@ class CacheRepository {
     private fun Map<Recipe.Raw, Int>.toStorageObject(): List<SelectedRecipe> = map {
         SelectedRecipe(
             recipe = it.key,
-            number = 0
+            number = it.value
         )
     }
 }
