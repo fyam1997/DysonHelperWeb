@@ -9,11 +9,13 @@ import utils.encodeToString
 class CacheRepository {
     suspend fun putSelectedRecipeMap(map: Map<Recipe.Raw, Int>) {
         val rawString = map.toStorageObject().encodeToString()
+        console.log(rawString)
         localStorage.setItem("selectedRecipeMap", rawString)
     }
 
     suspend fun getSelectedRecipeMap(): Map<Recipe.Raw, Int>? {
         val rawString = localStorage.getItem("selectedRecipeMap")
+        console.log(rawString)
         val list: List<SelectedRecipe>? = rawString?.decodeToJson()
         return list?.map {
             it.recipe to it.number
