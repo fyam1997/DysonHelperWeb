@@ -31,7 +31,7 @@ class ViewModel(
     fun onItemClick(item: Item) {
         val canBeInputListTemp = mutableListOf<Recipe>()
         val canBeOutputListTemp = mutableListOf<Recipe>()
-        for (recipe in filteredRecipes.value) {
+        for (recipe in originRecipes.value) {
             if (recipe.inputs.keys.contains(item)) {
                 canBeInputListTemp += recipe
             }
