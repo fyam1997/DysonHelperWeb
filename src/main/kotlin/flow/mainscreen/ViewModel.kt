@@ -1,5 +1,6 @@
 package flow.mainscreen
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -24,11 +25,20 @@ class ViewModel(
         GlobalScope.launch {
             val iconMap = recipeRepo.getIconMap()
             val factory = RecipeFactory(iconMap)
-            originRecipes.value =
-                recipeRepo.getRecipes().map {
-                    factory.makeRecipe(it)
-                }.sortedByDescending { it.facility.name }
-            filteredRecipes.value = originRecipes.value
+
+            val selectedCache = cacheRepo.getSelectedRecipeMap()?.mapKeys {
+                factory.makeRecipe(it.key)
+            } ?: emptyMap()
+
+            val recipes = recipeRepo.getRecipes().map {
+                factory.makeRecipe(it)
+            }.sortedByDescending { it.facility.name }
+
+            launch(Dispatchers.Main) {
+                originRecipes.value = recipes
+                filteredRecipes.value = originRecipes.value
+                selectedRecipes.value = selectedCache
+            }
         }
     }
 
@@ -81,19 +91,24 @@ class ViewModel(
     }
 
     private fun updateBalance() {
-        val newItemBalance = mutableMapOf<Item, Float>()
-        selectedRecipes.value.forEachPair { recipe, recipeNum ->
-            recipe.inputs.forEachPair { item, number ->
-                newItemBalance.edit(item, 0f) {
-                    it - number.toFloat() * recipeNum / recipe.time
+        GlobalScope.launch {
+            cacheRepo.putSelectedRecipeMap(selectedRecipes.value.mapKeys { it.key.raw })
+            val newItemBalance = mutableMapOf<Item, Float>()
+            selectedRecipes.value.forEachPair { recipe, recipeNum ->
+                recipe.inputs.forEachPair { item, number ->
+                    newItemBalance.edit(item, 0f) {
+                        it - number.toFloat() * recipeNum / recipe.time
+                    }
+                }
+                recipe.outputs.forEachPair { item, number ->
+                    newItemBalance.edit(item, 0f) {
+                        it + number.toFloat() * recipeNum / recipe.time
+                    }
                 }
             }
-            recipe.outputs.forEachPair { item, number ->
-                newItemBalance.edit(item, 0f) {
-                    it + number.toFloat() * recipeNum / recipe.time
-                }
+            launch(Dispatchers.Main) {
+                itemBalance.value = newItemBalance
             }
         }
-        itemBalance.value = newItemBalance
     }
 }
