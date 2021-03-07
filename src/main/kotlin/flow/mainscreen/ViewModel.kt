@@ -9,7 +9,7 @@ import model.Recipe
 import utils.*
 
 class ViewModel(
-    private val jsonRepo: JsonRepository,
+    private val recipeRepo: RecipeRepository,
     private val cacheRepo: CacheRepository
 ) {
     private val originRecipes = MutableStateFlow(emptyList<Recipe>())
@@ -22,9 +22,10 @@ class ViewModel(
 
     fun initData() {
         GlobalScope.launch {
-            val iconMap = jsonRepo.iconMap()
+            val iconMap = recipeRepo.getIconMap()
             val factory = RecipeFactory(iconMap)
-            originRecipes.value = jsonRepo.recipes().map(factory::makeRecipe).sortedByDescending { it.facility.name }
+            originRecipes.value =
+                recipeRepo.getRecipes().map(factory::makeRecipe).sortedByDescending { it.facility.name }
             filteredRecipes.value = originRecipes.value
         }
     }

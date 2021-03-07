@@ -23,7 +23,7 @@ import styled.styledInput
 import utils.*
 
 class MainScreen : RComponent<RProps, MainScreen.State>() {
-    private val vm = ViewModel(JsonRepository(), CacheRepository())
+    private val vm = ViewModel(RecipeRepository(), CacheRepository())
 
     init {
         observeData()
