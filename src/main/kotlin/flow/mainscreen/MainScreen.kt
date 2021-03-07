@@ -83,7 +83,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     }
 
     private fun observeData() {
-        collectToState(vm.recipes) { recipeList = it }
+        collectToState(vm.filteredRecipes) { recipeList = it }
         collectToState(vm.focusingItem) { itemDetail = it }
         collectToState(vm.selectedRecipes) { selectedRecipes = it }
         collectToState(vm.itemBalance) { itemBalance = it }

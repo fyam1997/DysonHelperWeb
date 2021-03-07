@@ -12,7 +12,7 @@ class ViewModel(
     private val jsonRepo: JsonRepository
 ) {
     private val originRecipes = MutableStateFlow(emptyList<Recipe>())
-    val recipes = MutableStateFlow(emptyList<Recipe>())
+    val filteredRecipes = MutableStateFlow(emptyList<Recipe>())
 
     val selectedRecipes = MutableStateFlow(emptyMap<Recipe, Int>())
     val itemBalance = MutableStateFlow(emptyMap<Item, Float>())
@@ -24,14 +24,14 @@ class ViewModel(
             val iconMap = jsonRepo.iconMap()
             val factory = RecipeFactory(iconMap)
             originRecipes.value = jsonRepo.recipes().map(factory::makeRecipe).sortedByDescending { it.facility.name }
-            recipes.value = originRecipes.value
+            filteredRecipes.value = originRecipes.value
         }
     }
 
     fun onItemClick(item: Item) {
         val canBeInputListTemp = mutableListOf<Recipe>()
         val canBeOutputListTemp = mutableListOf<Recipe>()
-        for (recipe in recipes.value) {
+        for (recipe in filteredRecipes.value) {
             if (recipe.inputs.keys.contains(item)) {
                 canBeInputListTemp += recipe
             }
@@ -43,7 +43,7 @@ class ViewModel(
     }
 
     fun onFilterTextChange(value: String) {
-        recipes.value = originRecipes.value.doIf(value.isNotEmpty()) {
+        filteredRecipes.value = originRecipes.value.doIf(value.isNotEmpty()) {
             filter { recipe ->
                 with(recipe) {
                     inputs.any { it.key.name.contains(value) } ||
