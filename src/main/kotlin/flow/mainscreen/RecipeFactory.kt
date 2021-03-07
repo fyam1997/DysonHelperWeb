@@ -28,3 +28,11 @@ class RecipeFactory(
         )
     }
 }
+
+val Recipe.raw
+    get() = Recipe.Raw(
+        outputs = outputs.mapKeys { it.key.name },
+        inputs = inputs.mapKeys { it.key.name },
+        time = time,
+        facility = facility.name
+    )
