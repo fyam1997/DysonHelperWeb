@@ -37,12 +37,13 @@ dependencies {
 }
 
 kotlin {
+    sourceSets["main"].apply {
+        kotlin.srcDir("$buildDir/generated/src/")
+    }
     js(LEGACY) {
         browser {
-            browser {
-                distribution {
-                    directory = file("$projectDir/docs/")
-                }
+            distribution {
+                directory = file("$projectDir/docs/")
             }
             binaries.executable()
             webpackTask {
@@ -53,4 +54,18 @@ kotlin {
             }
         }
     }
+}
+
+tasks.register<Copy>("createBuildConfig") {
+    buildDir.resolve("generated")
+        .resolve("src")
+        .apply { mkdirs() }
+        .resolve("BuildConfig.kt")
+        .writeText(
+            """
+            object BuildConfig {
+                const val versionName = "$version"
+            }
+        """.trimIndent()
+        )
 }

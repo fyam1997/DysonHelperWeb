@@ -1,5 +1,6 @@
 package flow.mainscreen
 
+import BuildConfig
 import components.balanceCell
 import components.itemDetail
 import components.recipeList
@@ -16,10 +17,7 @@ import org.w3c.dom.HTMLInputElement
 import react.*
 import react.dom.br
 import react.dom.p
-import styled.StyledDOMBuilder
-import styled.css
-import styled.styledDiv
-import styled.styledInput
+import styled.*
 import utils.*
 
 class MainScreen : RComponent<RProps, MainScreen.State>() {
@@ -39,6 +37,12 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 width = 100.vw
             }
             column {
+                styledP {
+                    css {
+                        margin(0.px)
+                    }
+                    +"Version: ${BuildConfig.versionName}"
+                }
                 itemSearchBox()
                 contentBoard(
                     marginTop = generalPadding,
@@ -48,7 +52,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 contentBoard(
                     marginTop = generalPadding,
                     maxHeight = 300.px,
-                    fillHRemaining = false
                 ) { itemDetailBoard() }
             }
             column {
@@ -92,6 +95,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     // content components
     private fun RBuilder.itemSearchBox() = styledInput {
         attrs {
+            placeholder = "Search"
             onChangeFunction = {
                 vm.onFilterTextChange((it.target as HTMLInputElement).value)
             }
