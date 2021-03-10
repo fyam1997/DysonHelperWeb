@@ -93,6 +93,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
     // content components
     private fun RBuilder.itemSearchBox() = styledInput {
         attrs {
+            placeholder = "Search"
             onChangeFunction = {
                 vm.onFilterTextChange((it.target as HTMLInputElement).value)
             }
