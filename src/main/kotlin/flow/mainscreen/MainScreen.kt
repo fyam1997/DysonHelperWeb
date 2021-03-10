@@ -17,10 +17,7 @@ import org.w3c.dom.HTMLInputElement
 import react.*
 import react.dom.br
 import react.dom.p
-import styled.StyledDOMBuilder
-import styled.css
-import styled.styledDiv
-import styled.styledInput
+import styled.*
 import utils.*
 
 class MainScreen : RComponent<RProps, MainScreen.State>() {
@@ -40,7 +37,12 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 width = 100.vw
             }
             column {
-                p { +"Version: ${BuildConfig.versionName}" }
+                styledP {
+                    css {
+                        margin(0.px)
+                    }
+                    +"Version: ${BuildConfig.versionName}"
+                }
                 itemSearchBox()
                 contentBoard(
                     marginTop = generalPadding,
