@@ -1,5 +1,6 @@
 package flow.mainscreen
 
+import BuildConfig
 import components.balanceCell
 import components.itemDetail
 import components.recipeList
@@ -39,6 +40,7 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 width = 100.vw
             }
             column {
+                p { +"Version: ${BuildConfig.versionName}" }
                 itemSearchBox()
                 contentBoard(
                     marginTop = generalPadding,
@@ -48,7 +50,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                 contentBoard(
                     marginTop = generalPadding,
                     maxHeight = 300.px,
-                    fillHRemaining = false
                 ) { itemDetailBoard() }
             }
             column {
