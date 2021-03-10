@@ -15,7 +15,6 @@ import model.ItemDetailModel
 import model.Recipe
 import org.w3c.dom.HTMLInputElement
 import react.*
-import react.dom.br
 import react.dom.p
 import styled.*
 import utils.*
@@ -65,22 +64,6 @@ class MainScreen : RComponent<RProps, MainScreen.State>() {
                     maxHeight = 300.px,
                     fillHRemaining = false
                 ) { balanceCellBoard() }
-            }
-            column {
-                p {
-                    """
-                    TODO
-                    locale
-                    dark mode
-                    migrate to kotlin-multiplatform
-                    add buildSrc module and global version 
-                    requirement group
-                    component constructor
-                """.trimIndent().split("\n").forEach {
-                        +it
-                        br {}
-                    }
-                }
             }
         }
     }
